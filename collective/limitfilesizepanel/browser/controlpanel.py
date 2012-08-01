@@ -42,5 +42,3 @@ class LimitFileSizeControlPanel(controlpanel.ControlPanelFormWrapper):
     """Analytics settings control panel.
     """
     form = LimitFileSizeEditForm
-    #index = ViewPageTemplateFile('controlpanel.pt')
-
