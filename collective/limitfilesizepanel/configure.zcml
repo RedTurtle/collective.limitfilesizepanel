@@ -1,0 +1,26 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.limitfilesizepanel">
+
+  <five:registerPackage package="." />
+  <include package="plone.app.registry" />
+
+  <permission
+        id="collective.limitfilesizepanel.LimitFileSizePanel"
+        title="collective.limitfilesizepanel: Manage limit file size settings"
+        />
+  
+  <include package=".browser" />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="Limit file size panel"
+      directory="profiles/default"
+      description="Configure the file size limit from control panel"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>

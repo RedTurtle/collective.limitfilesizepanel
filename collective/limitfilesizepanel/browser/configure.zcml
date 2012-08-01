@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="collective.analyticspanel">
+
+    
+    <browser:resourceDirectory
+        name="collective.limitfilesizepanel.images"
+        directory="images"
+        />
+        
+    <browser:page
+        name="limitfilesize-settings"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".controlpanel.LimitFileSizeControlPanel"
+        permission="collective.limitfilesizepanel.LimitFileSizePanel"
+        />
+        
+</configure>

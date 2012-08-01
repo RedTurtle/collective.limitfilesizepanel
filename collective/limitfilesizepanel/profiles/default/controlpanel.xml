@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<object name="portal_controlpanel"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="collective.limitfilesizepanel">
+
+    <configlet
+        title="Limit file size settings"
+        action_id="limitfilesize-settings"
+        appId="collective.limitfilesizepanel"
+        category="Products"
+        condition_expr=""
+        icon_expr="string:${portal_url}/++resource++collective.limitfilesizepanel.images/limitfilesize-settings.png"
+        url_expr="string:${portal_url}/@@limitfilesize-settings"
+        visible="True"
+        i18n:attributes="title">
+            <permission>collective.limitfilesizepanel: Manage limit file size settings</permission>
+    </configlet>
+
+</object>
