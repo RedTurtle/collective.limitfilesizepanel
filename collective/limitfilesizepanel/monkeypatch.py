@@ -23,6 +23,7 @@ def get_maxsize(validator, **kwargs):
     # * try to get sizes from plone.registry
     # * if we have sizes defined from user use it
     # * if not, use the original method to calculate maxsize
+    field = kwargs.get('field', None)
     file_size, img_size = get_user_file_limit()
     if file_size and field.type == 'file':
         maxsize = float(file_size)
@@ -30,7 +31,6 @@ def get_maxsize(validator, **kwargs):
         maxsize = float(img_size)
     else:
         instance = kwargs.get('instance', None)
-        field = kwargs.get('field', None)
         # get original max size
         if kwargs.has_key('maxsize'):
             maxsize = kwargs.get('maxsize')
@@ -45,7 +45,6 @@ def get_maxsize(validator, **kwargs):
 
 
 def patched__call__(self, value, *args, **kwargs):
-
     maxsize = get_maxsize(self, **kwargs)
 
     if not maxsize:
