@@ -41,6 +41,7 @@ def get_maxsize(validator, **kwargs):
         else:
             # set to given default value (default defaults to 0)
             maxsize = validator.maxsize
+    return maxsize
 
 
 def patched__call__(self, value, *args, **kwargs):
