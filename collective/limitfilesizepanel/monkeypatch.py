@@ -14,23 +14,26 @@ from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 
 def get_user_file_limit():
     registry = queryUtility(IRegistry)
-    settings = registry.forInterface(ILimitFileSizePanel, check=False)
-    return settings.file_size, settings.image_size
-
+    if registry:
+        settings = registry.forInterface(ILimitFileSizePanel, check=False)
+        return settings.file_size, settings.image_size
+    return None, None
 
 def get_maxsize(validator, **kwargs):
     #This is the patch:
     # * try to get sizes from plone.registry
     # * if we have sizes defined from user use it
     # * if not, use the original method to calculate maxsize
+    field = kwargs.get('field', None)
+    instance = kwargs.get('instance', None)
+    
     file_size, img_size = get_user_file_limit()
-    if file_size and field.type == 'file':
+
+    if field and file_size and field.type == 'file':
         maxsize = float(file_size)
-    elif img_size and field.type == 'image':
+    elif field and img_size and field.type == 'image':
         maxsize = float(img_size)
     else:
-        instance = kwargs.get('instance', None)
-        field = kwargs.get('field', None)
         # get original max size
         if kwargs.has_key('maxsize'):
             maxsize = kwargs.get('maxsize')
@@ -45,7 +48,6 @@ def get_maxsize(validator, **kwargs):
 
 
 def patched__call__(self, value, *args, **kwargs):
-
     maxsize = get_maxsize(self, **kwargs)
 
     if not maxsize:
