@@ -17,23 +17,25 @@ Just add the product to the buildout and install it in the site you want to use.
 Dependencies
 ============
 
-This products it's tested on Plone3.3.5 and Plone 4.2
+This products has been tested on:
+* Plone3.3.5
+* Plone 4.2
 
 It's based on `plone.app.registry`__ that it not part of Plone on 3.3 version. You need to be
 sure that a compatible version is used (in my experience: use `version 1.0b1`__)
 
-__ http://pypi.python.org/pypi/plone.app.registry
-__ http://pypi.python.org/pypi/plone.app.registry/1.0b1
+* __ http://pypi.python.org/pypi/plone.app.registry
+* __ http://pypi.python.org/pypi/plone.app.registry/1.0b1
 
 
 Credits
 =======
 
-Developed with the support of `Regione Emilia Romagna`__;
+Developed with the support of `Regione Emilia Romagna`__;[[BR]]
 Regione Emilia Romagna supports the `PloneGov initiative`__.
 
-__ http://www.regione.emilia-romagna.it/
-__ http://www.plonegov.it/
+* __ http://www.regione.emilia-romagna.it/
+* __ http://www.plonegov.it/
 
 
 Authors
