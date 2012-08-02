@@ -19,6 +19,7 @@ def get_user_file_limit():
         return settings.file_size, settings.image_size
     return None, None
 
+
 def get_maxsize(validator, **kwargs):
     #This is the patch:
     # * try to get sizes from plone.registry
@@ -26,7 +27,7 @@ def get_maxsize(validator, **kwargs):
     # * if not, use the original method to calculate maxsize
     field = kwargs.get('field', None)
     instance = kwargs.get('instance', None)
-    
+
     file_size, img_size = get_user_file_limit()
 
     # In plone 3 we have field.type == image/file
