@@ -29,9 +29,14 @@ def get_maxsize(validator, **kwargs):
     
     file_size, img_size = get_user_file_limit()
 
-    if field and file_size and field.type == 'file':
+    # In plone 3 we have field.type == image/file
+    # In plone 4 we have field.type == blob in both case
+    # so:
+    field_type = field.widget.__class__.__name__
+
+    if field and file_size and field_type == 'FileWidget':
         maxsize = float(file_size)
-    elif field and img_size and field.type == 'image':
+    elif field and img_size and field_type == 'ImageWidget':
         maxsize = float(img_size)
     else:
         # get original max size
