@@ -12,12 +12,14 @@ setup(name='collective.limitfilesizepanel',
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
         "Framework :: Plone",
+        "Framework :: Plone :: 3.3"
+        "Framework :: Plone :: 4.2",
         "Programming Language :: Python",
         ],
-      keywords='',
-      author='',
-      author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      keywords='plone limit file size',
+      author='RedTurtle Technology',
+      author_email='sviluppoplone@redturtle.it',
+      url='',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective'],
