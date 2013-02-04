@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from Acquisition import aq_base
-from Products.validation.i18n import PloneMessageFactory as _
+from collective.limitfilesizepanel import messageFactory as _
 from Products.validation.i18n import recursiveTranslate
 from Products.validation.i18n import safe_unicode
-from Products.validation.validators.SupplValidators import MaxSizeValidator
 from ZPublisher.HTTPRequest import FileUpload
 from plone.registry.interfaces import IRegistry
 from zope.component import queryUtility
@@ -55,10 +54,8 @@ def get_maxsize(validator, **kwargs):
 
 def patched__call__(self, value, *args, **kwargs):
     maxsize = get_maxsize(self, **kwargs)
-
     if not maxsize:
         return True
-
     # calculate size
     elif (isinstance(value, FileUpload) or isinstance(value, file) or
           hasattr(aq_base(value), 'tell')):
@@ -66,21 +63,20 @@ def patched__call__(self, value, *args, **kwargs):
         size = value.tell()
         value.seek(0)
     else:
-        try:
-            size = len(value)
-        except TypeError:
-            size = 0
+        # We don't want to validate already saved data
+        return True
+
     size = float(size)
     sizeMB = (size / (1024 * 1024))
 
     if sizeMB > maxsize:
-        msg = _("Validation failed($name: Uploaded data is too large: ${size}MB (max ${max}MB)",
+        msg = _('validation_error',
+                default=u"Validation failed. Uploaded data is too large: ${size}Mb (max ${max}Mb)",
                 mapping={
                     'name': safe_unicode(self.name),
-                    'size': safe_unicode("%.3f" % sizeMB),
-                    'max': safe_unicode("%.3f" % maxsize)})
+                    'size': safe_unicode("%.1f" % sizeMB),
+                    'max': safe_unicode("%.1f" % maxsize)})
         return recursiveTranslate(msg, **kwargs)
     else:
         return True
 
-MaxSizeValidator.__call__ = patched__call__

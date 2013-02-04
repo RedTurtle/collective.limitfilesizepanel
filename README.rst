@@ -18,7 +18,7 @@ Dependencies
 ============
 
 This products has been tested on:
- * Plone3.3.5
+ * Plone 3.3
  * Plone 4.2
 
 It's based on `plone.app.registry`__ that it not part of Plone on 3.3 version. You need to be

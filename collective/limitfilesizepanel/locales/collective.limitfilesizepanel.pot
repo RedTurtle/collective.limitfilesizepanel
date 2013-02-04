@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-08-01 12:35+0000\n"
+"POT-Creation-Date: 2013-02-04 16:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,48 +17,56 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.limitfilesizepanel\n"
 
-#: ./browser/controlpanel.py:32
+#: ../browser/controlpanel.py:32
 msgid "Cancel"
 msgstr ""
 
-#: ./browser/controlpanel.py:28
+#: ../browser/controlpanel.py:28
 msgid "Changes saved"
 msgstr ""
 
-#: ./browser/controlpanel.py:34
+msgid "Configure the file size limit from control panel"
+msgstr ""
+
+#: ../browser/controlpanel.py:34
 msgid "Edit cancelled"
 msgstr ""
 
-#: ./browser/controlpanel.py:17
+#: ../browser/controlpanel.py:17
+#: ../profiles/default/controlpanel.xml
 msgid "Limit file size settings"
 msgstr ""
 
-#: ./browser/controlpanel.py:21
+msgid "Limit files and images size"
+msgstr ""
+
+#: ../browser/controlpanel.py:21
 msgid "Save"
 msgstr ""
 
-#: ./interfaces.py:14
+#: ../interfaces.py:14
 msgid "Set the file-type size limit"
 msgstr ""
 
-#: ./interfaces.py:20
+#: ../interfaces.py:20
 msgid "Set the image-type size limit"
 msgstr ""
 
-#: ./interfaces.py:15
+#: ../interfaces.py:15
 msgid "Type here a number in Mb which will limit the file size upload"
 msgstr ""
 
-#: ./interfaces.py:21
+#: ../interfaces.py:21
 msgid "Type here a number in Mb which will limit the image size upload"
 msgstr ""
 
-#: ./monkeypatch.py:40
-msgid "Validation failed($name: Uploaded data is too large: ${size}MB (max ${max}MB)"
+#. Default: "Set file size for file and image"
+#: ../browser/controlpanel.py:18
+msgid "help_limit_file_size_panel"
 msgstr ""
 
-#. Default: "Set file size for file and image"
-#: ./browser/controlpanel.py:18
-msgid "help_limit_file_size_panel"
+#. Default: "Validation failed. Uploaded data is too large: ${size}Mb (max ${max}Mb)"
+#: ../patches.py:76
+msgid "validation_error"
 msgstr ""
 

@@ -1,13 +1,21 @@
 Changelog
 =========
 
-1.1 (unreleased)
+1.1 (Unreleased)
 ----------------
 
-- Nothing changed yet.
+- Added a proper uninstall step [keul]
+- Now based on `collective.monkeypatcher`__ [keul]
+- i18n refactoring [keul]
+- Do not try to validate file size for already existings attachments.
+  
+  This provent to get validation error when editing file after size limit
+  has been changed [keul]
+
+  __ http://pypi.python.org/pypi/collective.monkeypatcher
 
 
-1.0 (2012-08-07)
+1.0 (Unreleased)
 ----------------
 
 - Initial release

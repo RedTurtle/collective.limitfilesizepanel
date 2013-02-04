@@ -28,6 +28,7 @@ setup(name='collective.limitfilesizepanel',
       install_requires=[
           'setuptools',
           'plone.app.registry',
+          'collective.monkeypatcher',
       ],
       entry_points="""
       # -*- Entry points: -*-
