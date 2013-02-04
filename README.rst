@@ -1,28 +1,29 @@
 Introduction
 ============
 
-This product monkey patch the original MaxSizeValidator used in file and image upload field.
-Then through plone.app.registry and z3c.form provide a user interface to customize site by
-site the limit size in Mb for uploads.
-
+This product monkey patch the original Plone max size validation (where the configuration is complex 
+and hurts all Plone site in the same buildout) to a site-specific ones.
 
 How to use it
 =============
 
-Just add the product to the buildout and install it in the site you want to use. A new action
-(''Limit file size settings'') will be added in the plone control panel and here, ''Admin'' and
-''Site Administrator'' will be able to set a limit for files and images upload.
+Just add the product to the buildout and install it in the site you want to use.
 
+A new "*Limit file size settings*" option will be added in the control panel, where you can change the
+*File* and *Image* attachments.
+
+No users will be able to upload files that exceed the limit.
 
 Dependencies
 ============
 
 This products has been tested on:
- * Plone 3.3
- * Plone 4.2
+
+* Plone 3.3
+* Plone 4.2
 
 It's based on `plone.app.registry`__ that it not part of Plone on 3.3 version. You need to be
-sure that a compatible version is used (in my experience: use `version 1.0b1`__)
+sure that a compatible version is used (in my experience: use `version 1.0b1`__).
 
  __ http://pypi.python.org/pypi/plone.app.registry
  __ http://pypi.python.org/pypi/plone.app.registry/1.0b1
