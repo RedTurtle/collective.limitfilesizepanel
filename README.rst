@@ -33,8 +33,6 @@ Credits
 =======
 
 Developed with the support of `Regione Emilia Romagna`__;
-
-
 Regione Emilia Romagna supports the `PloneGov initiative`__.
 
  __ http://www.regione.emilia-romagna.it/
