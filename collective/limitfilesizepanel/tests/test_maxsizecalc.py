@@ -7,7 +7,7 @@ from plone.registry.interfaces import IRegistry
 
 from collective.limitfilesizepanel.tests import base
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
-from collective.limitfilesizepanel.monkeypatch import get_maxsize
+from collective.limitfilesizepanel.patches import get_maxsize
 
 
 class TestMaxSizeCalc(base.MaxSizeTestCase):

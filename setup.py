@@ -3,6 +3,8 @@ import os
 
 version = '1.1.dev0'
 
+tests_require = ['zope.testing', 'Products.PloneTestCase']
+
 setup(name='collective.limitfilesizepanel',
       version=version,
       description="Configure files and images size limit through Plone control panel",
@@ -25,6 +27,8 @@ setup(name='collective.limitfilesizepanel',
       namespace_packages=['collective'],
       include_package_data=True,
       zip_safe=False,
+      tests_require=tests_require,
+      extras_require=dict(test=tests_require),
       install_requires=[
           'setuptools',
           'plone.app.registry',
