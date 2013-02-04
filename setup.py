@@ -5,7 +5,7 @@ version = '1.1.dev0'
 
 setup(name='collective.limitfilesizepanel',
       version=version,
-      description="Add configuration to set file size limit through control panel",
+      description="Configure files and images size limit through Plone control panel",
       long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
