@@ -21,3 +21,13 @@ class ILimitFileSizePanel(Interface):
         description=_(u"Type here a number in Mb which will limit the image size upload"),
         default=10,
     )
+
+    new_data_only = schema.Bool(
+        title=_(u"Validate only new data"),
+        description=_("help_new_data_only",
+                      default=u"Keep selected to validate only new uploaded files and images.\n"
+                              u"If you unselect this and the size configurations above will be lowered, "
+                              u"is possible that users that edit contents wont be able to save the form "
+                              u"because the validator will check also data already saved."),
+        default=True,
+    )

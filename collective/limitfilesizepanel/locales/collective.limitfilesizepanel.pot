@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-02-04 16:30+0000\n"
+"POT-Creation-Date: 2013-02-05 08:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,13 +60,22 @@ msgstr ""
 msgid "Type here a number in Mb which will limit the image size upload"
 msgstr ""
 
+#: ../interfaces.py:26
+msgid "Validate only new data"
+msgstr ""
+
 #. Default: "Set file size for file and image"
 #: ../browser/controlpanel.py:18
 msgid "help_limit_file_size_panel"
 msgstr ""
 
+#. Default: "Keep selected to validate only new uploaded files and images.\nIf you unselect this, then the size configurations above will be lowered, is possible that users that edit a content wont be able to save the form because the validator will check the file already saved."
+#: ../interfaces.py:27
+msgid "help_new_data_only"
+msgstr ""
+
 #. Default: "Validation failed. Uploaded data is too large: ${size}Mb (max ${max}Mb)"
-#: ../patches.py:76
+#: ../patches.py:83
 msgid "validation_error"
 msgstr ""
 

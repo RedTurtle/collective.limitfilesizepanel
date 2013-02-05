@@ -34,17 +34,19 @@ class TestMaxSizeCalc(base.MaxSizeTestCase):
         #should be done with user values
         validator = MaxSizeValidator('checkFileMaxSize', maxsize=50.0)
         self.assertEqual(float(30), get_maxsize(validator,
-                                     **{'maxsize': 15.0 ,
-                                        'field': base.get_file_field(),
-                                        'instance': base.PFObject()
-                                       }
+                                                self.settings,
+                                                **{'maxsize': 15.0 ,
+                                                   'field': base.get_file_field(),
+                                                   'instance': base.PFObject()
+                                                  }
                                     )
                                   )
         self.assertEqual(float(10), get_maxsize(validator,
-                                     **{'maxsize': 15.0 ,
-                                        'field': base.get_image_field(),
-                                        'instance': base.PFObject()
-                                       }
+                                                self.settings,
+                                                **{'maxsize': 15.0 ,
+                                                   'field': base.get_image_field(),
+                                                   'instance': base.PFObject()
+                                                  }
                                     )
                                  )
 
@@ -56,7 +58,8 @@ class TestMaxSizeCalc(base.MaxSizeTestCase):
         or_file_size = self.settings.file_size
         self.settings.file_size = 0
         self.assertEqual(float(50), get_maxsize(validator,
-                                        **{'field': base.get_file_field()} ))
+                                                self.settings,
+                                                **{'field': base.get_file_field()} ))
         self.settings.file_size = or_file_size
 
     def test_size_in_kwargs(self):
@@ -65,6 +68,7 @@ class TestMaxSizeCalc(base.MaxSizeTestCase):
         self.settings.file_size = 0
         self.assertEqual(float(15),
                          get_maxsize(validator,
+                                     self.settings,
                                      **{'maxsize': 15.0 ,
                                         'field': base.get_file_field(),
                                         'instance': base.PFObject()}
@@ -78,6 +82,7 @@ class TestMaxSizeCalc(base.MaxSizeTestCase):
         self.settings.file_size = 0
         self.assertEqual(float(20),
                          get_maxsize(validator,
+                                     self.settings,
                                      **{'field': base.get_file_field(),
                                         'instance': base.PFObject()}
                                      )
@@ -90,6 +95,7 @@ class TestMaxSizeCalc(base.MaxSizeTestCase):
         self.settings.image_size = 0
         self.assertEqual(float(10),
                          get_maxsize(validator,
+                                     self.settings,
                                      **{'field': base.get_image_field()}
                                      )
                          )

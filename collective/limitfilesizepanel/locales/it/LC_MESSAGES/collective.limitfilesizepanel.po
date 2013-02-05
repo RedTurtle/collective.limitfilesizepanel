@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-02-04 16:30+0000\n"
+"POT-Creation-Date: 2013-02-05 08:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,13 +57,24 @@ msgstr "Scrivi un numero in Mb per limitare le dimensioni dei file in upload"
 msgid "Type here a number in Mb which will limit the image size upload"
 msgstr "Scrivi un numero in Mb per limitare le dimensioni delle immagini in upload"
 
+#: ../interfaces.py:26
+msgid "Validate only new data"
+msgstr "Valida solo i nuovi dati"
+
 #. Default: "Set file size for file and image"
 #: ../browser/controlpanel.py:18
 msgid "help_limit_file_size_panel"
 msgstr "Imposta le dimensioni massime per i file e le immagini da caricare"
 
+#. Default: "Keep selected to validate only new uploaded files and images.\nIf you unselect this, then the size configurations above will be lowered, is possible that users that edit a content wont be able to save the form because the validator will check the file already saved."
+#: ../interfaces.py:27
+msgid "help_new_data_only"
+msgstr ""
+"Tieni selezionato per validare solo i nuovi dati caricati.\n"
+"Se verrà deselezionato e le configurazioni sopra saranno ridotte, sarà possibile che gli utenti che modificheranno i contenuti non saranno in grado di salvare il form poiché il validatore sarà applicato anche ai dati già salvati."
+
 #. Default: "Validation failed. Uploaded data is too large: ${size}Mb (max ${max}Mb)"
-#: ../patches.py:76
+#: ../patches.py:83
 msgid "validation_error"
 msgstr "Validazione fallita. I dati caricati sono troppo grandi: ${size}Mb (massimo ${max}Mb)"
 

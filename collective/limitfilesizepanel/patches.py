@@ -11,23 +11,15 @@ from zope.component import queryUtility
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 
 
-def get_user_file_limit():
-    registry = queryUtility(IRegistry)
-    if registry:
-        settings = registry.forInterface(ILimitFileSizePanel, check=False)
-        return settings.file_size, settings.image_size
-    return None, None
-
-
-def get_maxsize(validator, **kwargs):
-    #This is the patch:
+def get_maxsize(validator, settings, **kwargs):
+    # This is the patch:
     # * try to get sizes from plone.registry
     # * if we have sizes defined from user use it
     # * if not, use the original method to calculate maxsize
     field = kwargs.get('field', None)
     instance = kwargs.get('instance', None)
 
-    file_size, img_size = get_user_file_limit()
+    file_size, img_size = settings.file_size, settings.image_size
 
     # In plone 3 we have field.type == image/file
     # In plone 4 we have field.type == blob in both case
@@ -53,7 +45,19 @@ def get_maxsize(validator, **kwargs):
 
 
 def patched__call__(self, value, *args, **kwargs):
-    maxsize = get_maxsize(self, **kwargs)
+    registry = queryUtility(IRegistry)
+    settings = None
+    if registry:
+        try:
+            settings = registry.forInterface(ILimitFileSizePanel, check=True)
+        except KeyError:
+            pass
+        
+    if not settings:
+        return self._old___call__(value, *args, **kwargs)
+
+    maxsize = get_maxsize(self, settings, **kwargs)
+
     if not maxsize:
         return True
     # calculate size
@@ -62,6 +66,12 @@ def patched__call__(self, value, *args, **kwargs):
         value.seek(0, 2)  # eof
         size = value.tell()
         value.seek(0)
+    elif not settings.new_data_only:
+        # we want to validate already saved data. Let use the default Atchetypes validation method
+        try:
+            size = len(value)
+        except TypeError:
+            size = 0
     else:
         # We don't want to validate already saved data
         return True

@@ -5,4 +5,7 @@
     <record interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanel"
 	        field="image_size"
 			delete="True" />
+    <record interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanel"
+	        field="new_data_only"
+			delete="True" />
 </registry>

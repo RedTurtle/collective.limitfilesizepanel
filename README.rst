@@ -1,8 +1,15 @@
 Introduction
 ============
 
-This product monkey patch the original Plone max size validation (where the configuration is complex 
-and hurts all Plone site in the same buildout) to a site-specific ones.
+Plone Archetypes framework already gives you a max size validation for files and images, but the default
+configuration has some drawbacks:
+
+* is not simple to customize (best way is to use `plone.recipe.atcontenttypes`__)
+* is the same for every Plone site of the environment 
+
+__ http://pypi.python.org/pypi/plone.recipe.atcontenttypes/
+
+This product will let you customize this validation from Plone user interface.
 
 How to use it
 =============

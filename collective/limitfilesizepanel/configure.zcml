@@ -34,11 +34,21 @@
       description=""
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
+  <genericsetup:upgradeStep
+        title="Upgrade to collective.limitfilesizepanel to version 1.1"
+        description="Migrates collective.limitfilesizepanel to 1000"
+        source="1.0"
+        destination="1000"
+        handler=".setuphandlers.migrateTo1000"
+        sortkey="1"
+        profile="collective.limitfilesizepanel:default"
+    />
 
   <monkey:patch
      description="Patching MaxSizeValidator for apply the collective.limitfilesizepanel features"
      class="Products.validation.validators.SupplValidators.MaxSizeValidator"
      original="__call__"
+	 preserveOriginal="True"
      replacement=".patches.patched__call__"
      docstringWarning="true"
     />

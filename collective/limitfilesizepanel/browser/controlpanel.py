@@ -36,6 +36,12 @@ class LimitFileSizeEditForm(controlpanel.RegistryEditForm):
         self.request.response.redirect("%s/%s" % (self.context.absolute_url(),
                                                   self.control_panel_view))
 
+    def updateWidgets(self):
+        super(LimitFileSizeEditForm, self).updateWidgets()
+        self.widgets['file_size'].maxlength = 5
+        self.widgets['file_size'].size = 5
+        self.widgets['image_size'].maxlength = 5
+        self.widgets['image_size'].size = 5
 
 
 class LimitFileSizeControlPanel(controlpanel.ControlPanelFormWrapper):
