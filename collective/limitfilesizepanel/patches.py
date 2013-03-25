@@ -7,6 +7,7 @@ from Products.validation.i18n import safe_unicode
 from ZPublisher.HTTPRequest import FileUpload
 from plone.registry.interfaces import IRegistry
 from zope.component import queryUtility
+from AccessControl import getSecurityManager
 
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 
@@ -45,6 +46,8 @@ def get_maxsize(validator, settings, **kwargs):
 
 
 def patched__call__(self, value, *args, **kwargs):
+    if canBypassValidation(kwargs.get('instance', None)):
+        return True
     registry = queryUtility(IRegistry)
     settings = None
     if registry:
@@ -52,7 +55,7 @@ def patched__call__(self, value, *args, **kwargs):
             settings = registry.forInterface(ILimitFileSizePanel, check=True)
         except KeyError:
             pass
-        
+
     if not settings:
         return self._old___call__(value, *args, **kwargs)
 
@@ -90,3 +93,12 @@ def patched__call__(self, value, *args, **kwargs):
     else:
         return True
 
+
+def canBypassValidation(context):
+    """
+    Check if the user has bypass permission
+    """
+    if not context:
+        return False
+    sm = getSecurityManager()
+    return sm.checkPermission("collective.limitfilesizepanel: Bypass limit size", context)

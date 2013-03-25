@@ -11,7 +11,10 @@ Changelog
   
   This provent to get validation error when editing file after size limit
   has been changed [keul]
-  
+
+- Added new permission "collective.limitfilesizepanel: Manage limit file size settings".
+  Users with this permission can bypass size validation [cekk]
+
   __ http://pypi.python.org/pypi/collective.monkeypatcher
 
 1.0 (Unreleased)

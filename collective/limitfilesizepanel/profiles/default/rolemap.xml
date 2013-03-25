@@ -6,5 +6,8 @@
       <role name="Manager"/>
       <role name="Site Administrator"/>
     </permission>
+    <permission name="collective.limitfilesizepanel: Bypass limit size"
+                acquire="False">
+    </permission>
   </permissions>
 </rolemap>
