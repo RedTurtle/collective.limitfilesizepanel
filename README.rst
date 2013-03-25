@@ -21,6 +21,14 @@ A new "*Limit file size settings*" option will be added in the control panel, wh
 
 No users will be able to upload files that exceed the limit.
 
+Validator bypass
+================
+
+If some users need to bypass the validation and upload some larger files, there is a new permission 
+"*collective.limitfilesizepanel: Manage limit file size settings*" that allows to do this.
+
+You only need to set (permanently or temporary) this permission to some roles, and they'll have no upload limits.
+
 Dependencies
 ============
 
