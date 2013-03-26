@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.1.dev0'
+version = '1.1'
 
 tests_require = ['zope.testing', 'Products.PloneTestCase']
 
@@ -18,7 +18,7 @@ setup(name='collective.limitfilesizepanel',
         "Framework :: Plone :: 4.2",
         "Programming Language :: Python",
         ],
-      keywords='plone limit file size',
+      keywords='plone plonegov limit filesize validation',
       author='RedTurtle Technology',
       author_email='sviluppoplone@redturtle.it',
       url='http://plone.org/products/collective.limitfilesizepanel',
