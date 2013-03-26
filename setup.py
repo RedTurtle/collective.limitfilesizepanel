@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.2.dev0'
+version = '1.1.1'
 
 tests_require = ['zope.testing', 'Products.PloneTestCase']
 
@@ -14,7 +14,7 @@ setup(name='collective.limitfilesizepanel',
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
         "Framework :: Plone",
-        "Framework :: Plone :: 3.3"
+        "Framework :: Plone :: 3.3",
         "Framework :: Plone :: 4.2",
         "Programming Language :: Python",
         ],

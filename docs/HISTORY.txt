@@ -1,11 +1,10 @@
 Changelog
 =========
 
-1.2 (unreleased)
-----------------
+1.1.1 (2013-03-26)
+------------------
 
-- Nothing changed yet.
-
+- fixed pypi classifiers [keul]
 
 1.1 (2013-03-26)
 ----------------
