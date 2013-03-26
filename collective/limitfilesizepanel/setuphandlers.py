@@ -13,4 +13,5 @@ PROFILE_ID = 'profile-collective.limitfilesizepanel:default'
 def migrateTo1000(context):
     setup_tool = getToolByName(context, 'portal_setup')
     setup_tool.runImportStepFromProfile(PROFILE_ID, 'plone.app.registry')
-    logger.info('Migrated to version 1.1')
+    setup_tool.runImportStepFromProfile(PROFILE_ID, 'rolemap')
+    logger.info('Migrated to version 1.1.2')

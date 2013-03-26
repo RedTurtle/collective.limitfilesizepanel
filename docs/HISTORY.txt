@@ -1,11 +1,11 @@
 Changelog
 =========
 
-1.2 (unreleased)
-----------------
+1.1.2 (2013-03-26)
+------------------
 
-- Nothing changed yet.
-
+- run rolemap configurations when upgrading from older versions
+  [keul]
 
 1.1.1 (2013-03-26)
 ------------------
