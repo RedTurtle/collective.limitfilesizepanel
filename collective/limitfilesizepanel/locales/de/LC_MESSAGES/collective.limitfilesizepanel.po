@@ -1,0 +1,78 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-02-05 08:47+0000\n"
+"PO-Revision-Date: 2013-07-24 12:10 +0001\n"
+"Last-Translator: Jonas Baumann <tschouns@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.limitfilesizepanel\n"
+
+#: ../browser/controlpanel.py:32
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: ../browser/controlpanel.py:28
+msgid "Changes saved"
+msgstr "Änderungen gespeichert"
+
+msgid "Configure the file size limit from control panel"
+msgstr "Konfigurieren Sie das Limit der Dateigrössen im in der Konfiguration"
+
+#: ../browser/controlpanel.py:34
+msgid "Edit cancelled"
+msgstr "Bearbeiten abgebrochen"
+
+#: ../browser/controlpanel.py:17
+#: ../profiles/default/controlpanel.xml
+msgid "Limit file size settings"
+msgstr "Einstellungen zur Limitierung der Dateigrössen"
+
+msgid "Limit files and images size"
+msgstr "Datei- und Bildgrössen limitieren"
+
+#: ../browser/controlpanel.py:21
+msgid "Save"
+msgstr "Speichern"
+
+#: ../interfaces.py:14
+msgid "Set the file-type size limit"
+msgstr "Grössenlimitierung für Dateien"
+
+#: ../interfaces.py:20
+msgid "Set the image-type size limit"
+msgstr "Grössenlimitierung für Bilder"
+
+#: ../interfaces.py:15
+msgid "Type here a number in Mb which will limit the file size upload"
+msgstr "Geben Sie die Limitierung der Dateigrösse in MB an."
+
+#: ../interfaces.py:21
+msgid "Type here a number in Mb which will limit the image size upload"
+msgstr "Geben Sie die Limitierung der Bildgrösse in MB an."
+
+#: ../interfaces.py:26
+msgid "Validate only new data"
+msgstr "Nur neue Dateien / Bilder validieren"
+
+#. Default: "Set file size for file and image"
+#: ../browser/controlpanel.py:18
+msgid "help_limit_file_size_panel"
+msgstr "Grössenlimitierung für Dateien und Bilder konfigurieren"
+
+#. Default: "Keep selected to validate only new uploaded files and images.\nIf you unselect this, then the size configurations above will be lowered, is possible that users that edit a content wont be able to save the form because the validator will check the file already saved."
+#: ../interfaces.py:27
+#, fuzzy
+msgid "help_new_data_only"
+msgstr "Wenn Sie diese Option deaktivieren und die Grössenlimiterung senken können Dateien und Bilder, deren Grösse grösser als die neue Limitierung ist, nicht mehr bearbeitet werden."
+
+#. Default: "Validation failed. Uploaded data is too large: ${size}Mb (max ${max}Mb)"
+#: ../patches.py:83
+msgid "validation_error"
+msgstr "Die Hochgeladenen Daten sind zu gross: ${size}MB, maxmium erlaubt: ${max}MB"
+
+
