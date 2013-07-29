@@ -4,7 +4,8 @@ Changelog
 1.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add German translations.
+  [jone]
 
 
 1.1.2 (2013-03-26)
@@ -25,7 +26,7 @@ Changelog
 - Now based on `collective.monkeypatcher`__ [keul]
 - i18n refactoring [keul]
 - Do not try to automatically validate file size for already existings attachments.
-  
+
   This provent to get validation error when editing file after size limit
   has been changed [keul]
 
