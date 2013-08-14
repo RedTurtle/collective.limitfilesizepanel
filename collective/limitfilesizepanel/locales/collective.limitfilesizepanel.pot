@@ -53,11 +53,11 @@ msgid "Set the image-type size limit"
 msgstr ""
 
 #: ../interfaces.py:15
-msgid "Type here a number in Mb which will limit the file size upload"
+msgid "Type here a number in MB which will limit the file size upload"
 msgstr ""
 
 #: ../interfaces.py:21
-msgid "Type here a number in Mb which will limit the image size upload"
+msgid "Type here a number in MB which will limit the image size upload"
 msgstr ""
 
 #: ../interfaces.py:26
@@ -74,7 +74,7 @@ msgstr ""
 msgid "help_new_data_only"
 msgstr ""
 
-#. Default: "Validation failed. Uploaded data is too large: ${size}Mb (max ${max}Mb)"
+#. Default: "Validation failed. Uploaded data is too large: ${size}MB (max ${max}MB)"
 #: ../patches.py:83
 msgid "validation_error"
 msgstr ""
