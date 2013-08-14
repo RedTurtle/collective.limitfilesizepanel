@@ -48,11 +48,11 @@ msgid "Set the image-type size limit"
 msgstr "Grössenlimitierung für Bilder"
 
 #: ../interfaces.py:15
-msgid "Type here a number in Mb which will limit the file size upload"
+msgid "Type here a number in MB which will limit the file size upload"
 msgstr "Geben Sie die Limitierung der Dateigrösse in MB an."
 
 #: ../interfaces.py:21
-msgid "Type here a number in Mb which will limit the image size upload"
+msgid "Type here a number in MB which will limit the image size upload"
 msgstr "Geben Sie die Limitierung der Bildgrösse in MB an."
 
 #: ../interfaces.py:26
@@ -70,7 +70,7 @@ msgstr "Grössenlimitierung für Dateien und Bilder konfigurieren"
 msgid "help_new_data_only"
 msgstr "Wenn Sie diese Option deaktivieren und die Grössenlimiterung senken können Dateien und Bilder, deren Grösse grösser als die neue Limitierung ist, nicht mehr bearbeitet werden."
 
-#. Default: "Validation failed. Uploaded data is too large: ${size}Mb (max ${max}Mb)"
+#. Default: "Validation failed. Uploaded data is too large: ${size}MB (max ${max}MB)"
 #: ../patches.py:83
 msgid "validation_error"
 msgstr "Die Hochgeladenen Daten sind zu gross: ${size}MB, maxmium erlaubt: ${max}MB"
