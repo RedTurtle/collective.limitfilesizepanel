@@ -12,13 +12,13 @@ class ILimitFileSizePanel(Interface):
 
     file_size = schema.Int(
         title=_(u"Set the file-type size limit"),
-        description=_(u"Type here a number in Mb which will limit the file size upload"),
+        description=_(u"Type here a number in MB which will limit the file size upload"),
         default=30,
     )
 
     image_size = schema.Int(
         title=_(u"Set the image-type size limit"),
-        description=_(u"Type here a number in Mb which will limit the image size upload"),
+        description=_(u"Type here a number in MB which will limit the image size upload"),
         default=10,
     )
 

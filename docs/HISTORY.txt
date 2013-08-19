@@ -6,6 +6,8 @@ Changelog
 
 - Add German translations.
   [jone]
+- Ensure consistency of megabyte symbols to be ``MB``.
+  [davidjb]
 
 
 1.1.2 (2013-03-26)

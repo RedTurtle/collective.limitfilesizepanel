@@ -50,12 +50,12 @@ msgid "Set the image-type size limit"
 msgstr "Imposta il limite per il tipo 'immagine'"
 
 #: ../interfaces.py:15
-msgid "Type here a number in Mb which will limit the file size upload"
-msgstr "Scrivi un numero in Mb per limitare le dimensioni dei file in upload"
+msgid "Type here a number in MB which will limit the file size upload"
+msgstr "Scrivi un numero in MB per limitare le dimensioni dei file in upload"
 
 #: ../interfaces.py:21
-msgid "Type here a number in Mb which will limit the image size upload"
-msgstr "Scrivi un numero in Mb per limitare le dimensioni delle immagini in upload"
+msgid "Type here a number in MB which will limit the image size upload"
+msgstr "Scrivi un numero in MB per limitare le dimensioni delle immagini in upload"
 
 #: ../interfaces.py:26
 msgid "Validate only new data"
@@ -73,8 +73,8 @@ msgstr ""
 "Tieni selezionato per validare solo i nuovi dati caricati.\n"
 "Se verrà deselezionato e le configurazioni sopra saranno ridotte, sarà possibile che gli utenti che modificheranno i contenuti non saranno in grado di salvare il form poiché il validatore sarà applicato anche ai dati già salvati."
 
-#. Default: "Validation failed. Uploaded data is too large: ${size}Mb (max ${max}Mb)"
+#. Default: "Validation failed. Uploaded data is too large: ${size}MB (max ${max}MB)"
 #: ../patches.py:83
 msgid "validation_error"
-msgstr "Validazione fallita. I dati caricati sono troppo grandi: ${size}Mb (massimo ${max}Mb)"
+msgstr "Validazione fallita. I dati caricati sono troppo grandi: ${size}MB (massimo ${max}MB)"
 

@@ -84,7 +84,7 @@ def patched__call__(self, value, *args, **kwargs):
 
     if sizeMB > maxsize:
         msg = _('validation_error',
-                default=u"Validation failed. Uploaded data is too large: ${size}Mb (max ${max}Mb)",
+                default=u"Validation failed. Uploaded data is too large: ${size}MB (max ${max}MB)",
                 mapping={
                     'name': safe_unicode(self.name),
                     'size': safe_unicode("%.1f" % sizeMB),

@@ -29,7 +29,7 @@ class TestMaxSizeCalc(base.MaxSizeTestCase):
         # original validator for file and image read maxsize from
         # zconf.ATFile.max_file_size at the end we have a number
         # so we pass maxsize=N.
-        # By default in the registry we have 30Mb for file and 10Mb for images
+        # By default in the registry we have 30MB for file and 10MB for images
         # and calling the validator with all the possible values, validation
         #should be done with user values
         validator = MaxSizeValidator('checkFileMaxSize', maxsize=50.0)
@@ -53,7 +53,7 @@ class TestMaxSizeCalc(base.MaxSizeTestCase):
     def test_size_from_validator_instance(self):
         # original validator for file and image read maxsize from
         # zconf.ATFile.max_file_size at the end we have a number
-        # By default in the registry we have 30Mb for file and 10Mb for images
+        # By default in the registry we have 30MB for file and 10MB for images
         validator = MaxSizeValidator('checkFileMaxSize', maxsize=50.0)
         or_file_size = self.settings.file_size
         self.settings.file_size = 0
