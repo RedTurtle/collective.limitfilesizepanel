@@ -71,7 +71,7 @@ msgstr "Imposta le dimensioni massime per i file e le immagini da caricare"
 msgid "help_new_data_only"
 msgstr ""
 "Tieni selezionato per validare solo i nuovi dati caricati.\n"
-"Se verrà deselezionato e le configurazioni sopra saranno ridotte, sarà possibile che gli utenti che modificheranno i contenuti non saranno in grado di salvare il form poiché il validatore sarà applicato anche ai dati già salvati."
+"Se verrà deselezionato e le configurazioni sopra saranno ridotte, potrebbe verificarsi il caso in cui utenti modifichino i contenuti ma non saranno in grado di salvare il form poiché il validatore sarà applicato anche ai dati già salvati."
 
 #. Default: "Validation failed. Uploaded data is too large: ${size}MB (max ${max}MB)"
 #: ../patches.py:83

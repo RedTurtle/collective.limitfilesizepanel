@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.2.dev0'
+version = '1.2'
 
 tests_require = ['zope.testing', 'Products.PloneTestCase']
 
@@ -16,6 +16,7 @@ setup(name='collective.limitfilesizepanel',
         "Framework :: Plone",
         "Framework :: Plone :: 3.3",
         "Framework :: Plone :: 4.2",
+        "Framework :: Plone :: 4.3",
         "Programming Language :: Python",
         ],
       keywords='plone plonegov limit filesize validation',

@@ -31,7 +31,7 @@ class TestMaxSizeCalc(base.MaxSizeTestCase):
         # so we pass maxsize=N.
         # By default in the registry we have 30MB for file and 10MB for images
         # and calling the validator with all the possible values, validation
-        #should be done with user values
+        # should be done with user values
         validator = MaxSizeValidator('checkFileMaxSize', maxsize=50.0)
         self.assertEqual(float(30), get_maxsize(validator,
                                                 self.settings,

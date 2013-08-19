@@ -36,13 +36,13 @@ This products has been tested on:
 
 * Plone 3.3
 * Plone 4.2
+* Plone 4.3
 
 It's based on `plone.app.registry`__ that it not part of Plone on 3.3 version. You need to be
 sure that a compatible version is used (in my experience: use `version 1.0b1`__).
 
  __ http://pypi.python.org/pypi/plone.app.registry
  __ http://pypi.python.org/pypi/plone.app.registry/1.0b1
-
 
 Credits
 =======
@@ -52,7 +52,6 @@ Regione Emilia Romagna supports the `PloneGov initiative`__.
 
  __ http://www.regione.emilia-romagna.it/
  __ http://www.plonegov.it/
-
 
 Authors
 =======
