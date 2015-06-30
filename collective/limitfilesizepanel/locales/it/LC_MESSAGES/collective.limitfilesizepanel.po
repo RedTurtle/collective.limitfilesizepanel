@@ -23,7 +23,7 @@ msgid "Changes saved"
 msgstr "Modifiche salvate"
 
 msgid "Configure the file size limit from control panel"
-msgstr "Configurazione del limite delle dimensioni del file da pannello di controllo"
+msgstr "Configurazione del limite delle dimensioni dei file da pannello di controllo"
 
 #: ../browser/controlpanel.py:34
 msgid "Edit cancelled"
