@@ -9,7 +9,7 @@ setup(name='collective.limitfilesizepanel',
       version=version,
       description="Configure files and images size limit through Plone control panel",
       long_description=open("README.rst").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+                       open(os.path.join("docs", "HISTORY.rst")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
