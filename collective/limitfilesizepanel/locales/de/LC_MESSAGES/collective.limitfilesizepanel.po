@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-06 12:13+0000\n"
+"POT-Creation-Date: 2015-07-06 12:31+0000\n"
 "PO-Revision-Date: 2013-07-24 12:10 +0001\n"
 "Last-Translator: Jonas Baumann <tschouns@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,10 +53,6 @@ msgstr "Datei- und Bildgrössen limitieren"
 msgid "Save"
 msgstr "Speichern"
 
-#: ../interfaces.py:25
-msgid "Set the field size limit"
-msgstr ""
-
 #: ../interfaces.py:51
 msgid "Set the file-type size limit"
 msgstr "Grössenlimitierung für Dateien"
@@ -69,7 +65,15 @@ msgstr "Grössenlimitierung für Bilder"
 msgid "Settings for other content types and fields"
 msgstr ""
 
+#: ../interfaces.py:25
+msgid "Size limit"
+msgstr ""
+
 #: ../interfaces.py:26
+msgid "Type here a number in MB which will limit the field size upload"
+msgstr ""
+
+#: ../interfaces.py:52
 msgid "Type here a number in MB which will limit the file size upload"
 msgstr "Geben Sie die Limitierung der Dateigrösse in MB an."
 

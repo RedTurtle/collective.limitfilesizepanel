@@ -22,8 +22,8 @@ class ITypesSettings(Interface):
                                  required=True)
 
     size = schema.Int(
-        title=_(u"Set the field size limit"),
-        description=_(u"Type here a number in MB which will limit the file size upload"),
+        title=_(u"Size limit"),
+        description=_(u"Type here a number in MB which will limit the field size upload"),
         default=30,
         required=True
     )
