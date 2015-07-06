@@ -35,7 +35,7 @@ msgid "Limit file size settings"
 msgstr "Limita le dimensioni dei file"
 
 msgid "Limit files and images size"
-msgstr "Limita dimesione di file e immagini"
+msgstr "Limita dimensione di file e immagini"
 
 #: ../browser/controlpanel.py:21
 msgid "Save"
