@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
+from Products.validation.validators.SupplValidators import MaxSizeValidator
+from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
+from collective.limitfilesizepanel.interfaces import TypesSettings
+from collective.limitfilesizepanel.patches import get_maxsize
+from collective.limitfilesizepanel.tests import base
+from plone.registry.interfaces import IRegistry
 from unittest import TestSuite, makeSuite
 from zope.component import queryUtility
-from Products.validation.validators.SupplValidators import MaxSizeValidator
-from plone.registry.interfaces import IRegistry
-
-from collective.limitfilesizepanel.tests import base
-from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
-from collective.limitfilesizepanel.patches import get_maxsize
 
 
 class TestMaxSizeCalc(base.MaxSizeTestCase):
     """
     This test cover the file/image size validation monkeypatch.
-    File/Image at validates using zconf.ATFile.max_file_size, so we
+    File/Image AT validates using zconf.ATFile.max_file_size, so we
     check only this case
     """
 
@@ -49,6 +49,20 @@ class TestMaxSizeCalc(base.MaxSizeTestCase):
                                                   }
                                     )
                                  )
+
+    def test_size_from_registry_type_setting(self):
+        # new in version 1.3: type/field specific settings
+        validator = MaxSizeValidator('checkFileMaxSize', maxsize=50.0)
+        self.settings.types_settings += (TypesSettings(u'News Item', u'image', 7), )
+        self.assertEqual(float(7),
+                         get_maxsize(validator,
+                                     self.settings,
+                                     **{'maxsize': 15.0 ,
+                                        'field': base.get_image_field(),
+                                        'instance': base.PFObject()}
+                                     )
+                                  )
+        self.settings.types_settings = ()
 
     def test_size_from_validator_instance(self):
         # original validator for file and image read maxsize from

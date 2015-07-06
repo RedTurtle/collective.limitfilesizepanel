@@ -4,7 +4,8 @@ Changelog
 1.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Added type+field configuration
+  [keul]
 
 
 1.2 (2013-08-19)

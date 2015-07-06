@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from Products.statusmessages.interfaces import IStatusMessage
-
+from collective.limitfilesizepanel import messageFactory as _
+from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 from plone.app.registry.browser import controlpanel
-
 from z3c.form import button
 
-from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
-from collective.limitfilesizepanel import messageFactory as _
-     
+
 class LimitFileSizeEditForm(controlpanel.RegistryEditForm):
     """Media settings form.
     """
@@ -42,6 +40,9 @@ class LimitFileSizeEditForm(controlpanel.RegistryEditForm):
         self.widgets['file_size'].size = 5
         self.widgets['image_size'].maxlength = 5
         self.widgets['image_size'].size = 5
+        for widget in self.widgets['types_settings'].widgets:
+            widget.subform.widgets['size'].maxlength = 5
+            widget.subform.widgets['size'].size = 5
 
 
 class LimitFileSizeControlPanel(controlpanel.ControlPanelFormWrapper):

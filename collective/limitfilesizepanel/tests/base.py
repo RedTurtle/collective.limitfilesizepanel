@@ -58,6 +58,8 @@ def get_image_field():
 
 class PFObject(object):
 
+    portal_type = 'News Item' # we need a valid portal_type
+
     def getMaxSizeFor(self, name):
         return 20.0
 

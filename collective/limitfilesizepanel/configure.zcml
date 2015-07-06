@@ -47,6 +47,16 @@
         sortkey="1"
         profile="collective.limitfilesizepanel:default"
     />
+  <genericsetup:upgradeStep
+        title="Upgrade to collective.limitfilesizepanel to version 1.3"
+        description="Migrates collective.limitfilesizepanel to 1100"
+        source="11000"
+        destination="1100"
+        handler=".setuphandlers.migrateTo1100"
+        sortkey="1"
+        profile="collective.limitfilesizepanel:default"
+    />
+
 
   <monkey:patch
      description="Patching MaxSizeValidator for apply the collective.limitfilesizepanel features"
