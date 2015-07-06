@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3 (unreleased)
+1.3 (2015-07-06)
 ----------------
 
 - Added type+field configuration
