@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-02-05 08:47+0000\n"
+"POT-Creation-Date: 2015-07-06 12:13+0000\n"
 "PO-Revision-Date: 2013-07-24 12:10 +0001\n"
 "Last-Translator: Jonas Baumann <tschouns@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9,25 +9,39 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.limitfilesizepanel\n"
 
-#: ../browser/controlpanel.py:32
+#: ../browser/controlpanel.py:30
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../browser/controlpanel.py:28
+#: ../browser/controlpanel.py:26
 msgid "Changes saved"
 msgstr "Änderungen gespeichert"
 
 msgid "Configure the file size limit from control panel"
 msgstr "Konfigurieren Sie das Limit der Dateigrössen im in der Konfiguration"
 
-#: ../browser/controlpanel.py:34
+#: ../interfaces.py:14
+msgid "Content type"
+msgstr ""
+
+#: ../interfaces.py:67
+msgid "Content/field settings"
+msgstr ""
+
+#: ../browser/controlpanel.py:32
 msgid "Edit cancelled"
 msgstr "Bearbeiten abgebrochen"
 
-#: ../browser/controlpanel.py:17
+#: ../interfaces.py:18
+msgid "Field name"
+msgstr ""
+
+#: ../browser/controlpanel.py:15
 #: ../profiles/default/controlpanel.xml
 msgid "Limit file size settings"
 msgstr "Einstellungen zur Limitierung der Dateigrössen"
@@ -35,44 +49,61 @@ msgstr "Einstellungen zur Limitierung der Dateigrössen"
 msgid "Limit files and images size"
 msgstr "Datei- und Bildgrössen limitieren"
 
-#: ../browser/controlpanel.py:21
+#: ../browser/controlpanel.py:19
 msgid "Save"
 msgstr "Speichern"
 
-#: ../interfaces.py:14
+#: ../interfaces.py:25
+msgid "Set the field size limit"
+msgstr ""
+
+#: ../interfaces.py:51
 msgid "Set the file-type size limit"
 msgstr "Grössenlimitierung für Dateien"
 
-#: ../interfaces.py:20
+#: ../interfaces.py:57
 msgid "Set the image-type size limit"
 msgstr "Grössenlimitierung für Bilder"
 
-#: ../interfaces.py:15
+#: ../interfaces.py:63
+msgid "Settings for other content types and fields"
+msgstr ""
+
+#: ../interfaces.py:26
 msgid "Type here a number in MB which will limit the file size upload"
 msgstr "Geben Sie die Limitierung der Dateigrösse in MB an."
 
-#: ../interfaces.py:21
+#: ../interfaces.py:58
 msgid "Type here a number in MB which will limit the image size upload"
 msgstr "Geben Sie die Limitierung der Bildgrösse in MB an."
 
-#: ../interfaces.py:26
+#: ../interfaces.py:74
 msgid "Validate only new data"
 msgstr "Nur neue Dateien / Bilder validieren"
 
+#. Default: "Low level field name, commonly \"image\" or \"file\"."
+#: ../interfaces.py:19
+msgid "help_field_name"
+msgstr ""
+
 #. Default: "Set file size for file and image"
-#: ../browser/controlpanel.py:18
+#: ../browser/controlpanel.py:16
 msgid "help_limit_file_size_panel"
 msgstr "Grössenlimitierung für Dateien und Bilder konfigurieren"
 
-#. Default: "Keep selected to validate only new uploaded files and images.\nIf you unselect this, then the size configurations above will be lowered, is possible that users that edit a content wont be able to save the form because the validator will check the file already saved."
-#: ../interfaces.py:27
+#. Default: "Keep selected to validate only new uploaded files and images.\nIf you unselect this and the size configurations above will be lowered, is possible that users that edit contents wont be able to save the form because the validator will check also data already saved."
+#: ../interfaces.py:75
 #, fuzzy
 msgid "help_new_data_only"
 msgstr "Wenn Sie diese Option deaktivieren und die Grössenlimiterung senken können Dateien und Bilder, deren Grösse grösser als die neue Limitierung ist, nicht mehr bearbeitet werden."
 
+#. Default: "Use this section to provide size overrides of values above.\nProvide a content type/field ID, and the size limit."
+#: ../interfaces.py:64
+msgid "help_types_settings"
+msgstr ""
+
 #. Default: "Validation failed. Uploaded data is too large: ${size}MB (max ${max}MB)"
-#: ../patches.py:83
+#: ../patches.py:101
 msgid "validation_error"
 msgstr "Die Hochgeladenen Daten sind zu gross: ${size}MB, maxmium erlaubt: ${max}MB"
-
 

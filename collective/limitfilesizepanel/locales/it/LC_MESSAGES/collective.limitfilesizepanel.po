@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-02-05 08:47+0000\n"
+"POT-Creation-Date: 2015-07-06 12:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,22 +14,34 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.limitfilesizepanel\n"
 
-#: ../browser/controlpanel.py:32
+#: ../browser/controlpanel.py:30
 msgid "Cancel"
 msgstr "Annulla"
 
-#: ../browser/controlpanel.py:28
+#: ../browser/controlpanel.py:26
 msgid "Changes saved"
 msgstr "Modifiche salvate"
 
 msgid "Configure the file size limit from control panel"
 msgstr "Configurazione del limite delle dimensioni dei file da pannello di controllo"
 
-#: ../browser/controlpanel.py:34
+#: ../interfaces.py:14
+msgid "Content type"
+msgstr "Tipo di contenuto"
+
+#: ../interfaces.py:67
+msgid "Content/field settings"
+msgstr "Impostazioni contenuto/campo"
+
+#: ../browser/controlpanel.py:32
 msgid "Edit cancelled"
 msgstr "Modifiche annullate"
 
-#: ../browser/controlpanel.py:17
+#: ../interfaces.py:18
+msgid "Field name"
+msgstr "Nome campo"
+
+#: ../browser/controlpanel.py:15
 #: ../profiles/default/controlpanel.xml
 msgid "Limit file size settings"
 msgstr "Limita le dimensioni dei file"
@@ -37,44 +49,64 @@ msgstr "Limita le dimensioni dei file"
 msgid "Limit files and images size"
 msgstr "Limita dimensione di file e immagini"
 
-#: ../browser/controlpanel.py:21
+#: ../browser/controlpanel.py:19
 msgid "Save"
 msgstr "Salva"
 
-#: ../interfaces.py:14
+#: ../interfaces.py:25
+msgid "Set the field size limit"
+msgstr "Imposta il limite per il campo"
+
+#: ../interfaces.py:51
 msgid "Set the file-type size limit"
 msgstr "Imposta il limite per il tipo 'file'"
 
-#: ../interfaces.py:20
+#: ../interfaces.py:57
 msgid "Set the image-type size limit"
 msgstr "Imposta il limite per il tipo 'immagine'"
 
-#: ../interfaces.py:15
+#: ../interfaces.py:63
+msgid "Settings for other content types and fields"
+msgstr "Impostazioni per altri tipi di contenuto e campi"
+
+#: ../interfaces.py:26
 msgid "Type here a number in MB which will limit the file size upload"
 msgstr "Scrivi un numero in MB per limitare le dimensioni dei file in upload"
 
-#: ../interfaces.py:21
+#: ../interfaces.py:58
 msgid "Type here a number in MB which will limit the image size upload"
 msgstr "Scrivi un numero in MB per limitare le dimensioni delle immagini in upload"
 
-#: ../interfaces.py:26
+#: ../interfaces.py:74
 msgid "Validate only new data"
 msgstr "Valida solo i nuovi dati"
 
+#. Default: "Low level field name, commonly \"image\" or \"file\"."
+#: ../interfaces.py:19
+msgid "help_field_name"
+msgstr "Nome del campo di basso livello, comunemente \"image\" o \"file\"."
+
 #. Default: "Set file size for file and image"
-#: ../browser/controlpanel.py:18
+#: ../browser/controlpanel.py:16
 msgid "help_limit_file_size_panel"
 msgstr "Imposta le dimensioni massime per i file e le immagini da caricare"
 
-#. Default: "Keep selected to validate only new uploaded files and images.\nIf you unselect this, then the size configurations above will be lowered, is possible that users that edit a content wont be able to save the form because the validator will check the file already saved."
-#: ../interfaces.py:27
+#. Default: "Keep selected to validate only new uploaded files and images.\nIf you unselect this and the size configurations above will be lowered, is possible that users that edit contents wont be able to save the form because the validator will check also data already saved."
+#: ../interfaces.py:75
 msgid "help_new_data_only"
 msgstr ""
 "Tieni selezionato per validare solo i nuovi dati caricati.\n"
 "Se verrà deselezionato e le configurazioni sopra saranno ridotte, potrebbe verificarsi il caso in cui utenti modifichino i contenuti ma non saranno in grado di salvare il form poiché il validatore sarà applicato anche ai dati già salvati."
 
+#. Default: "Use this section to provide size overrides of values above.\nProvide a content type/field ID, and the size limit."
+#: ../interfaces.py:64
+msgid "help_types_settings"
+msgstr ""
+"Utilizza questa sezione per sovrascrivere i valori delle dimensioni sopra.\n"
+"Fornisci un tipo di contenuto/ID del campo, e la dimensione limite."
+
 #. Default: "Validation failed. Uploaded data is too large: ${size}MB (max ${max}MB)"
-#: ../patches.py:83
+#: ../patches.py:101
 msgid "validation_error"
 msgstr "Validazione fallita. I dati caricati sono troppo grandi: ${size}MB (massimo ${max}MB)"
 

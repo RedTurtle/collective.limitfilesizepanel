@@ -22,7 +22,7 @@ class ITypesSettings(Interface):
                                  required=True)
 
     size = schema.Int(
-        title=_(u"Set the file-type size limit"),
+        title=_(u"Set the field size limit"),
         description=_(u"Type here a number in MB which will limit the file size upload"),
         default=30,
         required=True
@@ -62,7 +62,8 @@ class ILimitFileSizePanel(Interface):
     types_settings = schema.Tuple(
             title=_(u'Settings for other content types and fields'),
             description=_('help_types_settings',
-                          default=u""),
+                          default=u"Use this section to provide size overrides of values above.\n"
+                                  u"Provide a content type/field ID, and the size limit."),
             value_type=PersistentObject(ITypesSettings, title=_(u"Content/field settings")),
             required=False,
             default=(),
