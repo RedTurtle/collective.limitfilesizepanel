@@ -21,6 +21,21 @@ A new "*Limit file size settings*" option will be added in the control panel, wh
 
 No users will be able to upload files that exceed the limit.
 
+.. image:: https://github.com/RedTurtle/collective.limitfilesizepanel/blob/xxx/docs/collective.limitfilesizepanel-1.3-01.png
+   :alt: Settings
+
+Advanced use
+------------
+
+While default general purpose file and image settings can be OK for most common scenarios,
+you can also define custom settings for specific content types: just fill the
+"**Settings for other content types and fields**" section.
+
+.. image:: https://github.com/RedTurtle/collective.limitfilesizepanel/blob/xxx/docs/collective.limitfilesizepanel-1.3-02.png
+   :alt: Type's settings
+
+Configuration in that section wins over global configuration.
+
 Validator bypass
 ================
 
@@ -47,11 +62,19 @@ sure that a compatible version is used (in my experience: use `version 1.0b1`__)
 Credits
 =======
 
-Developed with the support of `Regione Emilia Romagna`__;
-Regione Emilia Romagna supports the `PloneGov initiative`__.
+Developed with the support of:
 
- __ http://www.regione.emilia-romagna.it/
- __ http://www.plonegov.it/
+* `Regione Emilia Romagna`__
+* `Province of Vicenza`__
+
+  .. image:: http://www.provincia.vicenza.it/logo_provincia_vicenza.png
+     :alt: Province of Vicenza - logo
+
+All of them supports the `PloneGov initiative`__.
+
+__ http://www.regione.emilia-romagna.it/
+__ http://www.provincia.vicenza.it/
+__ http://www.plonegov.it/
 
 Authors
 =======
