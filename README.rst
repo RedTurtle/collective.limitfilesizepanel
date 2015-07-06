@@ -21,7 +21,7 @@ A new "*Limit file size settings*" option will be added in the control panel, wh
 
 No users will be able to upload files that exceed the limit.
 
-.. image:: https://raw.githubusercontent.com/RedTurtle/collective.limitfilesizepanel/master/docs/collective.limitfilesizepanel-1.3-01.png
+.. image:: https://raw.githubusercontent.com/RedTurtle/collective.limitfilesizepanel/93abb025ecae1070e28ead13874fc07dc25de52e/docs/collective.limitfilesizepanel-1.3-01.png
    :alt: Settings
 
 Advanced use
@@ -31,7 +31,7 @@ While default general purpose file and image settings can be OK for most common 
 you can also define custom settings for specific content types: just fill the
 "**Settings for other content types and fields**" section.
 
-.. image:: https://raw.githubusercontent.com/RedTurtle/collective.limitfilesizepanel/master/docs/collective.limitfilesizepanel-1.3-02.png
+.. image:: https://raw.githubusercontent.com/RedTurtle/collective.limitfilesizepanel/93abb025ecae1070e28ead13874fc07dc25de52e/docs/collective.limitfilesizepanel-1.3-02.png
    :alt: Type's settings
 
 Configuration in that section wins over global configuration.
