@@ -6,7 +6,8 @@ Changelog
 
 - Added type+field configuration
   [keul]
-
+- Pyflakes cleanup
+  [keul]
 
 1.2 (2013-08-19)
 ----------------
