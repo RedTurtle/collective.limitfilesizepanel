@@ -1,11 +1,11 @@
 Changelog
 =========
 
-1.4 (unreleased)
+1.3.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
-
+- Version 1.3 don't uninstall cleanly
+  [keul]
 
 1.3 (2015-07-06)
 ----------------
