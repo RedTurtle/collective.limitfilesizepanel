@@ -1,0 +1,5 @@
+<layers>
+    <layer name="collective.limitfilesizepanel"
+           interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
+           remove="True"/>
+</layers>

@@ -34,6 +34,8 @@ setup(name='collective.limitfilesizepanel',
           'setuptools',
           'plone.app.registry',
           'collective.monkeypatcher>=1.0',
+          'plone.api',
+          'z3c.unconfigure'
       ],
       entry_points="""
       # -*- Entry points: -*-

@@ -4,17 +4,25 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="collective.limitfilesizepanel">
 
-    
+
     <browser:resourceDirectory
         name="collective.limitfilesizepanel.images"
         directory="images"
         />
-        
+
     <browser:page
         name="limitfilesize-settings"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         class=".controlpanel.LimitFileSizeControlPanel"
         permission="collective.limitfilesizepanel.LimitFileSizePanel"
         />
-        
+
+    <browser:page
+      name="lfsp_helpers_view"
+      class=".limitfilesizepanel_view.View"
+      permission="zope2.View"
+      for="*"
+      layer="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
+      allowed_attributes="check_size"
+      />
 </configure>
