@@ -1,26 +1,32 @@
 # -*- coding: utf-8 -*-
-
-from Products.validation.validators.SupplValidators import MaxSizeValidator
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 from collective.limitfilesizepanel.interfaces import TypesSettings
-from collective.limitfilesizepanel.patches import get_maxsize
-from collective.limitfilesizepanel.tests import base
 from plone.registry.interfaces import IRegistry
+from collective.limitfilesizepanel.tests import base
+from plone import api
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from Products.validation.validators.SupplValidators import MaxSizeValidator
+from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING  # noqa
 from unittest import TestSuite, makeSuite
+from zope.component import createObject
 from zope.component import queryUtility
+import unittest
 
 
-class TestMaxSizeCalc(base.MaxSizeTestCase):
-    """
-    This test cover the file/image size validation monkeypatch.
-    File/Image AT validates using zconf.ATFile.max_file_size, so we
-    check only this case
-    """
+class TestMaxSizeCalc(unittest.TestCase):
 
-    def afterSetUp(self):
-        """
-        nothing to do here
-        """
+    layer = LIMITFILESIZEPANEL_INTEGRATION_TESTING
+
+    def setUp(self):
+        self.portal = self.layer['portal']
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.installer = api.portal.get_tool('portal_quickinstaller')
+        self.helper_view = api.content.get_view(
+            name='lfsp_helpers_view',
+            context=self.portal,
+            request=self.portal.REQUEST,
+        )
         self.registry = queryUtility(IRegistry)
         self.settings = self.registry.forInterface(ILimitFileSizePanel,
                                                    check=False)
@@ -33,35 +39,35 @@ class TestMaxSizeCalc(base.MaxSizeTestCase):
         # and calling the validator with all the possible values, validation
         # should be done with user values
         validator = MaxSizeValidator('checkFileMaxSize', maxsize=50.0)
-        self.assertEqual(float(30), get_maxsize(validator,
-                                                self.settings,
-                                                **{'maxsize': 15.0 ,
-                                                   'field': base.get_file_field(),
-                                                   'instance': base.PFObject()
-                                                  }
-                                    )
-                                  )
-        self.assertEqual(float(10), get_maxsize(validator,
-                                                self.settings,
-                                                **{'maxsize': 15.0 ,
-                                                   'field': base.get_image_field(),
-                                                   'instance': base.PFObject()
-                                                  }
-                                    )
-                                 )
+        self.assertEqual(float(30), self.helper_view.get_maxsize(
+            validator,
+            **{'maxsize': 15.0,
+               'field': base.get_file_field(),
+               'instance': base.PFObject()}
+            )
+        )
+        self.assertEqual(float(10), self.helper_view.get_maxsize(
+            validator,
+            **{'maxsize': 15.0,
+               'field': base.get_image_field(),
+               'instance': base.PFObject()}
+            )
+        )
 
     def test_size_from_registry_type_setting(self):
         # new in version 1.3: type/field specific settings
         validator = MaxSizeValidator('checkFileMaxSize', maxsize=50.0)
-        self.settings.types_settings += (TypesSettings(u'News Item', u'image', 7), )
-        self.assertEqual(float(7),
-                         get_maxsize(validator,
-                                     self.settings,
-                                     **{'maxsize': 15.0 ,
-                                        'field': base.get_image_field(),
-                                        'instance': base.PFObject()}
-                                     )
-                                  )
+        new_value = (TypesSettings(u'News Item', u'image', 7), )
+        self.settings.types_settings += new_value
+        self.assertEqual(
+            float(7),
+            self.helper_view.get_maxsize(
+                validator,
+                **{'maxsize': 15.0,
+                   'field': base.get_image_field(),
+                   'instance': base.PFObject()}
+                )
+            )
         self.settings.types_settings = ()
 
     def test_size_from_validator_instance(self):
@@ -71,52 +77,65 @@ class TestMaxSizeCalc(base.MaxSizeTestCase):
         validator = MaxSizeValidator('checkFileMaxSize', maxsize=50.0)
         or_file_size = self.settings.file_size
         self.settings.file_size = 0
-        self.assertEqual(float(50), get_maxsize(validator,
-                                                self.settings,
-                                                **{'field': base.get_file_field()} ))
+        self.assertEqual(float(50), self.helper_view.get_maxsize(
+            validator,
+            **{'field': base.get_file_field()}))
         self.settings.file_size = or_file_size
 
     def test_size_in_kwargs(self):
         validator = MaxSizeValidator('checkFileMaxSize')
         or_file_size = self.settings.file_size
         self.settings.file_size = 0
-        self.assertEqual(float(15),
-                         get_maxsize(validator,
-                                     self.settings,
-                                     **{'maxsize': 15.0 ,
-                                        'field': base.get_file_field(),
-                                        'instance': base.PFObject()}
-                                     )
-                         )
+        self.assertEqual(
+            float(15),
+            self.helper_view.get_maxsize(
+                validator,
+                **{'maxsize': 15.0,
+                   'field': base.get_file_field(),
+                   'instance': base.PFObject()}
+                )
+            )
         self.settings.file_size = or_file_size
 
     def test_size_in_instance(self):
         validator = MaxSizeValidator('checkFileMaxSize')
         or_file_size = self.settings.file_size
         self.settings.file_size = 0
-        self.assertEqual(float(20),
-                         get_maxsize(validator,
-                                     self.settings,
-                                     **{'field': base.get_file_field(),
-                                        'instance': base.PFObject()}
-                                     )
-                         )
+        self.assertEqual(
+            float(20),
+            self.helper_view.get_maxsize(
+                validator,
+                **{'field': base.get_file_field(),
+                   'instance': base.PFObject()}
+                )
+            )
         self.settings.file_size = or_file_size
 
     def test_size_in_field(self):
         validator = MaxSizeValidator('checkFileMaxSize')
         or_image_size = self.settings.image_size
         self.settings.image_size = 0
-        self.assertEqual(float(10),
-                         get_maxsize(validator,
-                                     self.settings,
-                                     **{'field': base.get_image_field()}
-                                     )
-                         )
+        self.assertEqual(
+            float(10),
+            self.helper_view.get_maxsize(
+                validator,
+                **{'field': base.get_image_field()}
+                )
+             )
         self.settings.image_size = or_image_size
 
+    def test_maxsize_file_for_tinymce(self):
+        self.assertEqual(
+            float(30),
+            self.helper_view.get_maxsize_tiny(
+                ['File']
+                )
+            )
 
-def test_suite():
-    suite = TestSuite()
-    suite.addTest(makeSuite(TestMaxSizeCalc))
-    return suite
+    def test_maxsize_image_for_tinymce(self):
+        self.assertEqual(
+            float(10),
+            self.helper_view.get_maxsize_tiny(
+                ['Image']
+                )
+            )

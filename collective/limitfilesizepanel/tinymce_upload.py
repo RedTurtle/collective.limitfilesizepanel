@@ -26,7 +26,11 @@ else:
     from plone.rfc822.interfaces import IPrimaryFieldInfo
 
 from Products.TinyMCE.interfaces.utility import ITinyMCE
-from Products.TinyMCE import TMCEMessageFactory as _
+try:
+    from Products.TinyMCE import TMCEMessageFactory as _
+except ImportError:
+    from zope.i18nmessageid import MessageFactory
+    _ = MessageFactory('plone.tinymce')
 from zope.i18n import translate
 from collective.limitfilesizepanel.interfaces import ICheckSizeUtility
 from collective.limitfilesizepanel import messageFactory as lfspmf
@@ -40,24 +44,26 @@ class Upload(BaseUpload):
 
     def upload(self):
         """Adds uploaded file"""
-        object = aq_inner(self.context)
-        if not IFolderish.providedBy(object):
-            object = aq_parent(object)
+        context = aq_inner(self.context)
+        if not IFolderish.providedBy(context):
+            context = aq_parent(context)
 
-        context = self.context
         request = context.REQUEST
-        ctr_tool = getToolByName(self.context, 'content_type_registry')
-        utility = getUtility(ITinyMCE)
+        ctr_tool = getToolByName(context, 'content_type_registry')
+        utility = getToolByName(context, 'portal_tinymce')
 
-        id = request['uploadfile'].filename
-        content_type = request['uploadfile'].headers["Content-Type"]
+        uploadfile = request['uploadfile']
+        id = uploadfile.filename
+        content_type = uploadfile.headers["Content-Type"]
         typename = ctr_tool.findTypeName(id, content_type, "")
 
         # Permission checks based on code by Danny Bloemendaal
 
         # 1) check if the current user has permissions to add stuff
-        if not context.portal_membership.checkPermission('Add portal content', context):
-            return self.errorMessage(_("You do not have permission to upload files in this folder"))
+        if not context.portal_membership.checkPermission(
+            'Add portal content', context):
+            return self.errorMessage(
+                _("You do not have permission to upload files in this folder"))
 
         # 2) check image types uploadable in folder.
         #    priority is to content_type_registry image type
@@ -89,34 +95,28 @@ class Upload(BaseUpload):
         # Get an unused filename without path
         id = self.cleanupFilename(id)
 
-        title = request['uploadtitle']
-        description = request['uploaddescription']
-
         for metatype in uploadable_types:
             try:
                 newid = context.invokeFactory(type_name=metatype, id=id)
                 if newid is None or newid == '':
                     newid = id
-
-                obj = getattr(context, newid, None)
-                if HAS_DEXTERITY and IDexterityContent.providedBy(obj):
-                    if not self.setDexterityImage(obj):
-                        return self.errorMessage(_("The content-type '%s' has no image-field!" % metatype))
-                else:
-                    pf = obj.getPrimaryField()
-                    pf.set(obj, request['uploadfile'])
                 break
-
             except ValueError:
                 continue
             except BadRequest:
                 return self.errorMessage(_("Bad filename, please rename."))
         else:
-            return self.errorMessage(_("Not allowed to upload a file of this type to this folder"))
+            return self.errorMessage(
+                _("Not allowed to upload a file of this type to this folder"))
 
+        obj = getattr(context, newid, None)
 
         # Set title + description.
-        # Attempt to use Archetypes mutator if there is one, in case it uses a custom storage
+        # Attempt to use Archetypes mutator if there is one, in case it uses
+        # a custom storage
+        title = request['uploadtitle']
+        description = request['uploaddescription']
+
         if title:
             try:
                 obj.setTitle(title)
@@ -129,22 +129,41 @@ class Upload(BaseUpload):
             except AttributeError:
                 obj.description = description
 
+        if HAS_DEXTERITY and IDexterityContent.providedBy(obj):
+            if not self.setDexterityItem(obj, uploadfile, id):
+                return self.errorMessage(
+                        _("The content-type '${type}' has no image- or file-field!",
+                          mapping={'type': metatype}))
+        else:
+            # set primary field
+            pf = obj.getPrimaryField()
+            pf.set(obj, uploadfile)
+
         if not obj:
             return self.errorMessage(_("Could not upload the file"))
 
         obj.reindexObject()
+        folder = obj.aq_parent.absolute_url()
 
         if utility.link_using_uids:
-            return self.okMessage("resolveuid/%s" % (uuidFor(obj)))
+            path = "resolveuid/%s" % (uuidFor(obj))
+        else:
+            path = obj.absolute_url()
 
-        return self.okMessage("%s" % (obj.absolute_url()))
+        tiny_version = pkg_resources.get_distribution("Products.TinyMCE").version
+        if tiny_version.startswith('1.2'):
+            # Plone < 4.3
+            return self.okMessage(path)
+        else:
+            # Plone >= 4.3
+            return self.okMessage(path, folder)
 
     def check_file_size(self, metatypes, request):
         """
         call a support view that check the size of uploaded file
         """
         try:
-            helper_view = view = api.content.get_view(
+            helper_view = api.content.get_view(
                 name='lfsp_helpers_view',
                 context=api.portal.get(),
                 request=request,
@@ -153,29 +172,9 @@ class Upload(BaseUpload):
             helper_view = None
         if not helper_view:
             return None
-        maxsize = self.get_maxsize(metatypes)
+        maxsize = helper_view.get_maxsize_tiny(metatypes)
         if not maxsize:
             return None
         return helper_view.check_size(
             maxsize=maxsize,
             uploadfile=request['uploadfile'])
-
-    def get_maxsize(self, metatypes):
-        """
-        Return max size set in the controlpanel.
-        We manage only File and Image types because with tiny you can create
-        only an image or a file.
-        """
-        if len(metatypes) != 1:
-            return 0
-        file_size = api.portal.get_registry_record(
-            'file_size',
-            interface=ILimitFileSizePanel)
-        image_size = api.portal.get_registry_record(
-            'image_size',
-            interface=ILimitFileSizePanel)
-        if metatypes[0] == 'File' and file_size:
-            return float(file_size)
-        elif metatypes[0] == 'Image' and image_size:
-            return float(image_size)
-        return 0

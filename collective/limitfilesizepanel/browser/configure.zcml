@@ -23,6 +23,6 @@
       permission="zope2.View"
       for="*"
       layer="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
-      allowed_attributes="check_size"
+      allowed_interface=".limitfilesizepanel_view.IHelpersView"
       />
 </configure>

@@ -3,7 +3,10 @@ import os
 
 version = '1.3.1.dev0'
 
-tests_require = ['zope.testing', 'Products.PloneTestCase']
+tests_require = [
+    'plone.app.testing',
+    'plone.testing>=4.3.0'
+    ]
 
 setup(name='collective.limitfilesizepanel',
       version=version,
