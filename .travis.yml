@@ -21,4 +21,4 @@ script:
   - bin/test
 notifications:
   email:
-    - sviluppoplone@redturtle.it
+    - andrea.cecchi@redturtle.it

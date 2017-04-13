@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/RedTurtle/collective.limitfilesizepanel.svg?branch=master
+    :target: https://travis-ci.org/RedTurtle/collective.limitfilesizepanel
+
 Introduction
 ============
 
@@ -5,7 +8,7 @@ Plone Archetypes framework already gives you a max size validation for files and
 configuration has some drawbacks:
 
 * is not simple to customize (best way is to use `plone.recipe.atcontenttypes`__)
-* is the same for every Plone site of the environment 
+* is the same for every Plone site of the environment
 
 __ http://pypi.python.org/pypi/plone.recipe.atcontenttypes/
 
@@ -39,7 +42,7 @@ Configuration in that section wins over global configuration.
 Validator bypass
 ================
 
-If some users need to bypass the validation and upload some larger files, there is a new permission 
+If some users need to bypass the validation and upload some larger files, there is a new permission
 "*collective.limitfilesizepanel: Bypass limit size*" that allows to do this.
 
 You only need to set this permission to some roles, and they'll have no upload limits.
