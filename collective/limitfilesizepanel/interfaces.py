@@ -8,6 +8,18 @@ from zope.interface import Interface
 from zope.interface import implements
 
 
+class ILimitFileSizePanelLayer(Interface):
+    """
+    Browserlayer
+    """
+
+
+class ICheckSizeUtility(Interface):
+    """
+    Marker interface for CheckSize utility
+    """
+
+
 class ITypesSettings(Interface):
     """A single unit of size limit for a type and field name"""
 

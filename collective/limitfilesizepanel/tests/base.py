@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-
-from Products.Five import zcml
-from Products.Five import fiveconfigure
-
-from Products.PloneTestCase import PloneTestCase as ptc
-from Products.PloneTestCase.layer import onsetup
 from Products.validation import V_REQUIRED
 from Products.Archetypes.atapi import FileField
 from Products.Archetypes.atapi import FileWidget
@@ -62,21 +56,3 @@ class PFObject(object):
 
     def getMaxSizeFor(self, name):
         return 20.0
-
-
-@onsetup
-def setup_product():
-    fiveconfigure.debug_mode = True
-    import collective.limitfilesizepanel
-    zcml.load_config('configure.zcml', collective.limitfilesizepanel)
-    fiveconfigure.debug_mode = False
-
-setup_product()
-ptc.setupPloneSite(products=['collective.limitfilesizepanel'])
-
-
-class MaxSizeTestCase(ptc.PloneTestCase):
-    """We use this base class for all the tests in this package. If necessary,
-    we can put common utility or setup code in here. This applies to unit
-    test cases.
-    """

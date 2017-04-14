@@ -1,11 +1,13 @@
 Changelog
 =========
 
-1.3.1 (unreleased)
+1.4.0 (unreleased)
 ----------------
 
 - Version 1.3 don't uninstall cleanly
   [keul]
+- Now validates also files and images created in TinyMCE
+  [cekk]
 
 1.3 (2015-07-06)
 ----------------

@@ -7,10 +7,10 @@
     i18n_domain="collective.limitfilesizepanel">
 
   <five:registerPackage package="." />
-  
+
   <include package="plone.app.registry" />
   <include package="collective.monkeypatcher" />
-  
+
   <i18n:registerTranslations directory="locales" />
 
   <permission
@@ -23,6 +23,7 @@
         />
 
   <include package=".browser" />
+  <includeOverrides file="overrides.zcml" />/>
 
   <genericsetup:registerProfile
       name="default"
@@ -53,16 +54,25 @@
         source="11000"
         destination="1100"
         handler=".setuphandlers.migrateTo1100"
-        sortkey="1"
+        sortkey="2"
         profile="collective.limitfilesizepanel:default"
     />
 
+  <genericsetup:upgradeStep
+        title="Upgrade to collective.limitfilesizepanel to version 1200"
+        description="Migrates collective.limitfilesizepanel to 1200"
+        source="1100"
+        destination="1200"
+        handler=".setuphandlers.migrateTo1200"
+        sortkey="3"
+        profile="collective.limitfilesizepanel:default"
+    />
 
   <monkey:patch
      description="Patching MaxSizeValidator for apply the collective.limitfilesizepanel features"
      class="Products.validation.validators.SupplValidators.MaxSizeValidator"
      original="__call__"
-	 preserveOriginal="True"
+	   preserveOriginal="True"
      replacement=".patches.patched__call__"
      docstringWarning="true"
     />
