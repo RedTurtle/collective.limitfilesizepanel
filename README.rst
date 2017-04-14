@@ -22,7 +22,7 @@ Just add the product to the buildout and install it in the site you want to use.
 A new "*Limit file size settings*" option will be added in the control panel, where you can change the
 *File* and *Image* attachments.
 
-No users will be able to upload files that exceed the limit.
+No users will be able to upload files that exceed the limit. Also in TinyMCE text editor.
 
 .. image:: https://raw.githubusercontent.com/RedTurtle/collective.limitfilesizepanel/93abb025ecae1070e28ead13874fc07dc25de52e/docs/collective.limitfilesizepanel-1.3-01.png
    :alt: Settings
