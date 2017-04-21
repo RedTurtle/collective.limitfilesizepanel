@@ -6,7 +6,6 @@ from collective.limitfilesizepanel import messageFactory as _
 from zope.interface import Invalid
 from z3c.form import validator
 from plone import api
-from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 from zope.i18n import translate
 
 
@@ -35,12 +34,14 @@ class DXFileSizeValidator(validator.FileUploadValidator):
             uploadfile=value)
 
         if size_check and not size_check.get('valid', False):
-            msg = _('validation_error',
-                    default=u"Validation failed. Uploaded data is too large: ${size}MB (max ${max}MB)",
-                    mapping={
-                        'size': safe_unicode("%.1f" % size_check.get('sizeMB')),
-                        'max': safe_unicode("%.1f" % size_check.get('maxsize'))
-                        })
+            msg = _(
+                'validation_error',
+                default=u"Validation failed. Uploaded data is too large:"
+                        u" ${size}MB (max ${max}MB)",
+                mapping={
+                    'size': safe_unicode("%.1f" % size_check.get('sizeMB')),
+                    'max': safe_unicode("%.1f" % size_check.get('maxsize'))
+                })
             raise Invalid(translate(msg, context=self.context.REQUEST))
         return True
 

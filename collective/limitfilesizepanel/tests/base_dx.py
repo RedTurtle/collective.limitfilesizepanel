@@ -1,20 +1,19 @@
 # -*- coding: utf-8 -*-
 from plone.namedfile.field import NamedBlobFile, NamedBlobImage
 from zope import interface
-from zope import schema
 
 
 class ITestSchema(interface.Interface):
 
     file = NamedBlobFile(
-            title=u"Example file",
-            required=False,
-        )
+        title=u"Example file",
+        required=False,
+    )
 
     image = NamedBlobImage(
-            title=u"Example image",
-            required=False,
-        )
+        title=u"Example image",
+        required=False,
+    )
 
 
 class FileObject(object):

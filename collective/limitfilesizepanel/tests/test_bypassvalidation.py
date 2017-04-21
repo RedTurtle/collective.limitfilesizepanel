@@ -1,16 +1,6 @@
 # -*- coding: utf-8 -*-
-from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
-from collective.limitfilesizepanel.interfaces import TypesSettings
-from plone.registry.interfaces import IRegistry
-from collective.limitfilesizepanel.tests import base
+from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING  # NOQA
 from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from Products.validation.validators.SupplValidators import MaxSizeValidator
-from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING  # noqa
-from unittest import TestSuite, makeSuite
-from zope.component import createObject
-from zope.component import queryUtility
 import unittest
 
 

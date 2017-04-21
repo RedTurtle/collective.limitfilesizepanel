@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
+from collective.limitfilesizepanel.dx_validators import DXFileSizeValidator
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 from collective.limitfilesizepanel.interfaces import TypesSettings
-from plone.registry.interfaces import IRegistry
-from collective.limitfilesizepanel.tests import base
-from collective.limitfilesizepanel.tests.base_dx import ITestSchema, FileObject, ImageObject, NewsObject
+from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING  # NOQA
+from collective.limitfilesizepanel.tests.base_dx import FileObject
+from collective.limitfilesizepanel.tests.base_dx import ImageObject
+from collective.limitfilesizepanel.tests.base_dx import ITestSchema
+from collective.limitfilesizepanel.tests.base_dx import NewsObject
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from Products.validation.validators.SupplValidators import MaxSizeValidator
-from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING  # noqa
-from unittest import TestSuite, makeSuite
-from zope.component import createObject
+from plone.registry.interfaces import IRegistry
 from zope.component import queryUtility
 import unittest
-from collective.limitfilesizepanel.dx_validators import DXFileSizeValidator
-from plone.namedfile.field import NamedBlobFile
 
 
 class TestMaxSizeCalcDX(unittest.TestCase):

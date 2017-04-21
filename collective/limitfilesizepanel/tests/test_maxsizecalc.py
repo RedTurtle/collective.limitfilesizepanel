@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 from collective.limitfilesizepanel.interfaces import TypesSettings
-from plone.registry.interfaces import IRegistry
+from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING  # NOQA
 from collective.limitfilesizepanel.tests import base
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.registry.interfaces import IRegistry
 from Products.validation.validators.SupplValidators import MaxSizeValidator
-from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING  # noqa
-from unittest import TestSuite, makeSuite
-from zope.component import createObject
 from zope.component import queryUtility
 import unittest
 
@@ -121,7 +119,7 @@ class TestMaxSizeCalc(unittest.TestCase):
                 validator,
                 **{'field': base.get_image_field()}
                 )
-             )
+            )
         self.settings.image_size = or_image_size
 
     def test_maxsize_file_for_tinymce(self):
