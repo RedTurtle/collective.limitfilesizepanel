@@ -1,24 +1,25 @@
 language: python
+python: 2.7
 sudo: false
 cache:
+  pip: true
   directories:
-  - eggs
-  - downloads
-python:
-  - 2.7
-matrix:
-  fast_finish: true
+    - $HOME/buildout-cache
+env:
+  - PLONE_VERSION=4.3.x
+  - PLONE_VERSION=5.0.x
+before_install:
+  - mkdir -p $HOME/buildout-cache/{eggs,downloads}
+  - virtualenv .
+  - bin/pip install --upgrade pip setuptools zc.buildout
 install:
-  - python bootstrap-buildout.py
-  - bin/buildout -N buildout:download-cache=downloads annotate
-  - bin/buildout -N buildout:download-cache=downloads
-before_script:
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
-- firefox -v
+  - sed -ie "s#plone-x.x.x.cfg#plone-$PLONE_VERSION.cfg#" travis.cfg
+  - bin/buildout -N -t 3 -c travis.cfg
 script:
   - bin/code-analysis
   - bin/test
-notifications:
-  email:
-    - andrea.cecchi@redturtle.it
+after_success:
+  - bin/test-coverage
+  - bin/createcoverage
+  - pip install coverage==3.7.1 coveralls
+  - coveralls

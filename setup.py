@@ -5,7 +5,9 @@ version = '1.3.1.dev0'
 
 tests_require = [
     'plone.app.testing',
-    'plone.testing>=4.3.0'
+    'plone.testing>=5.0.0',
+    'plone.app.contenttypes',
+    'plone.app.robotframework[debug]',
     ]
 
 setup(name='collective.limitfilesizepanel',
@@ -20,6 +22,7 @@ setup(name='collective.limitfilesizepanel',
         "Framework :: Plone :: 3.3",
         "Framework :: Plone :: 4.2",
         "Framework :: Plone :: 4.3",
+        "Framework :: Plone :: 5.0",
         "Programming Language :: Python",
         ],
       keywords='plone plonegov limit filesize validation',
@@ -35,6 +38,7 @@ setup(name='collective.limitfilesizepanel',
       extras_require=dict(test=tests_require),
       install_requires=[
           'setuptools',
+          'plone.api',
           'plone.app.registry',
           'collective.monkeypatcher>=1.0',
           'plone.api',
