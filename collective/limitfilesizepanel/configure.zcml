@@ -24,7 +24,7 @@
         />
 
   <include package=".browser" />
-  <includeOverrides file="overrides.zcml" />/>
+  <includeOverrides file="overrides.zcml" />
 
   <genericsetup:registerProfile
       name="default"

@@ -1,64 +1,48 @@
 # -*- coding: utf-8 -*-
+from Products.validation.i18n import safe_unicode
 from plone.namedfile.interfaces import INamedBlobImageField
 from plone.namedfile.interfaces import INamedBlobFileField
-# from plone.app.contenttypes.interfaces import IImage
+from collective.limitfilesizepanel import messageFactory as _
 from zope.interface import Invalid
 from z3c.form import validator
 from plone import api
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
-
-
-# 1 MB size limit
-MAXSIZE = 1024 * 1024
+from zope.i18n import translate
 
 
 class DXFileSizeValidator(validator.FileUploadValidator):
-
-    def get_max_size(self):
-        types_settings_list = api.portal.get_registry_record(
-            'types_settings',
-            interface=ILimitFileSizePanel)
-        # first of all, check if the current context has a specific limit for
-        # the current field
-        for type_settings in types_settings_list:
-            if self.view.portal_type == type_settings.content_type and \
-               self.field.getName() == type_settings.field_name:
-                return float(type_settings.size)
-        # if not, use default limits
-        if INamedBlobImageField.providedBy(self.field):
-            return float(api.portal.get_registry_record(
-                'image_size',
-                interface=ILimitFileSizePanel))
-        elif INamedBlobFileField.providedBy(self.field):
-            return float(api.portal.get_registry_record(
-                'file_size',
-                interface=ILimitFileSizePanel))
-        return 0
+    """
+    This validator is registered for all image and file fields.
+    """
 
     def validate(self, value):
-        import logging
-        logger=logging.getLogger("limitfilesizepanel")
-        logger.info("QUI!!!!")
-
         super(DXFileSizeValidator, self).validate(value)
         if not value:
             return
-        new_data_only = api.portal.get_registry_record(
-            'new_data_only',
-            interface=ILimitFileSizePanel)
-        if new_data_only and \
-           self.view.portal_type == self.view.context.portal_type:
-            # we are in edit and we don't want to check sizes..skip
-            return
-        max_size = self.get_max_size()
-        if not max_size:
-            return
-        size = float(value.getSize())
-        sizeMB = (size / (1024 * 1024))
-        if sizeMB > max_size:
-            raise Invalid(
-                "The file is too large (%.2fmb). Maximum size is %smb"
-                % (sizeMB, max_size))
+        helper_view = api.content.get_view(
+            name='lfsp_helpers_view',
+            context=self.context,
+            request=self.context.REQUEST,
+        )
+        if helper_view.canBypassValidation():
+            return True
+        maxsize = helper_view.get_maxsize_dx(self, self.field)
+        if not maxsize:
+            return True
+
+        size_check = helper_view.check_size_dx(
+            maxsize=maxsize,
+            uploadfile=value)
+
+        if size_check and not size_check.get('valid', False):
+            msg = _('validation_error',
+                    default=u"Validation failed. Uploaded data is too large: ${size}MB (max ${max}MB)",
+                    mapping={
+                        'size': safe_unicode("%.1f" % size_check.get('sizeMB')),
+                        'max': safe_unicode("%.1f" % size_check.get('maxsize'))
+                        })
+            raise Invalid(translate(msg, context=self.context.REQUEST))
+        return True
 
 
 validator.WidgetValidatorDiscriminators(DXFileSizeValidator,

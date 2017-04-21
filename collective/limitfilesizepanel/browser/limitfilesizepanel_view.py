@@ -1,17 +1,24 @@
 # -*- coding: utf-8 -*-
 from AccessControl import getSecurityManager
 from Acquisition import aq_base
-from Products.validation.i18n import recursiveTranslate
-from ZPublisher.HTTPRequest import FileUpload
 from collective.limitfilesizepanel import messageFactory as _
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
-from plone.registry.interfaces import IRegistry
-from zope.component import queryUtility
 from plone import api
 from plone.api.exc import InvalidParameterError
+from plone.registry.interfaces import IRegistry
 from Products.Five.browser import BrowserView
-from zope.interface import Interface
+from Products.validation.i18n import recursiveTranslate
+from zope.component import queryUtility
 from zope.interface import implements
+from zope.interface import Interface
+from ZPublisher.HTTPRequest import FileUpload
+try:
+    from plone.namedfile.field import NamedBlobFile
+    from plone.namedfile.interfaces import INamedBlobImageField
+    from plone.namedfile.interfaces import INamedBlobFileField
+    HAS_DX = True
+except ImportError:
+    HAS_DX = False
 
 
 class IHelpersView(Interface):
@@ -46,6 +53,31 @@ class View(BrowserView):
     '''
     implements(IHelpersView)
 
+    def check_size_dx(self, uploadfile, maxsize):
+        """ check the size of given file """
+        result = {
+            'maxsize': maxsize,
+            'valid': True
+        }
+        if self.canBypassValidation():
+            return result
+
+        new_data_only = api.portal.get_registry_record(
+            'new_data_only',
+            interface=ILimitFileSizePanel)
+
+        if new_data_only and self.context != api.portal.get():
+            # we are in edit, and we don't want validate uploaded files.
+            return result
+
+        size = float(uploadfile.getSize())
+        sizeMB = (size / (1024 * 1024))
+        result['sizeMB'] = sizeMB
+
+        if sizeMB > maxsize:
+            result['valid'] = False
+        return result
+
     def check_size(self, uploadfile, maxsize):
         """ check the size of given file """
         result = {
@@ -59,7 +91,6 @@ class View(BrowserView):
         new_data_only = api.portal.get_registry_record(
             'new_data_only',
             interface=ILimitFileSizePanel)
-
         # calculate size
         if (isinstance(uploadfile, FileUpload) or isinstance(uploadfile, file) or
               hasattr(aq_base(uploadfile), 'tell')):
@@ -99,8 +130,38 @@ class View(BrowserView):
             'types_settings',
             interface=ILimitFileSizePanel)
         for entry in types_settings:
-            if entry.content_type == portal_type and entry.field_name == field_name:
+            if entry.content_type == portal_type \
+                and entry.field_name == field_name:
                 return entry.size
+        return None
+
+    def get_maxsize_dx(self, validator, field):
+        """
+        """
+        if not HAS_DX:
+            return None
+        try:
+            file_size = api.portal.get_registry_record(
+                'file_size',
+                interface=ILimitFileSizePanel)
+            image_size = api.portal.get_registry_record(
+                'image_size',
+                interface=ILimitFileSizePanel)
+        except InvalidParameterError:
+            return None
+        # Check if there's a type/field specific settings in the registry
+        type_context = self.context
+        if self.context == api.portal.get():
+            # we are in add form, so context is the portal.
+            # validator.view has an attribute portal_type with the wanted type
+            type_context = validator.view
+        type_maxsize = self._get_type_maxsize(field, type_context)
+        if type_maxsize is not None:
+            return type_maxsize
+        if file_size and INamedBlobFileField.providedBy(field):
+            return float(file_size)
+        elif image_size and INamedBlobImageField.providedBy(field):
+            return float(image_size)
         return None
 
     def get_maxsize(self, validator, **kwargs):

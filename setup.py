@@ -5,7 +5,9 @@ version = '1.3.1.dev0'
 
 tests_require = [
     'plone.app.testing',
-    'plone.testing>=4.3.0'
+    'plone.testing>=5.0.0',
+    'plone.app.contenttypes',
+    'plone.app.robotframework[debug]',
     ]
 
 setup(name='collective.limitfilesizepanel',

@@ -11,54 +11,6 @@ from plone.registry.interfaces import IRegistry
 from zope.component import queryUtility
 from plone import api
 
-# def _get_type_maxsize(settings, instance, field):
-#     """Get portal_type/fieldname pair configuration in the registry"""
-#     portal_type = getattr(instance, 'portal_type')
-#     field_name = field.getName()
-#     for entry in settings.types_settings:
-#         if entry.content_type==portal_type and entry.field_name==field_name:
-#             return entry.size
-#     return None
-#
-#
-# def get_maxsize(validator, settings, **kwargs):
-#     # This is the patch:
-#     # * try to get sizes from plone.registry
-#     # * * if we find a type/field specific size: use it
-#     # * * if we have general sizes defined from user: use it
-#     # * if not, use the original method to calculate maxsize
-#     field = kwargs.get('field', None)
-#     instance = kwargs.get('instance', None)
-#
-#     file_size, img_size = settings.file_size, settings.image_size
-#
-#     # Check if there's a type/field specific settings in the registry
-#     if instance is not None:
-#         type_maxsize = _get_type_maxsize(settings, instance, field)
-#         if type_maxsize is not None:
-#             return type_maxsize
-#
-#     # In plone 3 we have field.type == image/file
-#     # In plone 4 we have field.type == blob in both case
-#     # so:
-#     field_type = field.widget.__class__.__name__
-#     if field and file_size and field_type == 'FileWidget':
-#         maxsize = float(file_size)
-#     elif field and img_size and field_type == 'ImageWidget':
-#         maxsize = float(img_size)
-#     else:
-#         # get original max size
-#         if kwargs.has_key('maxsize'):
-#             maxsize = kwargs.get('maxsize')
-#         elif hasattr(aq_base(instance), 'getMaxSizeFor'):
-#             maxsize = instance.getMaxSizeFor(field.getName())
-#         elif hasattr(field, 'maxsize'):
-#             maxsize = field.maxsize
-#         else:
-#             # set to given default value (default defaults to 0)
-#             maxsize = validator.maxsize
-#     return maxsize
-
 
 def patched__call__(self, value, *args, **kwargs):
     context = kwargs.get('instance', None)
@@ -88,13 +40,3 @@ def patched__call__(self, value, *args, **kwargs):
                     })
         return recursiveTranslate(msg, **kwargs)
     return True
-
-
-# def canBypassValidation(context):
-#     """
-#     Check if the user has bypass permission
-#     """
-#     if not context:
-#         return False
-#     sm = getSecurityManager()
-#     return sm.checkPermission("collective.limitfilesizepanel: Bypass limit size", context)
