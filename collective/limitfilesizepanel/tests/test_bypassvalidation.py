@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING  # NOQA
 from plone import api
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import setRoles
 import unittest
 
 
@@ -13,6 +15,7 @@ class TestBypassSize(unittest.TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
+        setRoles(self.portal, TEST_USER_ID, ['Member'])
         self.helper_view = api.content.get_view(
             name='lfsp_helpers_view',
             context=self.portal,
