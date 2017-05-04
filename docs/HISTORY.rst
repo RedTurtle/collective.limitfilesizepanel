@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.0 (unreleased)
+1.3.1 (2017-05-04)
 ------------------
 
 - Version 1.3 don't uninstall cleanly
