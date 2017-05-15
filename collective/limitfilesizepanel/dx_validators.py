@@ -9,8 +9,6 @@ from plone import api
 from plone.api.exc import InvalidParameterError
 from zope.i18n import translate
 
-import logging
-logger = logging.getLogger(__name__)
 
 class DXFileSizeValidator(validator.FileUploadValidator):
     """
