@@ -4,8 +4,9 @@ Changelog
 2.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Don't break validation if the product isn't installed.
+  If not installed, shouldn't do nothing.
+  [cekk]
 
 2.0.0 (2017-05-04)
 ------------------

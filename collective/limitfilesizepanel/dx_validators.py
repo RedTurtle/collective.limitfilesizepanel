@@ -6,8 +6,11 @@ from collective.limitfilesizepanel import messageFactory as _
 from zope.interface import Invalid
 from z3c.form import validator
 from plone import api
+from plone.api.exc import InvalidParameterError
 from zope.i18n import translate
 
+import logging
+logger = logging.getLogger(__name__)
 
 class DXFileSizeValidator(validator.FileUploadValidator):
     """
@@ -18,11 +21,15 @@ class DXFileSizeValidator(validator.FileUploadValidator):
         super(DXFileSizeValidator, self).validate(value)
         if not value:
             return
-        helper_view = api.content.get_view(
-            name='lfsp_helpers_view',
-            context=self.context,
-            request=self.context.REQUEST,
-        )
+        try:
+            helper_view = api.content.get_view(
+                name='lfsp_helpers_view',
+                context=self.context,
+                request=self.context.REQUEST,
+            )
+        except InvalidParameterError:
+            #  the view is enabled only when the product is installed
+            return
         if helper_view.canBypassValidation():
             return True
         maxsize = helper_view.get_maxsize_dx(self, self.field)
