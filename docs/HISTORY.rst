@@ -8,6 +8,9 @@ Changelog
   If not installed, shouldn't do nothing.
   [cekk]
 
+- Fix patched__call__ if the product isn't istalled.
+  [arsenico13]
+
 2.0.0 (2017-05-04)
 ------------------
 

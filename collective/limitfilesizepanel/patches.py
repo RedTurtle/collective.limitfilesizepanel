@@ -3,15 +3,21 @@ from collective.limitfilesizepanel import messageFactory as _
 from plone import api
 from Products.validation.i18n import recursiveTranslate
 from Products.validation.i18n import safe_unicode
-
+from plone.api.exc import InvalidParameterError
 
 def patched__call__(self, value, *args, **kwargs):
     context = kwargs.get('instance', None)
-    helper_view = api.content.get_view(
-        name='lfsp_helpers_view',
-        context=context,
-        request=context.REQUEST,
-    )
+
+    try:
+        helper_view = api.content.get_view(
+            name='lfsp_helpers_view',
+            context=context,
+            request=context.REQUEST,
+        )
+
+    except InvalidParameterError:
+        #  the view is enabled only when the product is installed
+        return
 
     if helper_view.canBypassValidation():
         return True
