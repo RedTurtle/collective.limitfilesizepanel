@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.1 (unreleased)
+2.0.1 (2017-09-14)
 ------------------
 
 - Don't break validation if the product isn't installed.
