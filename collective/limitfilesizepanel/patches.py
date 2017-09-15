@@ -5,6 +5,7 @@ from Products.validation.i18n import recursiveTranslate
 from Products.validation.i18n import safe_unicode
 from plone.api.exc import InvalidParameterError
 
+
 def patched__call__(self, value, *args, **kwargs):
     context = kwargs.get('instance', None)
 

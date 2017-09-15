@@ -22,7 +22,7 @@ class LimitFileSizeEditForm(controlpanel.RegistryEditForm):
         if errors:
             self.status = self.formErrorsMessage
             return
-        changes = self.applyChanges(data)  # NOQA
+        self.applyChanges(data)
         IStatusMessage(self.request).addStatusMessage(_(u"Changes saved"),
                                                       "info")
         self.context.REQUEST.RESPONSE.redirect("@@limitfilesize-settings")
