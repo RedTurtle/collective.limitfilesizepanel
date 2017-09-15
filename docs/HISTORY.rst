@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.3 (unreleased)
+------------------
+
+- Nothing changed yet.
+
+
 2.0.2 (2017-09-15)
 ------------------
 - Fix brown bag release
