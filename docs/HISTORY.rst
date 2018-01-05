@@ -4,7 +4,8 @@ Changelog
 2.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Don't break validation for view with no spcific context.
+  [bsuttor]
 
 
 2.0.2 (2017-09-15)
