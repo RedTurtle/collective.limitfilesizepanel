@@ -119,7 +119,9 @@ class View(BrowserView):
 
     def _get_type_maxsize(self, field, context):
         """Get portal_type/fieldname pair configuration in the registry"""
-        portal_type = getattr(context, 'portal_type')
+        portal_type = getattr(context, 'portal_type', None)
+        if not portal_type:
+            return None
         field_name = field.getName()
         types_settings = api.portal.get_registry_record(
             'types_settings',
