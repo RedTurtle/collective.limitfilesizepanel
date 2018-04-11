@@ -15,7 +15,7 @@ before_install:
   - bin/pip install --upgrade pip setuptools zc.buildout
 install:
   - sed -ie "s#test-5.1.x#test-$PLONE_VERSION.cfg#" buildout.cfg
-  - bin/buildout -N -t 3
+  - bin/buildout -N -t 5
 script:
   - bin/code-analysis
   - bin/test
