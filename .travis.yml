@@ -13,6 +13,7 @@ before_install:
   - mkdir -p $HOME/buildout-cache/{eggs,downloads}
   - virtualenv .
   - bin/pip install --upgrade pip setuptools zc.buildout
+  - bin/pip install setuptools==38.5.1
 install:
   - sed -ie "s#test-5.1.x#test-$PLONE_VERSION#" buildout.cfg
   - bin/buildout -N -t 5
