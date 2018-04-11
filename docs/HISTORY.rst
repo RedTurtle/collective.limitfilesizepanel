@@ -1,10 +1,13 @@
 Changelog
 =========
 
-2.0.4 (unreleased)
+2.1.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix validators for Dexterity fields. Now works well with Files and images
+  [cekk]
+- Add support for Tinymce validation also for Plone 5
+  [cekk]
 
 
 2.0.3 (2018-01-30)

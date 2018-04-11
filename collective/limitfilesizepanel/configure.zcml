@@ -79,7 +79,8 @@
     />
 
     <configure zcml:condition="installed plone.dexterity">
-      <adapter factory=".dx_validators.DXFileSizeValidator" />
+      <adapter factory=".dx_validators.FileSizeValidator" />
+      <adapter factory=".dx_validators.ImageFileSizeValidator" />
     </configure>
 
 </configure>
