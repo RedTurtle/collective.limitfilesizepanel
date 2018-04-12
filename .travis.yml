@@ -9,10 +9,9 @@ env:
   # - PLONE_VERSION=4.3.x
   - PLONE_VERSION=5.0.x
   - PLONE_VERSION=5.1.x
-before_install:
-  - bin/pip install --upgrade pip zc.buildout
-  - bin/pip install setuptools==38.5.1
 install:
+  - virtualenv -p `which python` .
+  - bin/pip install -r requirements.txt
   - sed -ie "s#test-5.1.x#test-$PLONE_VERSION#" buildout.cfg
   - bin/buildout -N -t 5
 script:
