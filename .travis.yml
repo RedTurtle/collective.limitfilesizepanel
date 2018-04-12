@@ -10,9 +10,7 @@ env:
   - PLONE_VERSION=5.0.x
   - PLONE_VERSION=5.1.x
 before_install:
-  - mkdir -p $HOME/buildout-cache/{eggs,downloads}
-  - virtualenv .
-  - bin/pip install --upgrade pip setuptools zc.buildout
+  - bin/pip install --upgrade pip zc.buildout
   - bin/pip install setuptools==38.5.1
 install:
   - sed -ie "s#test-5.1.x#test-$PLONE_VERSION#" buildout.cfg
