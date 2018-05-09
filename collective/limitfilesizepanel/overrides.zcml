@@ -23,12 +23,12 @@
   <adapter
       for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
       provides="Products.TinyMCE.adapters.interfaces.Upload.IUpload"
-      factory=".tinymce_upload.Upload"
+      factory=".tinymce_upload_p4.Upload"
       />
 
   <adapter
       for="plone.folder.interfaces.IOrderableFolder"
       provides="Products.TinyMCE.adapters.interfaces.Upload.IUpload"
-      factory=".tinymce_upload.Upload"
+      factory=".tinymce_upload_p4.Upload"
       />
 </configure>

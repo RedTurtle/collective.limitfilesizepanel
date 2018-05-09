@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
-from Products.validation.i18n import safe_unicode
 from plone.namedfile.interfaces import INamedBlobImageField
 from plone.namedfile.interfaces import INamedBlobFileField
-from collective.limitfilesizepanel import messageFactory as _
 from zope.interface import Invalid
 from z3c.form import validator
 from plone import api
 from plone.api.exc import InvalidParameterError
-from zope.i18n import translate
+from plone.dexterity.browser.edit import DefaultEditForm
 
 
 class DXFileSizeValidator(validator.FileUploadValidator):
@@ -18,7 +16,10 @@ class DXFileSizeValidator(validator.FileUploadValidator):
     def validate(self, value):
         super(DXFileSizeValidator, self).validate(value)
         if not value:
-            return
+            return True
+
+        if isinstance(self.view, DefaultEditForm):
+            return True
         try:
             helper_view = api.content.get_view(
                 name='lfsp_helpers_view',
@@ -27,10 +28,13 @@ class DXFileSizeValidator(validator.FileUploadValidator):
             )
         except InvalidParameterError:
             #  the view is enabled only when the product is installed
-            return
-        if helper_view.canBypassValidation():
             return True
-        maxsize = helper_view.get_maxsize_dx(self, self.field)
+        if helper_view.newDataOnly() and isinstance(self.view, DefaultEditForm):  # noqa
+            return True
+        maxsize = helper_view.get_maxsize_dx(
+            validator=self,
+            field=self.field
+        )
         if not maxsize:
             return True
 
@@ -39,20 +43,20 @@ class DXFileSizeValidator(validator.FileUploadValidator):
             uploadfile=value)
 
         if size_check and not size_check.get('valid', False):
-            msg = _(
-                'validation_error',
-                default=u"Validation failed. Uploaded data is too large:"
-                        u" ${size}MB (max ${max}MB)",
-                mapping={
-                    'size': safe_unicode("%.1f" % size_check.get('sizeMB')),
-                    'max': safe_unicode("%.1f" % size_check.get('maxsize'))
-                })
-            raise Invalid(translate(msg, context=self.context.REQUEST))
+            raise Invalid(size_check.get('error', ''))
         return True
 
 
-validator.WidgetValidatorDiscriminators(DXFileSizeValidator,
+class ImageFileSizeValidator(DXFileSizeValidator):
+    """ """
+
+
+class FileSizeValidator(DXFileSizeValidator):
+    """ """
+
+
+validator.WidgetValidatorDiscriminators(ImageFileSizeValidator,
                                         field=INamedBlobImageField)
 
-validator.WidgetValidatorDiscriminators(DXFileSizeValidator,
+validator.WidgetValidatorDiscriminators(FileSizeValidator,
                                         field=INamedBlobFileField)

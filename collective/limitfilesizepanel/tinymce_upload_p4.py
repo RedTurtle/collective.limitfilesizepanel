@@ -10,6 +10,8 @@ from Products.CMFCore.utils import getToolByName
 from Products.TinyMCE.adapters.Upload import Upload as BaseUpload
 from Products.validation.i18n import safe_unicode
 from zExceptions import BadRequest
+
+import logging
 import pkg_resources
 
 try:
@@ -28,12 +30,14 @@ except ImportError:
     from zope.i18nmessageid import MessageFactory
     _ = MessageFactory('plone.tinymce')
 
-import logging
+
 logger = logging.getLogger(__name__)
 
 
 class Upload(BaseUpload):
-
+    """
+    P4 patch
+    """
     def upload(self):  # NOQA
         """Adds uploaded file"""
         context = aq_inner(self.context)
