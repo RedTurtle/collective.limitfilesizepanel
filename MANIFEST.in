@@ -1,5 +1,6 @@
 include *.rst
 include *.cfg
+include *.txt
 recursive-include docs *
 recursive-include collective *
 
