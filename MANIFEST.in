@@ -6,3 +6,6 @@ recursive-include collective *
 
 global-exclude *.pyc
 global-include *.mo
+exclude .installed.cfg
+exclude .mr.developer.cfg
+recursive-exclude eggs *
