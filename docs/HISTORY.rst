@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1.0 (unreleased)
+2.1.0 (2018-05-09)
 ------------------
 
 - Fix validators for Dexterity fields. Now works well with Files and images
