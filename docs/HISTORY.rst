@@ -4,7 +4,9 @@ Changelog
 2.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Change fileupload view permission: collective.limitfilesizepanel.LimitFileSizePanel 
+  is too strinct. Better a cmf.AddPortalContent
+  [lucabel]
 
 
 2.1.0 (2018-05-09)
