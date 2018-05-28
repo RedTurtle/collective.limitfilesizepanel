@@ -34,6 +34,6 @@
       for="Products.CMFCore.interfaces._content.IFolderish"
       class=".tinymce_upload_p5.FileUpload"
       layer="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
-      permission="cmf.AddPortalContent"
+      permission="zope2.View"
       />
 </configure>
