@@ -5,7 +5,7 @@ Changelog
 ------------------
 
 - Change fileupload view permission: collective.limitfilesizepanel.LimitFileSizePanel 
-  is too strinct. Better a cmf.AddPortalContent
+  is too strict. Better a zope2.View
   [lucabel]
 
 
