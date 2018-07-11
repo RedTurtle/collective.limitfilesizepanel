@@ -4,7 +4,8 @@ Changelog
 2.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix permission for upload view
+  [eikichi18]
 
 
 2.1.0 (2018-05-09)
