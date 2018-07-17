@@ -1,7 +1,13 @@
 Changelog
 =========
 
-2.1.1 (unreleased)
+2.1.2 (unreleased)
+------------------
+
+- Fix release
+  [cekk]
+
+2.1.1 (2018-07-17)
 ------------------
 
 - Fix permission for upload view
