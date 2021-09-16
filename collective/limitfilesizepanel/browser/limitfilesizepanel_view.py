@@ -22,13 +22,13 @@ except ImportError:
 
 class IHelpersView(Interface):
     def checkSize(uploadfile, maxsize):
-        """ check the size of given file """
+        """check the size of given file"""
 
     def canBypassValidation():
         """Check if the user has bypass permission"""
 
     def newDataOnly():
-        """ Return if the validation is only for new data """
+        """Return if the validation is only for new data"""
 
     def get_maxsize(validator, field, **kwargs):
         """
@@ -55,14 +55,13 @@ class View(BrowserView):
     """
 
     def newDataOnly(self):
-        """
-        """
+        """ """
         return api.portal.get_registry_record(
             "new_data_only", interface=ILimitFileSizePanel
         )
 
     def check_size_dx(self, uploadfile, maxsize):
-        """ check the size of given file """
+        """check the size of given file"""
         result = {"maxsize": maxsize, "valid": True}
         if self.canBypassValidation():
             return result
@@ -91,7 +90,7 @@ class View(BrowserView):
         return result
 
     def check_size(self, uploadfile, maxsize):
-        """ check the size of given file """
+        """check the size of given file"""
         result = {
             "maxsize": maxsize,
             "valid": True,
@@ -106,8 +105,8 @@ class View(BrowserView):
         # calculate size
         if (
             isinstance(uploadfile, FileUpload)
-            or isinstance(uploadfile, file)
-            or hasattr(aq_base(uploadfile), "tell")
+            # or isinstance(uploadfile, file)
+            or hasattr(aq_base(uploadfile), "tell")  # noqa
         ):  # NOQA
             uploadfile.seek(0, 2)  # eof
             size = uploadfile.tell()
@@ -165,8 +164,7 @@ class View(BrowserView):
         return None
 
     def get_maxsize_dx(self, validator, field):
-        """
-        """
+        """ """
         if not HAS_DX:
             return None
         try:

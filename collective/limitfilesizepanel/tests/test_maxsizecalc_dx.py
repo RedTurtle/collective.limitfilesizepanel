@@ -2,7 +2,9 @@
 from collective.limitfilesizepanel.dx_validators import DXFileSizeValidator
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 from collective.limitfilesizepanel.interfaces import TypesSettings
-from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING  # NOQA
+from collective.limitfilesizepanel.testing import (
+    LIMITFILESIZEPANEL_INTEGRATION_TESTING,
+)  # NOQA
 from collective.limitfilesizepanel.tests.base_dx import FileObject
 from collective.limitfilesizepanel.tests.base_dx import ImageObject
 from collective.limitfilesizepanel.tests.base_dx import ITestSchema
@@ -20,17 +22,16 @@ class TestMaxSizeCalcDX(unittest.TestCase):
     layer = LIMITFILESIZEPANEL_INTEGRATION_TESTING
 
     def setUp(self):
-        self.portal = self.layer['portal']
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.installer = api.portal.get_tool('portal_quickinstaller')
+        self.portal = self.layer["portal"]
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.installer = api.portal.get_tool("portal_quickinstaller")
         self.helper_view = api.content.get_view(
-            name='lfsp_helpers_view',
+            name="lfsp_helpers_view",
             context=self.portal,
             request=self.portal.REQUEST,
         )
         self.registry = queryUtility(IRegistry)
-        self.settings = self.registry.forInterface(ILimitFileSizePanel,
-                                                   check=False)
+        self.settings = self.registry.forInterface(ILimitFileSizePanel, check=False)
 
     def test_size_file_dx_from_registry(self):
         # original validator for file and image read maxsize from
@@ -41,15 +42,10 @@ class TestMaxSizeCalcDX(unittest.TestCase):
         # should be done with user values
 
         validator = DXFileSizeValidator(
-            None,
-            None,
-            FileObject(),
-            ITestSchema['file'],
-            None
+            None, None, FileObject(), ITestSchema["file"], None
         )
-        self.assertEqual(float(30), self.helper_view.get_maxsize_dx(
-            validator,
-            ITestSchema['file'])
+        self.assertEqual(
+            float(30), self.helper_view.get_maxsize_dx(validator, ITestSchema["file"])
         )
 
     def test_size_image_dx_from_registry(self):
@@ -61,31 +57,19 @@ class TestMaxSizeCalcDX(unittest.TestCase):
         # should be done with user values
 
         validator = DXFileSizeValidator(
-            None,
-            None,
-            ImageObject(),
-            ITestSchema['image'],
-            None
+            None, None, ImageObject(), ITestSchema["image"], None
         )
-        self.assertEqual(float(10), self.helper_view.get_maxsize_dx(
-            validator,
-            ITestSchema['image'])
+        self.assertEqual(
+            float(10), self.helper_view.get_maxsize_dx(validator, ITestSchema["image"])
         )
 
     def test_size_from_registry_type_setting_dx(self):
         validator = DXFileSizeValidator(
-            None,
-            None,
-            NewsObject(),
-            ITestSchema['image'],
-            None
+            None, None, NewsObject(), ITestSchema["image"], None
         )
-        new_value = (TypesSettings(u'News Item', u'image', 7), )
+        new_value = (TypesSettings(u"News Item", u"image", 7),)
         self.settings.types_settings += new_value
         self.assertEqual(
-            float(7),
-            self.helper_view.get_maxsize_dx(
-                validator,
-                ITestSchema['image'])
-            )
+            float(7), self.helper_view.get_maxsize_dx(validator, ITestSchema["image"])
+        )
         self.settings.types_settings = ()
