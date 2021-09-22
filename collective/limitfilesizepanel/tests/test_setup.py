@@ -6,6 +6,12 @@ from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION
 import unittest
 
 
+try:
+    from Products.CMFPlone.utils import get_installer
+except ImportError:
+    get_installer = None
+
+
 class TestSetup(unittest.TestCase):
     """Test that collective.limitfilesizepanel is properly installed."""
 
@@ -13,8 +19,11 @@ class TestSetup(unittest.TestCase):
 
     def setUp(self):
         """Custom shared utility setup for tests."""
-        self.portal = self.layer['portal']
-        self.installer = api.portal.get_tool('portal_quickinstaller')
+        self.portal = self.layer["portal"]
+        if get_installer:
+            self.installer = get_installer(self.portal, self.layer["request"])
+        else:
+            self.installer = api.portal.get_tool("portal_quickinstaller")
 
     def test_product_installed(self):
         """Test if collective.limitfilesizepanel is installed."""
