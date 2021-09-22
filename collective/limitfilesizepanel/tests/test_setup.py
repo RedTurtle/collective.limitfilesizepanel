@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
-from plone import api
 from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING  # noqa
+from plone import api
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
 
 import unittest
 
@@ -43,9 +45,15 @@ class TestUninstall(unittest.TestCase):
     layer = LIMITFILESIZEPANEL_INTEGRATION_TESTING
 
     def setUp(self):
-        self.portal = self.layer['portal']
-        self.installer = api.portal.get_tool('portal_quickinstaller')
-        self.installer.uninstallProducts(['collective.limitfilesizepanel'])
+        self.portal = self.layer["portal"]
+        if get_installer:
+            self.installer = get_installer(self.portal, self.layer["request"])
+        else:
+            self.installer = api.portal.get_tool("portal_quickinstaller")
+        roles_before = api.user.get_roles(TEST_USER_ID)
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.installer.uninstallProducts(["collective.limitfilesizepanel"])
+        setRoles(self.portal, TEST_USER_ID, roles_before)
 
     def test_product_uninstalled(self):
         """Test if collective.limitfilesizepanel is cleanly uninstalled."""
