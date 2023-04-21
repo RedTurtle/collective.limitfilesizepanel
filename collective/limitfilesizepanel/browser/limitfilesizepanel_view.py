@@ -153,7 +153,7 @@ class View(BrowserView):
             api.portal.get_registry_record(
                 "types_settings", interface=ILimitFileSizePanel
             )
-            or "[]"
+            or "[]"  # noqa
         )
         types_settings = json.loads(types_settings)
         for entry in types_settings:
