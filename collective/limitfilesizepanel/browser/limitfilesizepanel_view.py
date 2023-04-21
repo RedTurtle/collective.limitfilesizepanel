@@ -10,14 +10,10 @@ from zope.i18n import translate
 from zope.interface import implementer
 from zope.interface import Interface
 from ZPublisher.HTTPRequest import FileUpload
+from plone.namedfile.interfaces import INamedBlobImageField
+from plone.namedfile.interfaces import INamedBlobFileField
 
-try:
-    from plone.namedfile.interfaces import INamedBlobImageField
-    from plone.namedfile.interfaces import INamedBlobFileField
-
-    HAS_DX = True
-except ImportError:
-    HAS_DX = False
+import json
 
 
 class IHelpersView(Interface):
@@ -153,20 +149,24 @@ class View(BrowserView):
         if not portal_type:
             return None
         field_name = field.getName()
-        types_settings = api.portal.get_registry_record(
-            "types_settings", interface=ILimitFileSizePanel
+        types_settings = (
+            api.portal.get_registry_record(
+                "types_settings", interface=ILimitFileSizePanel
+            )
+            or "[]"
         )
+        types_settings = json.loads(types_settings)
         for entry in types_settings:
-            ctype = entry.content_type
-            cfield_name = entry.field_name
+            ctype = entry.get("content_type", "")
+            cfield_name = entry.get("field_name", "")
             if ctype == portal_type and cfield_name == field_name:
-                return entry.size
+                size = entry.get("size", "")
+                if size:
+                    return float(size)
         return None
 
     def get_maxsize_dx(self, validator, field):
         """ """
-        if not HAS_DX:
-            return None
         try:
             file_size = api.portal.get_registry_record(
                 "file_size", interface=ILimitFileSizePanel

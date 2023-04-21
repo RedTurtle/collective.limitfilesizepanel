@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 from collective.limitfilesizepanel import messageFactory as _
-from plone.registry.field import PersistentField
-from z3c.form.object import registerFactoryAdapter
 from zope import schema
-from zope.interface import implementer
 from zope.interface import Interface
 
 
@@ -19,7 +16,7 @@ class ICheckSizeUtility(Interface):
     """
 
 
-class ITypesSettings(Interface):
+class ITypesSettingsRow(Interface):
     """A single unit of size limit for a type and field name"""
 
     content_type = schema.Choice(
@@ -47,18 +44,6 @@ class ITypesSettings(Interface):
     )
 
 
-@implementer(ITypesSettings)
-class TypesSettings(object):
-    def __init__(self, content_type=None, field_name=None, size=None):
-        self.content_type = content_type
-        self.field_name = field_name
-        self.size = size
-
-
-class PersistentObject(PersistentField, schema.Object):
-    pass
-
-
 class ILimitFileSizePanel(Interface):
     """
     Settings used in the control panel
@@ -80,7 +65,7 @@ class ILimitFileSizePanel(Interface):
         default=10,
     )
 
-    types_settings = schema.Tuple(
+    types_settings = schema.SourceText(
         title=_(u"Settings for other content types and fields"),
         description=_(
             "help_types_settings",
@@ -88,10 +73,7 @@ class ILimitFileSizePanel(Interface):
             u" values above.\nProvide a content type/field ID,"
             u" and the size limit.",
         ),
-        value_type=PersistentObject(ITypesSettings, title=_(u"Content/field settings")),
         required=False,
-        default=(),
-        missing_value=(),
     )
 
     new_data_only = schema.Bool(
@@ -107,6 +89,3 @@ class ILimitFileSizePanel(Interface):
         ),
         default=True,
     )
-
-
-registerFactoryAdapter(ITypesSettings, TypesSettings)
