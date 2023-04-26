@@ -63,7 +63,7 @@ If some users need to bypass the validation and upload some larger files, there 
 You only need to set this permission to some roles, and they'll have no upload limits.
 
 Compatibility
-============
+=============
 
 This products runs on Python3 and has been tested on:
 
