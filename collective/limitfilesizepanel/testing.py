@@ -7,7 +7,6 @@ from plone.app.testing import PloneSandboxLayer
 
 import collective.limitfilesizepanel
 import collective.z3cform.jsonwidget
-import plone.restapi
 
 
 class LimitFileSizePanelLayer(PloneSandboxLayer):
