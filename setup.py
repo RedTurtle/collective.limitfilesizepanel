@@ -35,6 +35,7 @@ setup(
     author_email="sviluppoplone@redturtle.it",
     url="http://plone.org/products/collective.limitfilesizepanel",
     license="GPL version 2",
+    python_requires=">=3.7",
     packages=find_packages(exclude=["ez_setup"]),
     namespace_packages=["collective"],
     include_package_data=True,
