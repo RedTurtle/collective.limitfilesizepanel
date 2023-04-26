@@ -1,5 +1,28 @@
-.. image:: https://travis-ci.org/RedTurtle/collective.limitfilesizepanel.svg?branch=master
-    :target: https://travis-ci.org/RedTurtle/collective.limitfilesizepanel
+This is an helper package that setup a RedTurtle's Plone site ready to work with Volto.
+
+
+|python| |version| |ci| |coverage| |downloads| |license|
+
+.. |python| image:: https://img.shields.io/pypi/pyversions/collective.limitfilesizepanel.svg
+  :target: https://pypi.python.org/pypi/collective.limitfilesizepanel/
+
+.. |version| image:: http://img.shields.io/pypi/v/collective.limitfilesizepanel.svg
+  :target: https://pypi.python.org/pypi/collective.limitfilesizepanel
+
+.. |ci| image:: https://github.com/RedTurtle/collective.limitfilesizepanel/actions/workflows/tests.yml/badge.svg
+  :target: https://github.com/RedTurtle/collective.limitfilesizepanel/actions
+
+.. |downloads| image:: https://img.shields.io/pypi/dm/collective.limitfilesizepanel.svg
+   :target: https://pypi.org/project/collective.limitfilesizepanel/
+
+.. |license| image:: https://img.shields.io/pypi/l/collective.limitfilesizepanel.svg
+    :target: https://pypi.org/project/collective.limitfilesizepanel/
+    :alt: License
+
+.. |coverage| image:: https://coveralls.io/repos/github/redturtle/collective.limitfilesizepanel/badge.svg?branch=master
+    :target: https://coveralls.io/github/redturtle/collective.limitfilesizepanel?branch=main
+    :alt: Coverage
+    
 
 Introduction
 ============
