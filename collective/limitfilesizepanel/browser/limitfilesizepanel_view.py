@@ -10,8 +10,8 @@ from zope.i18n import translate
 from zope.interface import implementer
 from zope.interface import Interface
 from ZPublisher.HTTPRequest import FileUpload
-from plone.namedfile.interfaces import INamedBlobImageField
-from plone.namedfile.interfaces import INamedBlobFileField
+from plone.namedfile.interfaces import INamedImageField
+from plone.namedfile.interfaces import INamedFileField
 
 import json
 
@@ -56,7 +56,7 @@ class View(BrowserView):
             "new_data_only", interface=ILimitFileSizePanel
         )
 
-    def check_size_dx(self, uploadfile, maxsize):
+    def check_size(self, uploadfile, maxsize):
         """check the size of given file"""
         result = {"maxsize": maxsize, "valid": True}
         if self.canBypassValidation():
@@ -85,57 +85,6 @@ class View(BrowserView):
             result["error"] = translate(msg, context=self.request)
         return result
 
-    def check_size(self, uploadfile, maxsize):
-        """check the size of given file"""
-        result = {
-            "maxsize": maxsize,
-            "valid": True,
-        }
-
-        if self.canBypassValidation():
-            return result
-
-        new_data_only = api.portal.get_registry_record(
-            "new_data_only", interface=ILimitFileSizePanel
-        )
-        # calculate size
-        if (
-            isinstance(uploadfile, FileUpload)
-            # or isinstance(uploadfile, file)
-            or hasattr(aq_base(uploadfile), "tell")  # noqa
-        ):  # NOQA
-            uploadfile.seek(0, 2)  # eof
-            size = uploadfile.tell()
-            uploadfile.seek(0)
-        elif not new_data_only:
-            # we want to validate already saved data. Let use the default
-            # Archetypes validation method
-            try:
-                size = len(uploadfile)
-            except TypeError:
-                size = 0
-        else:
-            # We don't want to validate already saved data
-            return result
-
-        size = float(size)
-        sizeMB = size / (1024 * 1024)
-        result["sizeMB"] = sizeMB
-
-        if sizeMB > maxsize:
-            result["valid"] = False
-            msg = _(
-                "validation_error",
-                default=u"Validation failed. Uploaded data is too large:"
-                u" ${size}MB (max ${max}MB)",
-                mapping={
-                    "size": safe_unicode("{0:.1f}".format(sizeMB)),
-                    "max": safe_unicode("{0:.1f}".format(maxsize)),
-                },
-            )
-            result["error"] = translate(msg, context=self.request)
-        return result
-
     def canBypassValidation(self):
         """Check if the user has bypass permission"""
 
@@ -143,9 +92,8 @@ class View(BrowserView):
             "collective.limitfilesizepanel: Bypass limit size", obj=self.context
         )
 
-    def _get_type_maxsize(self, field, context):
+    def _get_type_maxsize(self, field, portal_type):
         """Get portal_type/fieldname pair configuration in the registry"""
-        portal_type = getattr(context, "portal_type", None)
         if not portal_type:
             return None
         field_name = field.getName()
@@ -165,7 +113,7 @@ class View(BrowserView):
                     return float(size)
         return None
 
-    def get_maxsize_dx(self, validator, field):
+    def get_maxsize(self, field, portal_type=""):
         """ """
         try:
             file_size = api.portal.get_registry_record(
@@ -177,67 +125,14 @@ class View(BrowserView):
         except InvalidParameterError:
             return None
         # Check if there's a type/field specific settings in the registry
-        type_context = self.context
-        if self.context == api.portal.get():
-            # we are in add form, so context is the portal.
-            # validator.view has an attribute portal_type with the wanted type
-            type_context = validator.view
-        type_maxsize = self._get_type_maxsize(field, type_context)
+        type_maxsize = self._get_type_maxsize(field, portal_type)
         if type_maxsize is not None:
             return type_maxsize
-        if file_size and INamedBlobFileField.providedBy(field):
+        if file_size and INamedFileField.providedBy(field):
             return float(file_size)
-        elif image_size and INamedBlobImageField.providedBy(field):
+        elif image_size and INamedImageField.providedBy(field):
             return float(image_size)
         return None
-
-    def get_maxsize(self, validator, **kwargs):
-        """
-        This is the method called from AT validator
-        * try to get sizes from plone.registry
-        * * if we find a type/field specific size: use it
-        * * if we have general sizes defined from user: use it
-        * if not, use the original method to calculate maxsize
-        """
-        context = self.context
-        field = kwargs.get("field", None)
-        instance = kwargs.get("instance", None)
-        if instance:
-            context = instance
-        try:
-            file_size = api.portal.get_registry_record(
-                "file_size", interface=ILimitFileSizePanel
-            )
-            image_size = api.portal.get_registry_record(
-                "image_size", interface=ILimitFileSizePanel
-            )
-        except InvalidParameterError:
-            return None
-        # Check if there's a type/field specific settings in the registry
-        type_maxsize = self._get_type_maxsize(field, context)
-        if type_maxsize is not None:
-            return type_maxsize
-
-        # In plone 3 we have field.type == image/file
-        # In plone 4 we have field.type == blob in both case
-        # so:
-        field_type = field.widget.__class__.__name__
-        if field and file_size and field_type == "FileWidget":
-            maxsize = float(file_size)
-        elif field and image_size and field_type == "ImageWidget":
-            maxsize = float(image_size)
-        else:
-            # get original max size
-            if "maxsize" in kwargs:
-                maxsize = kwargs.get("maxsize")
-            elif hasattr(aq_base(instance), "getMaxSizeFor"):  # noqa
-                maxsize = instance.getMaxSizeFor(field.getName())
-            elif hasattr(field, "maxsize"):  # noqa
-                maxsize = field.maxsize
-            else:
-                # set to given default value (default defaults to 0)
-                maxsize = validator.maxsize
-        return maxsize
 
     def get_maxsize_tiny(self, metatypes):
         """
