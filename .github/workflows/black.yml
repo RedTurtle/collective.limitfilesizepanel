@@ -32,4 +32,4 @@ jobs:
 
       # run black
       - name: run black
-        run: black src/ --check --diff
+        run: black collective/ --check --diff
