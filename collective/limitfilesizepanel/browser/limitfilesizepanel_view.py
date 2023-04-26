@@ -75,8 +75,8 @@ class View(BrowserView):
             result["valid"] = False
             msg = _(
                 "validation_error",
-                default=u"Validation failed. Uploaded data is too large:"
-                u" ${size}MB (max ${max}MB)",
+                default="Validation failed. Uploaded data is too large:"
+                " ${size}MB (max ${max}MB)",
                 mapping={
                     "size": safe_unicode("{0:.1f}".format(sizeMB)),
                     "max": safe_unicode("{0:.1f}".format(maxsize)),

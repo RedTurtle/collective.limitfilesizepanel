@@ -9,5 +9,6 @@ def uninstall(portal, reinstall=False):
         # reinstall the product from ZMI
         setup_tool = portal.portal_setup
         setup_tool.runAllImportStepsFromProfile(
-            'profile-collective.limitfilesizepanel:uninstall')
+            "profile-collective.limitfilesizepanel:uninstall"
+        )
         logger.info("Uninstall done")

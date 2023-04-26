@@ -13,7 +13,6 @@ import json
 
 
 class TestMaxSizeCalcDX(unittest.TestCase):
-
     layer = LIMITFILESIZEPANEL_INTEGRATION_TESTING
 
     def setUp(self):

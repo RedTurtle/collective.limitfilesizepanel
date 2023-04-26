@@ -13,9 +13,9 @@ class LimitFileSizeEditForm(controlpanel.RegistryEditForm):
 
     schema = ILimitFileSizePanel
     id = "LimitFileSizeEditForm"
-    label = _(u"Limit file size settings")
+    label = _("Limit file size settings")
     description = _(
-        u"help_limit_file_size_panel", default=u"Set file size for file and image"
+        "help_limit_file_size_panel", default="Set file size for file and image"
     )
     fields = field.Fields(ILimitFileSizePanel)
     fields["types_settings"].widgetFactory = JSONFieldWidget

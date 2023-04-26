@@ -45,7 +45,6 @@ class FakeFileField(object):
 
 
 class TestValidation(unittest.TestCase):
-
     layer = LIMITFILESIZEPANEL_INTEGRATION_TESTING
 
     def setUp(self):
