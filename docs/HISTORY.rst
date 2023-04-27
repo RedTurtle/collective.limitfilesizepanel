@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1.3 (unreleased)
+3.0.0 (2023-04-27)
 ------------------
 
 - Python3 support.
