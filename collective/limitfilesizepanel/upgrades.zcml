@@ -1,0 +1,47 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.limitfilesizepanel">
+
+  <genericsetup:upgradeStep
+        title="Upgrade to collective.limitfilesizepanel to version 1.1"
+        description="Migrates collective.limitfilesizepanel to 1000"
+        source="1.0"
+        destination="1000"
+        handler=".setuphandlers.migrateTo1000"
+        sortkey="1"
+        profile="collective.limitfilesizepanel:default"
+    />
+  <genericsetup:upgradeStep
+        title="Upgrade to collective.limitfilesizepanel to version 1.3"
+        description="Migrates collective.limitfilesizepanel to 1100"
+        source="11000"
+        destination="1100"
+        handler=".setuphandlers.migrateTo1100"
+        sortkey="2"
+        profile="collective.limitfilesizepanel:default"
+    />
+
+  <genericsetup:upgradeStep
+        title="Upgrade to collective.limitfilesizepanel to version 1200"
+        description="Migrates collective.limitfilesizepanel to 1200"
+        source="1100"
+        destination="1200"
+        handler=".setuphandlers.migrateTo1200"
+        sortkey="3"
+        profile="collective.limitfilesizepanel:default"
+    />
+  <genericsetup:upgradeStep
+    title="Upgrade to collective.limitfilesizepanel to version 1300"
+    description="Migrates collective.limitfilesizepanel to 1300"
+    source="1200"
+    destination="1300"
+    handler=".setuphandlers.migrateTo1300"
+    sortkey="4"
+    profile="collective.limitfilesizepanel:default"
+    />
+
+</configure>

@@ -1,18 +1,33 @@
-.. image:: https://travis-ci.org/RedTurtle/collective.limitfilesizepanel.svg?branch=master
-    :target: https://travis-ci.org/RedTurtle/collective.limitfilesizepanel
+This is an helper package that setup a RedTurtle's Plone site ready to work with Volto.
+
+
+|python| |version| |ci| |coverage| |downloads| |license|
+
+.. |python| image:: https://img.shields.io/pypi/pyversions/collective.limitfilesizepanel.svg
+  :target: https://pypi.python.org/pypi/collective.limitfilesizepanel/
+
+.. |version| image:: http://img.shields.io/pypi/v/collective.limitfilesizepanel.svg
+  :target: https://pypi.python.org/pypi/collective.limitfilesizepanel
+
+.. |ci| image:: https://github.com/RedTurtle/collective.limitfilesizepanel/actions/workflows/tests.yml/badge.svg
+  :target: https://github.com/RedTurtle/collective.limitfilesizepanel/actions
+
+.. |downloads| image:: https://img.shields.io/pypi/dm/collective.limitfilesizepanel.svg
+   :target: https://pypi.org/project/collective.limitfilesizepanel/
+
+.. |license| image:: https://img.shields.io/pypi/l/collective.limitfilesizepanel.svg
+    :target: https://pypi.org/project/collective.limitfilesizepanel/
+    :alt: License
+
+.. |coverage| image:: https://coveralls.io/repos/github/redturtle/collective.limitfilesizepanel/badge.svg?branch=master
+    :target: https://coveralls.io/github/redturtle/collective.limitfilesizepanel?branch=main
+    :alt: Coverage
+    
 
 Introduction
 ============
 
-Plone Archetypes framework already gives you a max size validation for files and images, but the default
-configuration has some drawbacks:
-
-* is not simple to customize (best way is to use `plone.recipe.atcontenttypes`__)
-* is the same for every Plone site of the environment
-
-__ http://pypi.python.org/pypi/plone.recipe.atcontenttypes/
-
-This product will let you customize this validation from Plone user interface.
+This product allows you to set a max siza validation for file and image fields in content-types.
 
 How to use it
 =============
@@ -47,20 +62,14 @@ If some users need to bypass the validation and upload some larger files, there 
 
 You only need to set this permission to some roles, and they'll have no upload limits.
 
-Dependencies
-============
+Compatibility
+=============
 
-This products has been tested on:
+This products runs on Python3 and has been tested on:
 
-* Plone 3.3
-* Plone 4.2
-* Plone 4.3
+* Plone 5.2
 
-It's based on `plone.app.registry`__ that it not part of Plone on 3.3 version. You need to be
-sure that a compatible version is used (in my experience: use `version 1.0b1`__).
-
- __ http://pypi.python.org/pypi/plone.app.registry
- __ http://pypi.python.org/pypi/plone.app.registry/1.0b1
+For older versions, please refer to 2.x branch/tags
 
 Credits
 =======
