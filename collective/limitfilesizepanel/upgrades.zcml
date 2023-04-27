@@ -34,5 +34,14 @@
         sortkey="3"
         profile="collective.limitfilesizepanel:default"
     />
+  <genericsetup:upgradeStep
+    title="Upgrade to collective.limitfilesizepanel to version 1300"
+    description="Migrates collective.limitfilesizepanel to 1300"
+    source="1200"
+    destination="1300"
+    handler=".setuphandlers.migrateTo1300"
+    sortkey="4"
+    profile="collective.limitfilesizepanel:default"
+    />
 
 </configure>

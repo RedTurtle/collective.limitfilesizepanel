@@ -41,7 +41,11 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-    <adapter factory=".dx_validators.FileSizeValidator" />
-    <adapter factory=".dx_validators.ImageFileSizeValidator" />
+    <!-- <adapter factory=".dx_validators.FileSizeValidator" />
+    <adapter factory=".dx_validators.ImageFileSizeValidator" /> -->
+    <adapter factory=".dx_validators.FileSizeValidator" name="collective.limitfilesizepanel.file_size_validator" />
+    <adapter factory=".dx_validators.ImageSizeValidator" name="collective.limitfilesizepanel.image_size_validator" />
+
+
 
 </configure>

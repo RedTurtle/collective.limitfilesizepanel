@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
-from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING  # noqa
+from collective.limitfilesizepanel.testing import (
+    LIMITFILESIZEPANEL_INTEGRATION_TESTING,
+)  # noqa
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
@@ -29,19 +31,19 @@ class TestSetup(unittest.TestCase):
 
     def test_product_installed(self):
         """Test if collective.limitfilesizepanel is installed."""
-        self.assertTrue(self.installer.isProductInstalled(
-            'collective.limitfilesizepanel'))
+        self.assertTrue(
+            self.installer.isProductInstalled("collective.limitfilesizepanel")
+        )
 
     def test_browserlayer(self):
         """Test that ILimitFileSizePanelLayer is registered."""
-        from collective.limitfilesizepanel.interfaces import \
-            ILimitFileSizePanelLayer
+        from collective.limitfilesizepanel.interfaces import ILimitFileSizePanelLayer
         from plone.browserlayer import utils
+
         self.assertIn(ILimitFileSizePanelLayer, utils.registered_layers())
 
 
 class TestUninstall(unittest.TestCase):
-
     layer = LIMITFILESIZEPANEL_INTEGRATION_TESTING
 
     def setUp(self):
@@ -57,12 +59,13 @@ class TestUninstall(unittest.TestCase):
 
     def test_product_uninstalled(self):
         """Test if collective.limitfilesizepanel is cleanly uninstalled."""
-        self.assertFalse(self.installer.isProductInstalled(
-            'collective.limitfilesizepanel'))
+        self.assertFalse(
+            self.installer.isProductInstalled("collective.limitfilesizepanel")
+        )
 
     def test_browserlayer_removed(self):
         """Test that ILimitFileSizePanelLayer is removed."""
-        from collective.limitfilesizepanel.interfaces import \
-            ILimitFileSizePanelLayer
+        from collective.limitfilesizepanel.interfaces import ILimitFileSizePanelLayer
         from plone.browserlayer import utils
+
         self.assertNotIn(ILimitFileSizePanelLayer, utils.registered_layers())
