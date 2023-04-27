@@ -4,7 +4,12 @@ Changelog
 2.1.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Python3 support.
+  [cekk]
+- Drop usage of persistent fields in registry. Now we use collective.z3cform.jsonwidget.
+  [cekk]
+- Change validator to work also with restapi calls.
+  [cekk]
 
 
 2.1.2 (2018-07-17)
