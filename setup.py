@@ -49,7 +49,7 @@ setup(
         "collective.monkeypatcher>=1.0",
         "plone.api",
         "z3c.unconfigure",
-        "collective.z3cform.jsonwidget>=1.1.1",
+        "collective.z3cform.jsonwidget>=1.1.2",
     ],
     entry_points="""
       # -*- Entry points: -*-
