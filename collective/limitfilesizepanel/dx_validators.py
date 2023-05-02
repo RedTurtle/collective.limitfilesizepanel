@@ -51,7 +51,10 @@ class BaseFileSizeValidator:
         )
 
         if size_check and not size_check.get("valid", False):
-            raise Invalid(size_check.get("error", ""))
+            if self.is_restapi():
+                raise ValueError(size_check.get("error", ""))
+            else:
+                raise Invalid(size_check.get("error", ""))
         return True
 
     def skip(self):
@@ -75,6 +78,9 @@ class BaseFileSizeValidator:
             if "@type" in self.request.form:
                 return self.request.form["@type"]
         return self.field.context.portal_type
+
+    def is_restapi(self):
+        return self.request.get_header("content-type") == "application/json"
 
 
 @implementer(IPluggableFileFieldValidation)

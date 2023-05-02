@@ -4,7 +4,8 @@ Changelog
 3.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Raise ValueError instead Invalid for restapi calls.
+  [cekk]
 
 
 3.0.0 (2023-04-27)
