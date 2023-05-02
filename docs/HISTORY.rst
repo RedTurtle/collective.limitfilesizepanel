@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.2 (unreleased)
+3.0.2 (2023-05-02)
 ------------------
 
 - Raise custom ValidationError to have a 400 on restapi calls.
