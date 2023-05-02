@@ -8,7 +8,6 @@ from plone.namedfile.interfaces import INamedImageField
 from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import Interface
-from zope.interface import Invalid
 from zope.globalrequest import getRequest
 from zope.schema import ValidationError
 
