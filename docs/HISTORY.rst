@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.1 (unreleased)
+3.0.1 (2023-05-02)
 ------------------
 
 - Raise ValueError instead Invalid for restapi calls.
