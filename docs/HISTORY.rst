@@ -4,7 +4,8 @@ Changelog
 3.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Raise custom ValidationError to have a 400 on restapi calls.
+  [cekk]
 
 
 3.0.1 (2023-05-02)

@@ -10,6 +10,19 @@ from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import Invalid
 from zope.globalrequest import getRequest
+from zope.schema import ValidationError
+
+
+class InvalidSize(ValidationError):
+    """Exception for invalid size"""
+
+    __doc__ = "Invalid size"
+
+    def doc(self):
+        if len(self.args) > 1:
+            return self.args[0]
+        else:
+            return self.__class__.__doc__
 
 
 class BaseFileSizeValidator:
@@ -51,10 +64,7 @@ class BaseFileSizeValidator:
         )
 
         if size_check and not size_check.get("valid", False):
-            if self.is_restapi():
-                raise ValueError(size_check.get("error", ""))
-            else:
-                raise Invalid(size_check.get("error", ""))
+            raise InvalidSize(size_check.get("error", ""), self.field.__name__)
         return True
 
     def skip(self):
@@ -78,9 +88,6 @@ class BaseFileSizeValidator:
             if "@type" in self.request.form:
                 return self.request.form["@type"]
         return self.field.context.portal_type
-
-    def is_restapi(self):
-        return self.request.get_header("content-type") == "application/json"
 
 
 @implementer(IPluggableFileFieldValidation)
