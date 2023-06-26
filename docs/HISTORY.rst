@@ -1,10 +1,35 @@
 Changelog
 =========
 
-2.1.3 (unreleased)
+3.0.3 (unreleased)
 ------------------
 
 - Major Python3/Plone52 refactoring.
+  [cekk]
+
+
+3.0.2 (2023-05-02)
+------------------
+
+- Raise custom ValidationError to have a 400 on restapi calls.
+  [cekk]
+
+
+3.0.1 (2023-05-02)
+------------------
+
+- Raise ValueError instead Invalid for restapi calls.
+  [cekk]
+
+
+3.0.0 (2023-04-27)
+------------------
+
+- Python3 support.
+  [cekk]
+- Drop usage of persistent fields in registry. Now we use collective.z3cform.jsonwidget.
+  [cekk]
+- Change validator to work also with restapi calls.
   [cekk]
 
 

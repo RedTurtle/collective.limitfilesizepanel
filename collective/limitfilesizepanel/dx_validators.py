@@ -1,62 +1,101 @@
 # -*- coding: utf-8 -*-
-from plone.namedfile.interfaces import INamedBlobImageField
-from plone.namedfile.interfaces import INamedBlobFileField
-from zope.interface import Invalid
-from z3c.form import validator
 from plone import api
 from plone.api.exc import InvalidParameterError
-from plone.dexterity.browser.edit import DefaultEditForm
+from plone.namedfile.interfaces import INamedFileField
+from plone.namedfile.interfaces import IPluggableFileFieldValidation
+from plone.namedfile.interfaces import IPluggableImageFieldValidation
+from plone.namedfile.interfaces import INamedImageField
+from zope.component import adapter
+from zope.interface import implementer
+from zope.interface import Interface
+from zope.globalrequest import getRequest
+from zope.schema import ValidationError
 
 
-class DXFileSizeValidator(validator.FileUploadValidator):
-    """
-    This validator is registered for all image and file fields.
-    """
+class InvalidSize(ValidationError):
+    """Exception for invalid size"""
 
-    def validate(self, value):
-        super(DXFileSizeValidator, self).validate(value)
-        if not value:
-            return True
+    __doc__ = "Invalid size"
 
-        if isinstance(self.view, DefaultEditForm):
-            return True
+    def doc(self):
+        if len(self.args) > 1:
+            return self.args[0]
+        else:
+            return self.__class__.__doc__
+
+
+class BaseFileSizeValidator:
+    """ """
+
+    def __init__(self, field, value):
+        self.field = field
+        self.value = value
+        self.request = getRequest()
+
+    @property
+    def helper_view(self):
         try:
-            helper_view = api.content.get_view(
-                name='lfsp_helpers_view',
-                context=self.context,
-                request=self.context.REQUEST,
+            return api.content.get_view(
+                name="lfsp_helpers_view",
+                context=api.portal.get(),
+                request=self.request,
             )
         except InvalidParameterError:
+            return True
+
+    def __call__(self):
+        if not self.value:
+            return True
+        if not self.helper_view:
             #  the view is enabled only when the product is installed
             return True
-        if helper_view.newDataOnly() and isinstance(self.view, DefaultEditForm):  # noqa
+        if self.skip():
             return True
-        maxsize = helper_view.get_maxsize_dx(
-            validator=self,
-            field=self.field
+        maxsize = self.helper_view.get_maxsize(
+            field=self.field, portal_type=self.get_portal_type()
         )
         if not maxsize:
             return True
 
-        size_check = helper_view.check_size_dx(
+        size_check = self.helper_view.check_size(
             maxsize=maxsize,
-            uploadfile=value)
+            uploadfile=self.value,
+        )
 
-        if size_check and not size_check.get('valid', False):
-            raise Invalid(size_check.get('error', ''))
+        if size_check and not size_check.get("valid", False):
+            raise InvalidSize(size_check.get("error", ""), self.field.__name__)
         return True
 
+    def skip(self):
+        """
+        Skip only if we are in edit mode and newDataOnly is set
+        """
+        if not self.helper_view.newDataOnly():
+            return False
 
-class ImageFileSizeValidator(DXFileSizeValidator):
-    """ """
+        if self.request.steps[-1].startswith("++add++"):
+            return False
+        if self.request.method != "PATCH":
+            # restapi calls
+            return False
+        return True
+
+    def get_portal_type(self):
+        if self.request.steps:
+            if self.request.steps[-1].startswith("++add++"):
+                return self.request.steps[-1].replace("++add++", "")
+            if "@type" in self.request.form:
+                return self.request.form["@type"]
+        return self.field.context.portal_type
 
 
-class FileSizeValidator(DXFileSizeValidator):
-    """ """
+@implementer(IPluggableFileFieldValidation)
+@adapter(INamedFileField, Interface)
+class FileSizeValidator(BaseFileSizeValidator):
+    """plone.namedfiled validator for filetype"""
 
 
-validator.WidgetValidatorDiscriminators(ImageFileSizeValidator,
-                                        field=INamedBlobImageField)
-
-validator.WidgetValidatorDiscriminators(FileSizeValidator,
-                                        field=INamedBlobFileField)
+@implementer(IPluggableImageFieldValidation)
+@adapter(INamedImageField, Interface)
+class ImageSizeValidator(BaseFileSizeValidator):
+    """plone.namedfiled validator for image"""

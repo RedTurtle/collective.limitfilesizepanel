@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = "2.1.3.dev0"
+version = "3.0.3.dev0"
 
 tests_require = [
     "plone.app.testing",
@@ -37,7 +37,8 @@ setup(
     author="RedTurtle Technology",
     author_email="sviluppoplone@redturtle.it",
     url="http://plone.org/products/collective.limitfilesizepanel",
-    license="GPL",
+    license="GPL version 2",
+    python_requires=">=3.7",
     packages=find_packages(exclude=["ez_setup"]),
     namespace_packages=["collective"],
     include_package_data=True,
@@ -51,6 +52,7 @@ setup(
         "collective.monkeypatcher>=1.0",
         "plone.api",
         "z3c.unconfigure",
+        "collective.z3cform.jsonwidget>=1.1.2",
     ],
     entry_points="""
       # -*- Entry points: -*-
