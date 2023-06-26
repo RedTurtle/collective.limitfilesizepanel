@@ -4,7 +4,8 @@ Changelog
 2.1.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Major Python3/Plone52 refactoring.
+  [cekk]
 
 
 2.1.2 (2018-07-17)
