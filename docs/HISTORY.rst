@@ -4,7 +4,8 @@ Changelog
 3.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix check in validators if product is not installed.
+  [cekk]
 
 
 3.0.2 (2023-05-02)

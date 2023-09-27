@@ -41,7 +41,7 @@ class BaseFileSizeValidator:
                 request=self.request,
             )
         except InvalidParameterError:
-            return True
+            return None
 
     def __call__(self):
         if not self.value:
