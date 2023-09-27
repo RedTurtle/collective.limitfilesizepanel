@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.3 (unreleased)
+3.0.3 (2023-09-27)
 ------------------
 
 - Fix check in validators if product is not installed.
