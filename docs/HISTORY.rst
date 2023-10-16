@@ -4,7 +4,9 @@ Changelog
 3.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Change fileupload view permission: collective.limitfilesizepanel.LimitFileSizePanel 
+  is too strict. Better a zope2.View
+  [lucabel]
 
 
 3.0.3 (2023-09-27)
