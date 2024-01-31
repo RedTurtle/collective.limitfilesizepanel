@@ -3,37 +3,55 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
     xmlns:zcml="http://namespaces.zope.org/zcml"
-    i18n_domain="collective.limitfilesizepanel">
+    i18n_domain="collective.limitfilesizepanel"
+    >
 
 
-    <browser:resourceDirectory
-        name="collective.limitfilesizepanel.images"
-        directory="images"
-        />
-
-    <browser:page
-        name="limitfilesize-settings"
-        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-        class=".controlpanel.LimitFileSizeControlPanel"
-        layer="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
-        permission="collective.limitfilesizepanel.LimitFileSizePanel"
-        />
-
-    <browser:page
-      name="lfsp_helpers_view"
-      class=".limitfilesizepanel_view.View"
-      permission="zope2.View"
-      for="*"
-      layer="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
-      allowed_interface=".limitfilesizepanel_view.IHelpersView"
+  <browser:resourceDirectory
+      name="collective.limitfilesizepanel.images"
+      directory="images"
       />
 
   <browser:page
-      zcml:condition="have plone-5"
+      name="limitfilesize-settings"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlpanel.LimitFileSizeControlPanel"
+      permission="collective.limitfilesizepanel.LimitFileSizePanel"
+      layer="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
+      />
+
+  <browser:page
+      name="lfsp_helpers_view"
+      for="*"
+      class=".limitfilesizepanel_view.View"
+      allowed_interface=".limitfilesizepanel_view.IHelpersView"
+      permission="zope2.View"
+      layer="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
+      />
+
+  <browser:page
       name="fileUpload"
       for="Products.CMFCore.interfaces._content.IFolderish"
       class=".tinymce_upload_p5.FileUpload"
-      layer="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
       permission="zope2.View"
+      layer="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
+      zcml:condition="have plone-5"
       />
+
+  <browser:page
+      name="fileUpload"
+      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+      class=".folder_contents_upload.FileUpload"
+      permission="zope2.View"
+      layer="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
+      />
+
+  <browser:page
+      name="fileUpload"
+      for="plone.dexterity.interfaces.IDexterityContainer"
+      class=".folder_contents_upload.FileUpload"
+      permission="zope2.View"
+      layer="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
+      />
+
 </configure>

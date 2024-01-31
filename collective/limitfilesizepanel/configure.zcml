@@ -1,50 +1,58 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:five="http://namespaces.zope.org/five"
-    xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-	  xmlns:monkey="http://namespaces.plone.org/monkey"
-    i18n_domain="collective.limitfilesizepanel">
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="collective.limitfilesizepanel"
+    >
 
   <five:registerPackage package="." />
 
   <include package="plone.app.registry" />
   <include package="collective.monkeypatcher" />
-  
+
   <i18n:registerTranslations directory="locales" />
 
   <permission
-        id="collective.limitfilesizepanel.LimitFileSizePanel"
-        title="collective.limitfilesizepanel: Manage limit file size settings"
-        />
+      id="collective.limitfilesizepanel.LimitFileSizePanel"
+      title="collective.limitfilesizepanel: Manage limit file size settings"
+      />
   <permission
-        id="collective.limitfilesizepanel.BypassLimitSize"
-        title="collective.limitfilesizepanel: Bypass limit size"
-        />
+      id="collective.limitfilesizepanel.BypassLimitSize"
+      title="collective.limitfilesizepanel: Bypass limit size"
+      />
 
   <include package=".browser" />
   <include file="upgrades.zcml" />
 
+
   <genericsetup:registerProfile
       name="default"
       title="Limit files and images size"
-      directory="profiles/default"
       description="Configure the file size limit from control panel"
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/default"
       />
   <genericsetup:registerProfile
       name="uninstall"
       title="Remove collective.limitfilesizepanel"
-      directory="profiles/uninstall"
       description=""
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/uninstall"
       />
 
-    <!-- <adapter factory=".dx_validators.FileSizeValidator" />
+  <!-- <adapter factory=".dx_validators.FileSizeValidator" />
     <adapter factory=".dx_validators.ImageFileSizeValidator" /> -->
-    <adapter factory=".dx_validators.FileSizeValidator" name="collective.limitfilesizepanel.file_size_validator" />
-    <adapter factory=".dx_validators.ImageSizeValidator" name="collective.limitfilesizepanel.image_size_validator" />
+  <adapter
+      factory=".dx_validators.FileSizeValidator"
+      name="collective.limitfilesizepanel.file_size_validator"
+      />
+  <adapter
+      factory=".dx_validators.ImageSizeValidator"
+      name="collective.limitfilesizepanel.image_size_validator"
+      />
 
 
 
