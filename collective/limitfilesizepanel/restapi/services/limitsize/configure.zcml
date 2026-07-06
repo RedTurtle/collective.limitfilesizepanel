@@ -5,7 +5,7 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     >
 
-  
+
 
   <plone:service
       method="GET"

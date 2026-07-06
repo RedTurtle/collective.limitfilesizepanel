@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from plone.restapi.interfaces import IExpandableElement
-from plone.restapi.interfaces import ISerializeToJsonSummary
 from plone.restapi.services import Service
-from Products.CMFCore.interfaces import IFolderish
 from zope.component import adapter
-from zope.component import queryMultiAdapter
 from zope.interface import implementer
 from zope.interface import Interface
 
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
-
 
 
 @implementer(IExpandableElement)
@@ -39,15 +35,13 @@ class LimitSizes(object):
             context = self.context
         res = []
 
-
         limit_file_size = api.portal.get_registry_record(
             "file_size", interface=ILimitFileSizePanel
         )
 
         limit_image_size = api.portal.get_registry_record(
-                "image_size", interface=ILimitFileSizePanel
+            "image_size", interface=ILimitFileSizePanel
         )
-
 
         res.append({"file_size_limit": limit_file_size})
         res.append({"image_size_limit": limit_image_size})
