@@ -16,7 +16,7 @@ class LimitSizes(object):
         self.context = context
         self.request = request
 
-    def __call__(self, expand=False):
+    def __call__(self, expand=True):
 
         result = {
             "limit-sizes": {
@@ -33,7 +33,7 @@ class LimitSizes(object):
     def get_sizelimits_data(self, context=None):
         if context is None:
             context = self.context
-        res = []
+        res = {}
 
         limit_file_size = api.portal.get_registry_record(
             "file_size", interface=ILimitFileSizePanel
@@ -43,8 +43,8 @@ class LimitSizes(object):
             "image_size", interface=ILimitFileSizePanel
         )
 
-        res.append({"file_size_limit": limit_file_size})
-        res.append({"image_size_limit": limit_image_size})
+        res.update({"file_size_limit": limit_file_size})
+        res.update({"image_size_limit": limit_image_size})
 
         return res
 
@@ -52,4 +52,4 @@ class LimitSizes(object):
 class LimitSizesGet(Service):
     def reply(self):
         data = LimitSizes(self.context, self.request)
-        return data(expand=True)["limit-sizes"]
+        return data()["limit-sizes"]
