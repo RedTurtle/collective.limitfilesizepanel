@@ -7,7 +7,6 @@ import transaction
 import unittest
 
 
-
 class TestFileConstraintsExpander(unittest.TestCase):
 
     layer = PLONE_RESTAPI_DX_FUNCTIONAL_TESTING
@@ -20,7 +19,9 @@ class TestFileConstraintsExpander(unittest.TestCase):
 
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
 
-        api.portal.set_registry_record('file_size', 10240, interface=ILimitFileSizePanel)
+        api.portal.set_registry_record(
+            "file_size", 10240, interface=ILimitFileSizePanel
+        )
 
         self.file_obj = api.content.create(
             container=self.portal,
@@ -50,9 +51,7 @@ class TestFileConstraintsExpander(unittest.TestCase):
         return response
 
     def test_expander_present_in_components(self):
-        response = self._get_response(
-            f"{self.portal_url}/test-file"
-        )
+        response = self._get_response(f"{self.portal_url}/test-file")
         self.assertEqual(response.status_code, 200)
 
         data = response.json()
@@ -72,7 +71,9 @@ class TestFileConstraintsExpander(unittest.TestCase):
         self.assertEqual(component["file_size_limit"], 10240)
 
     def test_expander_max_size_reflects_registry_change(self):
-        api.portal.set_registry_record('file_size', 51200, interface=ILimitFileSizePanel)
+        api.portal.set_registry_record(
+            "file_size", 51200, interface=ILimitFileSizePanel
+        )
         transaction.commit()
 
         response = self._get_response(
