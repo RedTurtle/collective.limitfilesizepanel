@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 from plone.app.testing import applyProfile
-from plone.restapi.testing import PLONE_RESTAPI_DX_FUNCTIONAL_TESTING
 from plone.restapi.testing import PLONE_RESTAPI_DX_FIXTURE
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
@@ -28,6 +27,7 @@ class LimitFileSizePanelLayer(PloneSandboxLayer):
         applyProfile(portal, "collective.limitfilesizepanel:default")
         applyProfile(portal, "collective.z3cform.jsonwidget:default")
         applyProfile(portal, "redturtle.reactbundle:default")
+
 
 LIMITFILESIZEPANEL_FIXTURE = LimitFileSizePanelLayer()
 
@@ -56,6 +56,7 @@ class LimitFileSizePanelRestapiLayer(PloneSandboxLayer):
         applyProfile(portal, "collective.limitfilesizepanel:default")
         applyProfile(portal, "collective.z3cform.jsonwidget:default")
         applyProfile(portal, "redturtle.reactbundle:default")
+
 
 LIMITFILESIZEPANEL_RESTAPI_FIXTURE = LimitFileSizePanelRestapiLayer()
 LIMITFILESIZEPANEL_RESTAPI_TESTING = FunctionalTesting(

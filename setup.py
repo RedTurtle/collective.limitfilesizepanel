@@ -41,7 +41,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     tests_require=tests_require,
-#    extras_require=dict(test=tests_require),
+    #    extras_require=dict(test=tests_require),
     extras_require={
         "test": [
             "plone.app.testing",
@@ -54,7 +54,6 @@ setup(
             "collective.MockMailHost",
         ],
     },
-
     install_requires=[
         "setuptools",
         "plone.api",

@@ -11,8 +11,8 @@
       method="GET"
       factory=".get.LimitSizesGet"
       for="zope.interface.Interface"
-      name="@limit-sizes"
       permission="collective.limitfilesizepanel.ExposeSizeLimits"
+      name="@limit-sizes"
       />
 
   <adapter

@@ -111,13 +111,13 @@ class TestValidation(unittest.TestCase):
 
         # 1mb image is ok
         image._setData(self.generate_image())
-        #validate_image_field(field, image)
+        # validate_image_field(field, image)
         NamedImageField.validate(field, image)
 
         image._setData(self.generate_image(2))
 
         with self.assertRaises(Invalid) as cm:
-            #validate_image_field(field, image)
+            # validate_image_field(field, image)
             NamedImageField.validate(field, image)
 
         self.assertIn(
@@ -134,14 +134,14 @@ class TestValidation(unittest.TestCase):
         text = " " * (1024 * 1024)
         example_file._setData(BytesIO(text.encode()))
         # 1mb file is ok
-#        validate_file_field(field, example_file)
+        #        validate_file_field(field, example_file)
         NamedFileField.validate(field, example_file)
 
         text = " " * (1024 * 1024 * 2)
         example_file._setData(BytesIO(text.encode()))
 
         with self.assertRaises(Invalid) as cm:
-            #validate_file_field(field, example_file)
+            # validate_file_field(field, example_file)
             NamedFileField.validate(field, example_file)
 
         self.assertIn(
@@ -162,19 +162,19 @@ class TestValidation(unittest.TestCase):
 
         # 1mb image is ok
         image._setData(self.generate_image())
-        #validate_image_field(field, image)
+        # validate_image_field(field, image)
         NamedImageField.validate(field, image)
 
         # 2mb image is ok
         image._setData(self.generate_image(2))
-        #validate_image_field(field, image)
+        # validate_image_field(field, image)
         NamedImageField.validate(field, image)
 
         # 3mb image is not ok
         image._setData(self.generate_image(3))
 
         with self.assertRaises(Invalid) as cm:
-            #validate_image_field(field, image)
+            # validate_image_field(field, image)
             NamedImageField.validate(field, image)
 
         self.assertIn(

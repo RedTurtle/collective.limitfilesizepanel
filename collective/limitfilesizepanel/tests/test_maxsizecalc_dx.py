@@ -20,7 +20,7 @@ class TestMaxSizeCalcDX(unittest.TestCase):
         self.request = self.layer["request"]
 
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
-        #self.installer = api.portal.get_tool("portal_quickinstaller")
+        # self.installer = api.portal.get_tool("portal_quickinstaller")
         self.helper_view = api.content.get_view(
             name="lfsp_helpers_view",
             context=self.portal,
