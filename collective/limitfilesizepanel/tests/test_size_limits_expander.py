@@ -1,15 +1,21 @@
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
+from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_RESTAPI_TESTING
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.app.testing import SITE_OWNER_NAME
+from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.restapi.testing import PLONE_RESTAPI_DX_FUNCTIONAL_TESTING
+
+from plone.restapi.testing import RelativeSession
 import transaction
 import unittest
 
 
+
 class TestFileConstraintsExpander(unittest.TestCase):
 
-    layer = PLONE_RESTAPI_DX_FUNCTIONAL_TESTING
+    layer = LIMITFILESIZEPANEL_RESTAPI_TESTING
 
     def setUp(self):
         self.app = self.layer["app"]
@@ -17,7 +23,11 @@ class TestFileConstraintsExpander(unittest.TestCase):
         self.portal_url = self.portal.absolute_url()
         self.request = self.layer["request"]
 
-        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        setRoles(self.portal, TEST_USER_ID, ["Manager", "Editor", "Contributor"])
+
+        self.api_session = RelativeSession(self.portal_url)
+        self.api_session.headers.update({"Accept": "application/json"})
+        self.api_session.auth = (SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
 
         api.portal.set_registry_record(
             "file_size", 10240, interface=ILimitFileSizePanel
@@ -36,39 +46,21 @@ class TestFileConstraintsExpander(unittest.TestCase):
         api.content.delete(obj=self.file_obj)
         transaction.commit()
 
-    def _get_response(self, url, expand=None):
-        from requests import get
-        from plone.app.testing import SITE_OWNER_NAME, SITE_OWNER_PASSWORD
-
-        if expand:
-            url = f"{url}?expand={expand}"
-
-        response = get(
-            url,
-            headers={"Accept": "application/json"},
-            auth=(SITE_OWNER_NAME, SITE_OWNER_PASSWORD),
-        )
-        return response
-
     def test_expander_present_in_components(self):
-        response = self._get_response(f"{self.portal_url}/test-file")
+        response = self.api_session.get("test-file")
         self.assertEqual(response.status_code, 200)
 
         data = response.json()
         self.assertIn("limit-sizes", data.get("@components", {}))
 
     def test_expander_returns_max_size(self):
-        response = self._get_response(
-            f"{self.portal_url}/test-file",
-            expand="limit-sizes",
-        )
+        response = self.api_session.get("@limit-sizes")
         self.assertEqual(response.status_code, 200)
 
-        data = response.json()
-        component = data["@components"]["limit-sizes"]
+        data = response.json()["items"]
 
-        self.assertIn("file_size_limit", component)
-        self.assertEqual(component["file_size_limit"], 10240)
+        self.assertIn("file_size_limit", data)
+        self.assertEqual(data["file_size_limit"], 10240)
 
     def test_expander_max_size_reflects_registry_change(self):
         api.portal.set_registry_record(
@@ -76,11 +68,10 @@ class TestFileConstraintsExpander(unittest.TestCase):
         )
         transaction.commit()
 
-        response = self._get_response(
-            f"{self.portal_url}/test-file",
-            expand="limit-sizes",
-        )
-        data = response.json()
-        component = data["@components"]["limit-sizes"]
+        response = self.api_session.get("@limit-sizes")
+        self.assertEqual(response.status_code, 200)
 
-        self.assertEqual(component["file_size_limit"], 51200)
+        data = response.json()["items"]
+
+        self.assertIn("file_size_limit", data)
+        self.assertEqual(data["file_size_limit"], 51200)

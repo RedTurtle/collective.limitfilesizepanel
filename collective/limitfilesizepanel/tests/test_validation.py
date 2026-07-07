@@ -6,8 +6,8 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.registry.interfaces import IRegistry
 from zope.component import queryUtility
-from plone.namedfile.field import validate_image_field
-from plone.namedfile.field import validate_file_field
+from plone.namedfile.field import NamedImage as NamedImageField
+from plone.namedfile.field import NamedFile as NamedFileField
 from plone.namedfile.interfaces import INamedImageField
 from plone.namedfile.interfaces import INamedFileField
 from zope.interface import implementer
@@ -111,12 +111,14 @@ class TestValidation(unittest.TestCase):
 
         # 1mb image is ok
         image._setData(self.generate_image())
-        validate_image_field(field, image)
+        #validate_image_field(field, image)
+        NamedImageField.validate(field, image)
 
         image._setData(self.generate_image(2))
 
         with self.assertRaises(Invalid) as cm:
-            validate_image_field(field, image)
+            #validate_image_field(field, image)
+            NamedImageField.validate(field, image)
 
         self.assertIn(
             "Validation failed. Uploaded data is too large: 2.0MB (max 1.0MB)",
@@ -132,13 +134,15 @@ class TestValidation(unittest.TestCase):
         text = " " * (1024 * 1024)
         example_file._setData(BytesIO(text.encode()))
         # 1mb file is ok
-        validate_file_field(field, example_file)
+#        validate_file_field(field, example_file)
+        NamedFileField.validate(field, example_file)
 
         text = " " * (1024 * 1024 * 2)
         example_file._setData(BytesIO(text.encode()))
 
         with self.assertRaises(Invalid) as cm:
-            validate_file_field(field, example_file)
+            #validate_file_field(field, example_file)
+            NamedFileField.validate(field, example_file)
 
         self.assertIn(
             "Validation failed. Uploaded data is too large: 2.0MB (max 1.0MB)",
@@ -158,17 +162,20 @@ class TestValidation(unittest.TestCase):
 
         # 1mb image is ok
         image._setData(self.generate_image())
-        validate_image_field(field, image)
+        #validate_image_field(field, image)
+        NamedImageField.validate(field, image)
 
         # 2mb image is ok
         image._setData(self.generate_image(2))
-        validate_image_field(field, image)
+        #validate_image_field(field, image)
+        NamedImageField.validate(field, image)
 
         # 3mb image is not ok
         image._setData(self.generate_image(3))
 
         with self.assertRaises(Invalid) as cm:
-            validate_image_field(field, image)
+            #validate_image_field(field, image)
+            NamedImageField.validate(field, image)
 
         self.assertIn(
             "Validation failed. Uploaded data is too large: 3.0MB (max 2.0MB)",
