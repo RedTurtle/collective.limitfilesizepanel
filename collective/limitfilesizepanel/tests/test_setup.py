@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
+
 from collective.limitfilesizepanel.testing import (
     LIMITFILESIZEPANEL_INTEGRATION_TESTING,
 )  # noqa
@@ -8,7 +9,6 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 
 import unittest
-
 
 try:
     from Products.CMFPlone.utils import get_installer
