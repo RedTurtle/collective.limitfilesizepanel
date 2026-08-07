@@ -7,6 +7,7 @@ from plone.app.testing import PloneSandboxLayer
 
 import collective.limitfilesizepanel
 import collective.z3cform.jsonwidget
+import redturtle.reactbundle
 
 
 class LimitFileSizePanelLayer(PloneSandboxLayer):
@@ -15,9 +16,13 @@ class LimitFileSizePanelLayer(PloneSandboxLayer):
     def setUpZope(self, app, configurationContext):
         # Load any other ZCML that is required for your tests.
         # The z3c.autoinclude feature is disabled in the Plone fixture base
-        # layer.
-        self.loadZCML(package=collective.limitfilesizepanel)
+        # layer, so profile-redturtle.reactbundle:default (a dependency of
+        # collective.z3cform.jsonwidget:default) needs its ZCML loaded here
+        # too, otherwise applyProfile() fails with a missing-dependency
+        # -profile KeyError.
+        self.loadZCML(package=redturtle.reactbundle)
         self.loadZCML(package=collective.z3cform.jsonwidget)
+        self.loadZCML(package=collective.limitfilesizepanel)
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, "collective.limitfilesizepanel:default")

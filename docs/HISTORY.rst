@@ -4,7 +4,34 @@ Changelog
 3.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix stale bundle name in add_bundle_on_request: the JSON widget bundle
+  was renamed from "z3cform-jsonwidget-bundle" to "z3cform-jsonwidget" in
+  collective.z3cform.jsonwidget's Plone 6 port, but this control panel
+  never followed the rename. Also request the "react-bundle" bundle,
+  which the widget needs and which collective.z3cform.jsonwidget now
+  gates behind an explicit opt-in (see collective.z3cform.jsonwidget
+  3.0.0 and redturtle.reactbundle).
+  [mamico]
+- Update classifiers/references to Plone 6.1 (was still declaring Plone
+  5.2/Python 3.8 even though this package already runs fine on 6.1 in
+  production): added a test_plone61.cfg, bumped Framework/Python
+  classifiers, and switched the "Tests" GitHub Actions job to a plain
+  pip install + zope-testrunner (the old Python 3.7/3.8 matrix no
+  longer resolves on current runners, and buildout.plonetest's
+  test-6.1.x.cfg pins a zc.buildout version that fails to install on
+  Python 3.11 for unrelated reasons).
+  [mamico]
+- Fix tests for Plone 6.1: ``plone.namedfile.field.validate_image_field``/
+  ``validate_file_field`` were removed (replicated them locally via the
+  ``IPluggableImageFieldValidation``/``IPluggableFileFieldValidation``
+  adapters they used to wrap); ``FakeImageField``/``FakeFileField`` test
+  doubles were missing the ``accept`` attribute the real validators now
+  check; ``portal_quickinstaller`` no longer exists (removed the one
+  unused reference to it, and the already-existing ``get_installer()``
+  based tests continue to use the modern
+  ``is_product_installed``/``uninstall_product`` API instead of the
+  removed ``isProductInstalled``/``uninstallProducts``).
+  [mamico]
 
 
 3.0.3 (2023-09-27)

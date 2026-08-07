@@ -1,29 +1,45 @@
 # -*- coding: utf-8 -*-
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING
+from io import BytesIO
+from PIL import Image
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from plone.registry.interfaces import IRegistry
-from zope.component import queryUtility
-from plone.namedfile.field import validate_image_field
-from plone.namedfile.field import validate_file_field
-from plone.namedfile.interfaces import INamedImageField
-from plone.namedfile.interfaces import INamedFileField
-from zope.interface import implementer
-from plone.namedfile.file import NamedImage
 from plone.namedfile.file import NamedFile
-from io import BytesIO
-from PIL import Image
+from plone.namedfile.file import NamedImage
+from plone.namedfile.interfaces import INamedFileField
+from plone.namedfile.interfaces import INamedImageField
+from plone.namedfile.interfaces import IPluggableFileFieldValidation
+from plone.namedfile.interfaces import IPluggableImageFieldValidation
+from plone.registry.interfaces import IRegistry
 from transaction import commit
+from zope.component import getAdapters
+from zope.component import queryUtility
+from zope.interface import implementer
 from zope.interface.exceptions import Invalid
 
-import unittest
 import json
+import unittest
+
+
+def validate_image_field(field, value):
+    # plone.namedfile.field.validate_image_field/validate_file_field were
+    # removed; this replicates what they did, matching
+    # plone.namedfile.field.NamedField.validate().
+    for name, validator in getAdapters((field, value), IPluggableImageFieldValidation):
+        validator()
+
+
+def validate_file_field(field, value):
+    for name, validator in getAdapters((field, value), IPluggableFileFieldValidation):
+        validator()
 
 
 @implementer(INamedImageField)
 class FakeImageField(object):
+    accept = ("image/*",)
+
     def __init__(self, name=""):
         self.name = name
 
@@ -35,6 +51,8 @@ class FakeImageField(object):
 
 @implementer(INamedFileField)
 class FakeFileField(object):
+    accept = ()
+
     def __init__(self, name=""):
         self.name = name
 

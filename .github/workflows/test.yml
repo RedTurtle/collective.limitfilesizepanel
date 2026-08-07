@@ -5,32 +5,24 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 4
-      matrix:
-        python: ["3.7", "3.8"]
-        plone: ["52"]
-        # exclude:
-        #   - python: "3.7"
-        #     plone: "51"
     steps:
-      - uses: actions/checkout@v1
-      - name: Cache eggs
-        uses: actions/cache@v1
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
         with:
-          path: eggs
-          key: ${{ runner.OS }}-build-python${{ matrix.python }}-${{ matrix.plone }}
-      - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v1
-        with:
-          python-version: ${{ matrix.python }}
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          cp test_plone${{ matrix.plone }}.cfg buildout.cfg
-      - name: Install buildout
-        run: |
-          buildout -N -t 3 code-analysis:return-status-codes=True
-      - name: Run tests
-        run: |
-          bin/test
+          python-version: "3.11"
+          cache: 'pip'
+
+      # TODO: remove once collective/collective.z3cform.jsonwidget#5 is
+      # merged and released - the version currently on PyPI predates that
+      # package's Plone 6 port and doesn't depend on redturtle.reactbundle,
+      # which this package's own testing.py now needs.
+      - name: install collective.z3cform.jsonwidget fix branch
+        run: pip install "git+https://github.com/collective/collective.z3cform.jsonwidget.git@gate-jsonwidget-bundle"
+
+      - name: install package with test extras (Plone 6.1)
+        run: pip install -e ".[test]" -c "https://dist.plone.org/release/6.1-dev/constraints.txt"
+
+      - name: run tests
+        run: zope-testrunner --test-path=. -s collective.limitfilesizepanel --all
