@@ -14,6 +14,13 @@ jobs:
           python-version: "3.11"
           cache: 'pip'
 
+      # TODO: remove once collective/collective.z3cform.jsonwidget#5 is
+      # merged and released - the version currently on PyPI predates that
+      # package's Plone 6 port and doesn't depend on redturtle.reactbundle,
+      # which this package's own testing.py now needs.
+      - name: install collective.z3cform.jsonwidget fix branch
+        run: pip install "git+https://github.com/collective/collective.z3cform.jsonwidget.git@gate-jsonwidget-bundle"
+
       - name: install package with test extras (Plone 6.1)
         run: pip install -e ".[test]" -c "https://dist.plone.org/release/6.1-dev/constraints.txt"
 
