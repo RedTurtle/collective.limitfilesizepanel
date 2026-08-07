@@ -33,7 +33,15 @@ class LimitFileSizeControlPanel(controlpanel.ControlPanelFormWrapper):
     """Analytics settings control panel."""
 
     def __call__(self):
-        add_bundle_on_request(self.request, "z3cform-jsonwidget-bundle")
+        # "z3cform-jsonwidget-bundle" was the bundle name before
+        # collective.z3cform.jsonwidget's Plone 6 port renamed it to
+        # "z3cform-jsonwidget" (see its CHANGES.rst); this call was a
+        # no-op ever since, only masked by that bundle being enabled
+        # unconditionally. Also request "react-bundle" (from
+        # redturtle.reactbundle), which the widget needs and which is
+        # similarly gated behind an explicit opt-in.
+        add_bundle_on_request(self.request, "react-bundle")
+        add_bundle_on_request(self.request, "z3cform-jsonwidget")
         return super().__call__()
 
     form = LimitFileSizeEditForm

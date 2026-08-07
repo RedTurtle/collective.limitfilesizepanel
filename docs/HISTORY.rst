@@ -4,7 +4,14 @@ Changelog
 3.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix stale bundle name in add_bundle_on_request: the JSON widget bundle
+  was renamed from "z3cform-jsonwidget-bundle" to "z3cform-jsonwidget" in
+  collective.z3cform.jsonwidget's Plone 6 port, but this control panel
+  never followed the rename. Also request the "react-bundle" bundle,
+  which the widget needs and which collective.z3cform.jsonwidget now
+  gates behind an explicit opt-in (see collective.z3cform.jsonwidget
+  3.0.0 and redturtle.reactbundle).
+  [mamico]
 
 
 3.0.3 (2023-09-27)
