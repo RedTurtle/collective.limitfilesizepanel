@@ -50,6 +50,8 @@ class LimitSizes(object):
         return {
             "file_size_limit": self.get_registry_value("file_size"),
             "image_size_limit": self.get_registry_value("image_size"),
+            # if True, the backend skips the validation on edit (PATCH)
+            "new_data_only": bool(self.get_registry_value("new_data_only")),
             "can_bypass": bool(
                 api.user.has_permission(BYPASS_PERMISSION, obj=self.context)
             ),

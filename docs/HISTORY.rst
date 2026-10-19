@@ -5,7 +5,8 @@ Changelog
 ------------------
 
 - Added @limit-sizes service and limit-sizes expander to expose file and
-  image size limits (in MB) and the bypass permission of the current user.
+  image size limits (in MB), the new_data_only setting and the bypass
+  permission of the current user.
   Run upgrade step to 1400 to set the new permission's roles.
   [daniele]
 - Expose the control panel on plone.restapi (@controlpanels/limitfilesize-settings),

@@ -84,7 +84,12 @@ class TestSizeLimits(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.json()["items"],
-            {"file_size_limit": 50, "image_size_limit": 5, "can_bypass": False},
+            {
+                "file_size_limit": 50,
+                "image_size_limit": 5,
+                "new_data_only": True,
+                "can_bypass": False,
+            },
         )
 
     def test_service_reflects_registry_change(self):
@@ -126,7 +131,12 @@ class TestSizeLimits(unittest.TestCase):
         data = response.json()["@components"]["limit-sizes"]
         self.assertEqual(
             data["items"],
-            {"file_size_limit": 50, "image_size_limit": 5, "can_bypass": False},
+            {
+                "file_size_limit": 50,
+                "image_size_limit": 5,
+                "new_data_only": True,
+                "can_bypass": False,
+            },
         )
 
     def test_expanded_hides_limits_without_permission(self):
@@ -149,6 +159,20 @@ class TestSizeLimits(unittest.TestCase):
 
         response = self.session(auth=("editor", "secret!!")).get("@limit-sizes")
         self.assertTrue(response.json()["items"]["can_bypass"])
+
+    def test_new_data_only(self):
+        api.portal.set_registry_record(
+            "new_data_only", False, interface=ILimitFileSizePanel
+        )
+        transaction.commit()
+
+        response = self.session(auth=("editor", "secret!!")).get("@limit-sizes")
+        self.assertFalse(response.json()["items"]["new_data_only"])
+
+        api.portal.set_registry_record(
+            "new_data_only", True, interface=ILimitFileSizePanel
+        )
+        transaction.commit()
 
     def test_upgrade_to_1400_sets_permission_roles(self):
         from collective.limitfilesizepanel.setuphandlers import migrateTo1400
