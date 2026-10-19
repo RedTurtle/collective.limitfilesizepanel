@@ -8,6 +8,11 @@ Changelog
   image size limits (in MB) and the bypass permission of the current user.
   Run upgrade step to 1400 to set the new permission's roles.
   [daniele]
+- Expose the control panel on plone.restapi (@controlpanels/limitfilesize-settings),
+  so it can be managed from Volto.
+  [cekk]
+- "Validate only new data" is no more required, so it can be unchecked.
+  [cekk]
 
 
 3.0.3 (2023-09-27)

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from collective.limitfilesizepanel import messageFactory as _
+from plone.restapi.controlpanels import IControlpanel
 from zope import schema
 from zope.interface import Interface
 
@@ -86,4 +87,13 @@ class ILimitFileSizePanel(Interface):
             " saved.",
         ),
         default=True,
+        # a required Bool can't be unchecked: z3c.form and Volto treat False
+        # as a missing value
+        required=False,
     )
+
+
+class ILimitFileSizePanelControlpanel(IControlpanel):
+    """
+    Control panel exposed on plone.restapi (@controlpanels)
+    """

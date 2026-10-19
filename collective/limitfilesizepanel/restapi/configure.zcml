@@ -9,4 +9,11 @@
       />
   <include package=".services" />
 
+  <!-- enable controlpanel on plone.restapi -->
+  <adapter
+      factory=".controlpanel.LimitFileSizeControlpanel"
+      provides="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelControlpanel"
+      name="limitfilesize-settings"
+      />
+
 </configure>
