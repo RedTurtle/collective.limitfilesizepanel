@@ -14,6 +14,10 @@ Changelog
   [cekk]
 - "Validate only new data" is no more required, so it can be unchecked.
   [cekk]
+- Support Plone 6.0, 6.1 and 6.2 on Python 3.11+ and drop Plone 5.2 support.
+  Configure the package with plone.meta (tox and GitHub Actions) and remove
+  the old buildout-based test setup.
+  [cekk]
 
 
 3.0.3 (2023-09-27)
@@ -73,7 +77,7 @@ Changelog
 2.0.3 (2018-01-30)
 ------------------
 
-- Don't break validation for view with no spcific context.
+- Don't break validation for view with no specific context.
   [bsuttor]
 
 
@@ -89,7 +93,7 @@ Changelog
   If not installed, shouldn't do nothing.
   [cekk]
 
-- Fix patched__call__ if the product isn't istalled.
+- Fix patched__call__ if the product isn't installed.
   [arsenico13]
 
 2.0.0 (2017-05-04)
