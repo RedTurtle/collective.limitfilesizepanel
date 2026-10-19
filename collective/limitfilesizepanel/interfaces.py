@@ -81,7 +81,7 @@ class ILimitFileSizePanel(Interface):
             default="Keep selected to validate only new uploaded files and"
             " images.\nIf you unselect this and the size "
             "configurations above will be lowered, is possible that"
-            " users that edit contents wont be able to save the form "
+            " users that edit contents won't be able to save the form "
             "because the validator will check also data already"
             " saved.",
         ),

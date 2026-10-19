@@ -9,38 +9,25 @@ from plone.namedfile.field import NamedFile as NamedFileField
 from plone.namedfile.field import NamedImage as NamedImageField
 from plone.namedfile.file import NamedFile
 from plone.namedfile.file import NamedImage
-from plone.namedfile.interfaces import INamedFileField
-from plone.namedfile.interfaces import INamedImageField
 from plone.registry.interfaces import IRegistry
 from transaction import commit
 from zope.component import queryUtility
-from zope.interface import implementer
 from zope.interface.exceptions import Invalid
 
 import json
 import unittest
 
 
-@implementer(INamedImageField)
-class FakeImageField:
-    def __init__(self, name=""):
-        self.name = name
-
-    __name__ = "logo"
-
-    def getName(self):
-        return self.name
+def get_image_field(context, name="logo"):
+    field = NamedImageField(__name__=name)
+    field.context = context
+    return field
 
 
-@implementer(INamedFileField)
-class FakeFileField:
-    def __init__(self, name=""):
-        self.name = name
-
-    __name__ = "file"
-
-    def getName(self):
-        return self.name
+def get_file_field(context, name="file"):
+    field = NamedFileField(__name__=name)
+    field.context = context
+    return field
 
 
 class TestValidation(unittest.TestCase):
@@ -103,21 +90,20 @@ class TestValidation(unittest.TestCase):
 
     def test_validate_image_field(self):
         # field is empty
-        field = FakeImageField()
-        field.context = self.portal
+        field = get_image_field(self.portal)
 
         image = NamedImage()
 
         # 1mb image is ok
         image._setData(self.generate_image())
         # validate_image_field(field, image)
-        NamedImageField.validate(field, image)
+        field.validate(image)
 
         image._setData(self.generate_image(2))
 
         with self.assertRaises(Invalid) as cm:
             # validate_image_field(field, image)
-            NamedImageField.validate(field, image)
+            field.validate(image)
 
         self.assertIn(
             "Validation failed. Uploaded data is too large: 2.0MB (max 1.0MB)",
@@ -126,22 +112,21 @@ class TestValidation(unittest.TestCase):
 
     def test_validate_file_field(self):
         # field is empty
-        field = FakeFileField()
-        field.context = self.portal
+        field = get_file_field(self.portal)
 
         example_file = NamedFile()
         text = " " * (1024 * 1024)
         example_file._setData(BytesIO(text.encode()))
         # 1mb file is ok
         #        validate_file_field(field, example_file)
-        NamedFileField.validate(field, example_file)
+        field.validate(example_file)
 
         text = " " * (1024 * 1024 * 2)
         example_file._setData(BytesIO(text.encode()))
 
         with self.assertRaises(Invalid) as cm:
             # validate_file_field(field, example_file)
-            NamedFileField.validate(field, example_file)
+            field.validate(example_file)
 
         self.assertIn(
             "Validation failed. Uploaded data is too large: 2.0MB (max 1.0MB)",
@@ -155,26 +140,25 @@ class TestValidation(unittest.TestCase):
             container=self.portal,
         )
 
-        field = FakeImageField(name="image")
-        field.context = news
+        field = get_image_field(news, name="image")
         image = NamedImage()
 
         # 1mb image is ok
         image._setData(self.generate_image())
         # validate_image_field(field, image)
-        NamedImageField.validate(field, image)
+        field.validate(image)
 
         # 2mb image is ok
         image._setData(self.generate_image(2))
         # validate_image_field(field, image)
-        NamedImageField.validate(field, image)
+        field.validate(image)
 
         # 3mb image is not ok
         image._setData(self.generate_image(3))
 
         with self.assertRaises(Invalid) as cm:
             # validate_image_field(field, image)
-            NamedImageField.validate(field, image)
+            field.validate(image)
 
         self.assertIn(
             "Validation failed. Uploaded data is too large: 3.0MB (max 2.0MB)",
