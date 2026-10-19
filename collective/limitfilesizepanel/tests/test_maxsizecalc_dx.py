@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING
 from collective.limitfilesizepanel.tests.base_dx import ITestSchema
@@ -8,8 +7,8 @@ from plone.app.testing import TEST_USER_ID
 from plone.registry.interfaces import IRegistry
 from zope.component import queryUtility
 
-import unittest
 import json
+import unittest
 
 
 class TestMaxSizeCalcDX(unittest.TestCase):

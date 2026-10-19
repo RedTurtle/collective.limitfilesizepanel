@@ -1,17 +1,16 @@
-# -*- coding: utf-8 -*-
 from Acquisition import aq_base
 from collective.limitfilesizepanel import messageFactory as _
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 from plone import api
 from plone.api.exc import InvalidParameterError
-from Products.Five.browser import BrowserView
+from plone.namedfile.interfaces import INamedFileField
+from plone.namedfile.interfaces import INamedImageField
 from Products.CMFPlone.utils import safe_unicode
+from Products.Five.browser import BrowserView
 from zope.i18n import translate
 from zope.interface import implementer
 from zope.interface import Interface
 from ZPublisher.HTTPRequest import FileUpload
-from plone.namedfile.interfaces import INamedImageField
-from plone.namedfile.interfaces import INamedFileField
 
 import json
 
@@ -78,8 +77,8 @@ class View(BrowserView):
                 default="Validation failed. Uploaded data is too large:"
                 " ${size}MB (max ${max}MB)",
                 mapping={
-                    "size": safe_unicode("{0:.1f}".format(sizeMB)),
-                    "max": safe_unicode("{0:.1f}".format(maxsize)),
+                    "size": safe_unicode(f"{sizeMB:.1f}"),
+                    "max": safe_unicode(f"{maxsize:.1f}"),
                 },
             )
             result["error"] = translate(msg, context=self.request)

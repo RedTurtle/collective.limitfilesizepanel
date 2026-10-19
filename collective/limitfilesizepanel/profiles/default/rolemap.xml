@@ -1,20 +1,23 @@
-<?xml version="1.0"?> 
+<?xml version="1.0" encoding="utf-8"?>
 <rolemap>
   <permissions>
-    <permission name="collective.limitfilesizepanel: Manage limit file size settings"
-                acquire="False">
-      <role name="Manager"/>
-      <role name="Site Administrator"/>
+    <permission acquire="False"
+                name="collective.limitfilesizepanel: Manage limit file size settings"
+    >
+      <role name="Manager" />
+      <role name="Site Administrator" />
     </permission>
-    <permission name="collective.limitfilesizepanel: Bypass limit size"
-                acquire="False">
+    <permission acquire="False"
+                name="collective.limitfilesizepanel: Bypass limit size"
+    >
     </permission>
-    <permission name="collective.limitfilesizepanel: Expose size limits"
-                acquire="False">
-      <role name="Manager"/>
-      <role name="Editor"/>
-      <role name="Site Administrator"/>
-      <role name="Contributor"/>
+    <permission acquire="False"
+                name="collective.limitfilesizepanel: Expose size limits"
+    >
+      <role name="Manager" />
+      <role name="Editor" />
+      <role name="Site Administrator" />
+      <role name="Contributor" />
     </permission>
   </permissions>
 </rolemap>

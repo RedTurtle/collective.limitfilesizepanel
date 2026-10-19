@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.limitfilesizepanel import messageFactory as _
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 from collective.limitfilesizepanel.interfaces import ITypesSettingsRow

@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-from plone.namedfile.field import NamedBlobFile, NamedBlobImage
+from plone.namedfile.field import NamedBlobFile
+from plone.namedfile.field import NamedBlobImage
 from zope import interface
 
 
@@ -15,13 +15,13 @@ class ITestSchema(interface.Interface):
     )
 
 
-class FileObject(object):
+class FileObject:
     portal_type = "File"  # we need a valid portal_type
 
 
-class NewsObject(object):
+class NewsObject:
     portal_type = "News Item"  # we need a valid portal_type
 
 
-class ImageObject(object):
+class ImageObject:
     portal_type = "Image"  # we need a valid portal_type

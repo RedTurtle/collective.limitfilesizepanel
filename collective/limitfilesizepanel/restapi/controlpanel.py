@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanelControlpanel
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanelLayer

@@ -71,7 +71,7 @@ class TestControlpanel(unittest.TestCase):
         browser.handleErrors = False
         browser.addHeader(
             "Authorization",
-            "Basic {}:{}".format(SITE_OWNER_NAME, SITE_OWNER_PASSWORD),
+            f"Basic {SITE_OWNER_NAME}:{SITE_OWNER_PASSWORD}",
         )
         browser.open(self.portal_url + "/@@limitfilesize-settings")
         browser.getControl(name="form.widgets.new_data_only").value = []

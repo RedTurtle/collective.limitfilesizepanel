@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
 from plone import api
 from plone.api.exc import InvalidParameterError
 from plone.namedfile.interfaces import INamedFileField
+from plone.namedfile.interfaces import INamedImageField
 from plone.namedfile.interfaces import IPluggableFileFieldValidation
 from plone.namedfile.interfaces import IPluggableImageFieldValidation
-from plone.namedfile.interfaces import INamedImageField
 from zope.component import adapter
+from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.interface import Interface
-from zope.globalrequest import getRequest
 from zope.schema import ValidationError
 
 

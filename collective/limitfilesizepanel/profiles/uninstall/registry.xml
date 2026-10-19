@@ -1,14 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <registry>
-    <record interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanel"
-	        field="file_size"
-			remove="True" />
-    <record interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanel"
-	        field="image_size"
-			remove="True" />
-    <record interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanel"
-	        field="types_settings"
-			remove="True" />
-    <record interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanel"
-	        field="new_data_only"
-			remove="True" />
+  <record field="file_size"
+          interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanel"
+          remove="True"
+  />
+  <record field="image_size"
+          interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanel"
+          remove="True"
+  />
+  <record field="types_settings"
+          interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanel"
+          remove="True"
+  />
+  <record field="new_data_only"
+          interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanel"
+          remove="True"
+  />
 </registry>

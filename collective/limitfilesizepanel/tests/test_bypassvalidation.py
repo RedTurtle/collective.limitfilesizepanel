@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
 from collective.limitfilesizepanel.testing import (
-    LIMITFILESIZEPANEL_INTEGRATION_TESTING,
-)  # NOQA
+    LIMITFILESIZEPANEL_INTEGRATION_TESTING,  # NOQA
+)
 from plone import api
-from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+
 import unittest
 
 

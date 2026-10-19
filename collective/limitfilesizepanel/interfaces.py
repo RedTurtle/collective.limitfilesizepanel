@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.limitfilesizepanel import messageFactory as _
 from plone.restapi.controlpanels import IControlpanel
 from zope import schema

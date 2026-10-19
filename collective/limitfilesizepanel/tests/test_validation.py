@@ -1,29 +1,28 @@
-# -*- coding: utf-8 -*-
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 from collective.limitfilesizepanel.testing import LIMITFILESIZEPANEL_INTEGRATION_TESTING
+from io import BytesIO
+from PIL import Image
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from plone.registry.interfaces import IRegistry
-from zope.component import queryUtility
-from plone.namedfile.field import NamedImage as NamedImageField
 from plone.namedfile.field import NamedFile as NamedFileField
-from plone.namedfile.interfaces import INamedImageField
-from plone.namedfile.interfaces import INamedFileField
-from zope.interface import implementer
-from plone.namedfile.file import NamedImage
+from plone.namedfile.field import NamedImage as NamedImageField
 from plone.namedfile.file import NamedFile
-from io import BytesIO
-from PIL import Image
+from plone.namedfile.file import NamedImage
+from plone.namedfile.interfaces import INamedFileField
+from plone.namedfile.interfaces import INamedImageField
+from plone.registry.interfaces import IRegistry
 from transaction import commit
+from zope.component import queryUtility
+from zope.interface import implementer
 from zope.interface.exceptions import Invalid
 
-import unittest
 import json
+import unittest
 
 
 @implementer(INamedImageField)
-class FakeImageField(object):
+class FakeImageField:
     def __init__(self, name=""):
         self.name = name
 
@@ -34,7 +33,7 @@ class FakeImageField(object):
 
 
 @implementer(INamedFileField)
-class FakeFileField(object):
+class FakeFileField:
     def __init__(self, name=""):
         self.name = name
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
 from collective.limitfilesizepanel.interfaces import ILimitFileSizePanelLayer
 from plone import api
@@ -9,24 +8,19 @@ from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import Interface
 
-
 EXPOSE_PERMISSION = "collective.limitfilesizepanel: Expose size limits"
 BYPASS_PERMISSION = "collective.limitfilesizepanel: Bypass limit size"
 
 
 @implementer(IExpandableElement)
 @adapter(Interface, ILimitFileSizePanelLayer)
-class LimitSizes(object):
+class LimitSizes:
     def __init__(self, context, request):
         self.context = context
         self.request = request
 
     def __call__(self, expand=False):
-        result = {
-            "limit-sizes": {
-                "@id": "{}/@limit-sizes".format(self.context.absolute_url())
-            }
-        }
+        result = {"limit-sizes": {"@id": f"{self.context.absolute_url()}/@limit-sizes"}}
         if not expand:
             return result
         # the expander is reachable by anyone with ?expand=limit-sizes, so

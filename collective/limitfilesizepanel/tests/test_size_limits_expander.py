@@ -10,7 +10,6 @@ from plone.restapi.testing import RelativeSession
 import transaction
 import unittest
 
-
 EXPOSE_PERMISSION = "collective.limitfilesizepanel: Expose size limits"
 BYPASS_PERMISSION = "collective.limitfilesizepanel: Bypass limit size"
 
@@ -76,7 +75,7 @@ class TestSizeLimits(unittest.TestCase):
         self.assertIn("limit-sizes", components)
         self.assertEqual(
             components["limit-sizes"],
-            {"@id": "{}/folder/@limit-sizes".format(self.portal_url)},
+            {"@id": f"{self.portal_url}/folder/@limit-sizes"},
         )
 
     def test_service_returns_limits(self):
