@@ -44,5 +44,14 @@
       handler=".setuphandlers.migrateTo1300"
       sortkey="4"
       />
+  <genericsetup:upgradeStep
+      title="Upgrade to collective.limitfilesizepanel to version 1400"
+      description="Set roles for the new Expose size limits permission"
+      profile="collective.limitfilesizepanel:default"
+      source="1300"
+      destination="1400"
+      handler=".setuphandlers.migrateTo1400"
+      sortkey="5"
+      />
 
 </configure>

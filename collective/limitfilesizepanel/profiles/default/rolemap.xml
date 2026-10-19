@@ -9,8 +9,9 @@
     <permission name="collective.limitfilesizepanel: Bypass limit size"
                 acquire="False">
     </permission>
-     <permission name="collective.limitfilesizepanel: Expose size limits"
+    <permission name="collective.limitfilesizepanel: Expose size limits"
                 acquire="False">
+      <role name="Manager"/>
       <role name="Editor"/>
       <role name="Site Administrator"/>
       <role name="Contributor"/>

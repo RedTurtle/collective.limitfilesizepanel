@@ -4,7 +4,10 @@ Changelog
 3.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added @limit-sizes service and limit-sizes expander to expose file and
+  image size limits (in MB) and the bypass permission of the current user.
+  Run upgrade step to 1400 to set the new permission's roles.
+  [daniele]
 
 
 3.0.3 (2023-09-27)

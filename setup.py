@@ -8,6 +8,8 @@ tests_require = [
     "plone.testing>=5.0.0",
     "plone.app.contenttypes",
     "plone.app.robotframework[debug]",
+    "plone.restapi[test]",
+    "redturtle.reactbundle",
 ]
 
 setup(
@@ -41,25 +43,13 @@ setup(
     include_package_data=True,
     zip_safe=False,
     tests_require=tests_require,
-    #    extras_require=dict(test=tests_require),
-    extras_require={
-        "test": [
-            "plone.app.testing",
-            # Plone KGS does not use this version, because it would break
-            # Remove if your package shall be part of coredev.
-            # plone_coredev tests as of 2016-04-01.
-            "plone.testing>=5.0.0",
-            "plone.app.contenttypes",
-            "plone.app.robotframework[debug]",
-            "collective.MockMailHost",
-        ],
-    },
+    extras_require=dict(test=tests_require),
     install_requires=[
         "setuptools",
         "plone.api",
         "plone.app.registry",
+        "plone.restapi",
         "collective.monkeypatcher>=1.0",
-        "plone.api",
         "z3c.unconfigure",
         "collective.z3cform.jsonwidget>=1.1.2",
     ],

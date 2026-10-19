@@ -64,3 +64,15 @@ def migrateTo1300(context):
     setup_tool.runAllImportStepsFromProfile(
         "profile-collective.z3cform.jsonwidget:default"
     )
+
+
+def migrateTo1400(context):
+    # set only the new permission: re-importing the whole rolemap would
+    # reset also the roles customized on the site for the other permissions
+    portal = api.portal.get()
+    portal.manage_permission(
+        "collective.limitfilesizepanel: Expose size limits",
+        roles=["Manager", "Site Administrator", "Editor", "Contributor"],
+        acquire=False,
+    )
+    logger.info("Migrated to version 1400")

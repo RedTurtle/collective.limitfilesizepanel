@@ -5,13 +5,12 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     >
 
-
-
   <plone:service
       method="GET"
       factory=".get.LimitSizesGet"
       for="zope.interface.Interface"
       permission="collective.limitfilesizepanel.ExposeSizeLimits"
+      layer="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
       name="@limit-sizes"
       />
 
