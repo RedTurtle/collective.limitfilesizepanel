@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
+from zope.i18nmessageid import MessageFactory
 
 import logging
-from zope.i18nmessageid import MessageFactory
 
 project_name = "collective.limitfilesizepanel"
 messageFactory = MessageFactory(project_name)

@@ -9,7 +9,7 @@ This is an helper package that setup a RedTurtle's Plone site ready to work with
 .. |version| image:: http://img.shields.io/pypi/v/collective.limitfilesizepanel.svg
   :target: https://pypi.python.org/pypi/collective.limitfilesizepanel
 
-.. |ci| image:: https://github.com/RedTurtle/collective.limitfilesizepanel/actions/workflows/tests.yml/badge.svg
+.. |ci| image:: https://github.com/RedTurtle/collective.limitfilesizepanel/actions/workflows/test-matrix.yml/badge.svg
   :target: https://github.com/RedTurtle/collective.limitfilesizepanel/actions
 
 .. |downloads| image:: https://img.shields.io/pypi/dm/collective.limitfilesizepanel.svg
@@ -42,18 +42,6 @@ No users will be able to upload files that exceed the limit. Also in TinyMCE tex
 .. image:: https://raw.githubusercontent.com/RedTurtle/collective.limitfilesizepanel/93abb025ecae1070e28ead13874fc07dc25de52e/docs/collective.limitfilesizepanel-1.3-01.png
    :alt: Settings
 
-Advanced use
-------------
-
-While default general purpose file and image settings can be OK for most common scenarios,
-you can also define custom settings for specific content types: just fill the
-"**Settings for other content types and fields**" section.
-
-.. image:: https://raw.githubusercontent.com/RedTurtle/collective.limitfilesizepanel/93abb025ecae1070e28ead13874fc07dc25de52e/docs/collective.limitfilesizepanel-1.3-02.png
-   :alt: Type's settings
-
-Configuration in that section wins over global configuration.
-
 Validator bypass
 ================
 
@@ -65,10 +53,13 @@ You only need to set this permission to some roles, and they'll have no upload l
 Compatibility
 =============
 
-This products runs on Python3 and has been tested on:
+This products runs on Python 3.11+ and has been tested on:
 
-* Plone 5.2
+* Plone 6.0
+* Plone 6.1
+* Plone 6.2
 
+For Plone 5.2, please refer to 3.0.x releases.
 For older versions, please refer to 2.x branch/tags
 
 Credits

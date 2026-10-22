@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
 from plone import api
 from plone.api.exc import InvalidParameterError
 from plone.namedfile.interfaces import INamedFileField
+from plone.namedfile.interfaces import INamedImageField
 from plone.namedfile.interfaces import IPluggableFileFieldValidation
 from plone.namedfile.interfaces import IPluggableImageFieldValidation
-from plone.namedfile.interfaces import INamedImageField
 from zope.component import adapter
+from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.interface import Interface
-from zope.globalrequest import getRequest
 from zope.schema import ValidationError
 
 
@@ -51,9 +50,7 @@ class BaseFileSizeValidator:
             return True
         if self.skip():
             return True
-        maxsize = self.helper_view.get_maxsize(
-            field=self.field, portal_type=self.get_portal_type()
-        )
+        maxsize = self.helper_view.get_maxsize(field=self.field)
         if not maxsize:
             return True
 
@@ -79,14 +76,6 @@ class BaseFileSizeValidator:
             # restapi calls
             return False
         return True
-
-    def get_portal_type(self):
-        if self.request.steps:
-            if self.request.steps[-1].startswith("++add++"):
-                return self.request.steps[-1].replace("++add++", "")
-            if "@type" in self.request.form:
-                return self.request.form["@type"]
-        return self.field.context.portal_type
 
 
 @implementer(IPluggableFileFieldValidation)

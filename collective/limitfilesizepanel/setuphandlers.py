@@ -1,14 +1,17 @@
-# -*- coding: utf-8 -*-
 from collective.limitfilesizepanel import logger
-from collective.limitfilesizepanel.interfaces import ILimitFileSizePanel
-from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
 from plone import api
+from plone.base.utils import get_installer
+from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
-
-import json
+from Products.GenericSetup.tool import UNKNOWN
+from zope.component import getUtility
 
 PROFILE_ID = "profile-collective.limitfilesizepanel:default"
+TYPES_SETTINGS_RECORD = (
+    "collective.limitfilesizepanel.interfaces.ILimitFileSizePanel.types_settings"
+)
+JSONWIDGET = "collective.z3cform.jsonwidget"
+JSONWIDGET_PROFILE = f"profile-{JSONWIDGET}:default"
 
 
 def migrateTo1000(context):
@@ -31,36 +34,44 @@ def migrateTo1200(context):
 
 
 def migrateTo1300(context):
-    old = api.portal.get_registry_record(
-        "types_settings", interface=ILimitFileSizePanel
+    # types_settings has been removed in 1400 (see migrateTo1400), so there is
+    # nothing to migrate anymore
+    logger.info("Migrated to version 1300")
+
+
+def migrateTo1400(context):
+    # set only the new permission: re-importing the whole rolemap would
+    # reset also the roles customized on the site for the other permissions
+    portal = api.portal.get()
+    portal.manage_permission(
+        "collective.limitfilesizepanel: Expose size limits",
+        roles=["Manager", "Site Administrator", "Editor", "Contributor"],
+        acquire=False,
     )
 
-    new = []
-    for data in old:
-        new_data = {
-            "content_type": data.__Broken_state__.get("content_type", ""),
-            "field_name": data.__Broken_state__.get("field_name", ""),
-            "size": data.__Broken_state__.get("size", ""),
-        }
-        new.append(new_data)
+    # types_settings field has been removed
     registry = getUtility(IRegistry)
+    if TYPES_SETTINGS_RECORD in registry.records:
+        del registry.records[TYPES_SETTINGS_RECORD]
 
-    # remove old field
-    del registry.records[
-        "collective.limitfilesizepanel.interfaces.ILimitFileSizePanel.types_settings"
-    ]
-    # re-add it
-    setup_tool = getToolByName(context, "portal_setup")
-    setup_tool.runImportStepFromProfile(PROFILE_ID, "plone.app.registry")
+    # collective.z3cform.jsonwidget is no more a dependency
+    installer = get_installer(portal)
+    if installer.is_product_installed(JSONWIDGET) and not is_profile_required(
+        JSONWIDGET_PROFILE
+    ):
+        installer.uninstall_product(JSONWIDGET)
+        logger.info(f"Uninstalled {JSONWIDGET}")
+    logger.info("Migrated to version 1400")
 
-    # set new value
-    api.portal.set_registry_record(
-        "types_settings",
-        json.dumps(new),
-        interface=ILimitFileSizePanel,
-    )
 
-    # install new dependency
-    setup_tool.runAllImportStepsFromProfile(
-        "profile-collective.z3cform.jsonwidget:default"
-    )
+def is_profile_required(profile_id):
+    """
+    Check if there is some other installed profile that depends on the given one
+    """
+    setup_tool = api.portal.get_tool("portal_setup")
+    for info in setup_tool.listProfileInfo():
+        if profile_id not in (info.get("dependencies") or ()):
+            continue
+        if setup_tool.getLastVersionForProfile(info["id"]) != UNKNOWN:
+            return True
+    return False

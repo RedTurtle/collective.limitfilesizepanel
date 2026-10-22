@@ -1,0 +1,27 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:cache="http://namespaces.zope.org/cache"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    >
+
+  <plone:service
+      method="GET"
+      factory=".get.LimitSizesGet"
+      for="zope.interface.Interface"
+      permission="collective.limitfilesizepanel.ExposeSizeLimits"
+      layer="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
+      name="@limit-sizes"
+      />
+
+  <adapter
+      factory=".get.LimitSizes"
+      name="limit-sizes"
+      />
+
+  <cache:ruleset
+      for=".get.LimitSizesGet"
+      ruleset="plone.content.dynamic"
+      />
+
+</configure>

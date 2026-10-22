@@ -1,4 +1,6 @@
-from setuptools import setup, find_packages
+from setuptools import find_namespace_packages
+from setuptools import setup
+
 import os
 
 version = "3.0.4.dev0"
@@ -8,6 +10,7 @@ tests_require = [
     "plone.testing>=5.0.0",
     "plone.app.contenttypes",
     "plone.app.robotframework[debug]",
+    "plone.restapi[test]",
 ]
 
 setup(
@@ -18,38 +21,47 @@ setup(
     + "\n"
     + open(os.path.join("docs", "HISTORY.rst")).read(),
     # Get more strings from
-    # http://pypi.python.org/pypi?:action=list_classifiers
+    # https://pypi.org/classifiers/
     classifiers=[
         "Environment :: Web Environment",
         "Development Status :: 5 - Production/Stable",
         "Framework :: Plone",
         "Framework :: Plone :: Addon",
-        "Framework :: Plone :: 5.2",
+        "Framework :: Plone :: 6.0",
+        "Framework :: Plone :: 6.1",
+        "Framework :: Plone :: 6.2",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Operating System :: OS Independent",
-        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
     ],
     keywords="plone plonegov limit filesize validation",
     author="RedTurtle Technology",
     author_email="sviluppoplone@redturtle.it",
-    url="http://plone.org/products/collective.limitfilesizepanel",
-    license="GPL version 2",
-    python_requires=">=3.7",
-    packages=find_packages(exclude=["ez_setup"]),
-    namespace_packages=["collective"],
+    url="https://github.com/RedTurtle/collective.limitfilesizepanel",
+    project_urls={
+        "PyPI": "https://pypi.org/project/collective.limitfilesizepanel/",
+        "Source": "https://github.com/RedTurtle/collective.limitfilesizepanel",
+        "Tracker": "https://github.com/RedTurtle/collective.limitfilesizepanel/issues",
+    },
+    license_expression="GPL-2.0-only",
+    python_requires=">=3.11",
+    packages=find_namespace_packages(include=["collective.*"]),
     include_package_data=True,
     zip_safe=False,
-    tests_require=tests_require,
     extras_require=dict(test=tests_require),
     install_requires=[
         "setuptools",
         "plone.api",
         "plone.app.registry",
+        "plone.restapi",
         "collective.monkeypatcher>=1.0",
-        "plone.api",
         "z3c.unconfigure",
-        "collective.z3cform.jsonwidget>=1.1.2",
+        # no more used: it's here only to be uninstalled in upgrade step to 1400.
+        # Remove it in the next release.
+        "collective.z3cform.jsonwidget>=2.0.2",
     ],
     entry_points="""
       # -*- Entry points: -*-

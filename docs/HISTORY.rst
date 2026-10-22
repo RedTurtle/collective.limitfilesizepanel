@@ -4,7 +4,30 @@ Changelog
 3.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added @limit-sizes service and limit-sizes expander to expose file and
+  image size limits (in MB), the new_data_only setting and the bypass
+  permission of the current user.
+  Run upgrade step to 1400 to set the new permission's roles.
+  [daniele]
+- Removed "Settings for other content types and fields" (types_settings) setting
+  and collective.z3cform.jsonwidget dependency: limits are now only the global
+  ones for files and images.
+  Upgrade step to 1400 removes the old registry record and uninstalls
+  collective.z3cform.jsonwidget (if installed and not required by other products).
+  collective.z3cform.jsonwidget is still in install_requires only to allow its
+  uninstall: it will be removed in the next release.
+  [cekk]
+- Use native (PEP 420) namespace for ``collective``.
+  [cekk]
+- Expose the control panel on plone.restapi (@controlpanels/limitfilesize-settings),
+  so it can be managed from Volto.
+  [cekk]
+- "Validate only new data" is no more required, so it can be unchecked.
+  [cekk]
+- Support Plone 6.0, 6.1 and 6.2 on Python 3.11+ and drop Plone 5.2 support.
+  Configure the package with plone.meta (tox and GitHub Actions) and remove
+  the old buildout-based test setup.
+  [cekk]
 
 
 3.0.3 (2023-09-27)
@@ -64,7 +87,7 @@ Changelog
 2.0.3 (2018-01-30)
 ------------------
 
-- Don't break validation for view with no spcific context.
+- Don't break validation for view with no specific context.
   [bsuttor]
 
 
@@ -80,7 +103,7 @@ Changelog
   If not installed, shouldn't do nothing.
   [cekk]
 
-- Fix patched__call__ if the product isn't istalled.
+- Fix patched__call__ if the product isn't installed.
   [arsenico13]
 
 2.0.0 (2017-05-04)

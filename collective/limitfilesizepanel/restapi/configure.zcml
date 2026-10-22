@@ -1,0 +1,19 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    >
+
+  <include
+      package="plone.restapi"
+      file="configure.zcml"
+      />
+  <include package=".services" />
+
+  <!-- enable controlpanel on plone.restapi -->
+  <adapter
+      factory=".controlpanel.LimitFileSizeControlpanel"
+      provides="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelControlpanel"
+      name="limitfilesize-settings"
+      />
+
+</configure>

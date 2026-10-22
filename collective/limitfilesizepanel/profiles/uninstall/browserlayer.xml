@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <layers>
-    <layer name="collective.limitfilesizepanel"
-           interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
-           remove="True"/>
+  <layer interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanelLayer"
+         name="collective.limitfilesizepanel"
+         remove="True"
+  />
 </layers>
