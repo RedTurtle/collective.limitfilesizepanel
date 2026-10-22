@@ -3,7 +3,7 @@ from setuptools import setup
 
 import os
 
-version = "3.0.4.dev0"
+version = "3.1.0"
 
 tests_require = [
     "plone.app.testing",

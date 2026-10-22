@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.4 (unreleased)
+3.1.0 (2026-10-22)
 ------------------
 
 - Added @limit-sizes service and limit-sizes expander to expose file and
