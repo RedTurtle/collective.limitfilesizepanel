@@ -7,8 +7,6 @@ from plone.restapi.testing import PLONE_RESTAPI_DX_FIXTURE
 from plone.testing import z2
 
 import collective.limitfilesizepanel
-import collective.z3cform.jsonwidget
-import redturtle.reactbundle
 
 
 class LimitFileSizePanelLayer(PloneSandboxLayer):
@@ -19,13 +17,9 @@ class LimitFileSizePanelLayer(PloneSandboxLayer):
         # The z3c.autoinclude feature is disabled in the Plone fixture base
         # layer.
         self.loadZCML(package=collective.limitfilesizepanel)
-        self.loadZCML(package=collective.z3cform.jsonwidget)
-        self.loadZCML(package=redturtle.reactbundle)
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, "collective.limitfilesizepanel:default")
-        applyProfile(portal, "collective.z3cform.jsonwidget:default")
-        applyProfile(portal, "redturtle.reactbundle:default")
 
 
 LIMITFILESIZEPANEL_FIXTURE = LimitFileSizePanelLayer()
@@ -48,17 +42,39 @@ class LimitFileSizePanelRestapiLayer(PloneSandboxLayer):
 
     def setUpZope(self, app, configurationContext):
         self.loadZCML(package=collective.limitfilesizepanel)
-        self.loadZCML(package=collective.z3cform.jsonwidget)
-        self.loadZCML(package=redturtle.reactbundle)
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, "collective.limitfilesizepanel:default")
-        applyProfile(portal, "collective.z3cform.jsonwidget:default")
-        applyProfile(portal, "redturtle.reactbundle:default")
 
 
 LIMITFILESIZEPANEL_RESTAPI_FIXTURE = LimitFileSizePanelRestapiLayer()
 LIMITFILESIZEPANEL_RESTAPI_TESTING = FunctionalTesting(
     bases=(LIMITFILESIZEPANEL_RESTAPI_FIXTURE, z2.ZSERVER_FIXTURE),
     name="LimitFileSizePanelLayer:RestApiTesting",
+)
+
+
+class LimitFileSizePanelJSONWidgetLayer(PloneSandboxLayer):
+    """
+    Site with collective.z3cform.jsonwidget installed, to test its uninstall in
+    upgrade step to 1400. Remove it when we drop that dependency.
+    """
+
+    defaultBases = (LIMITFILESIZEPANEL_FIXTURE,)
+
+    def setUpZope(self, app, configurationContext):
+        import collective.z3cform.jsonwidget
+        import redturtle.reactbundle
+
+        self.loadZCML(package=collective.z3cform.jsonwidget)
+        self.loadZCML(package=redturtle.reactbundle)
+
+    def setUpPloneSite(self, portal):
+        applyProfile(portal, "collective.z3cform.jsonwidget:default")
+
+
+LIMITFILESIZEPANEL_JSONWIDGET_FIXTURE = LimitFileSizePanelJSONWidgetLayer()
+LIMITFILESIZEPANEL_JSONWIDGET_INTEGRATION_TESTING = IntegrationTesting(
+    bases=(LIMITFILESIZEPANEL_JSONWIDGET_FIXTURE,),
+    name="LimitFileSizePanelLayer:JSONWidgetIntegrationTesting",
 )

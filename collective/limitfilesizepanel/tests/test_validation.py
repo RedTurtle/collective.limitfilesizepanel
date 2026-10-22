@@ -14,7 +14,6 @@ from transaction import commit
 from zope.component import queryUtility
 from zope.interface.exceptions import Invalid
 
-import json
 import unittest
 
 
@@ -54,14 +53,6 @@ class TestValidation(unittest.TestCase):
         api.portal.set_registry_record(
             "image_size",
             1,
-            interface=ILimitFileSizePanel,
-        )
-
-        api.portal.set_registry_record(
-            "types_settings",
-            json.dumps(
-                [{"content_type": "News Item", "field_name": "image", "size": 2}]
-            ),
             interface=ILimitFileSizePanel,
         )
         commit()
@@ -130,37 +121,5 @@ class TestValidation(unittest.TestCase):
 
         self.assertIn(
             "Validation failed. Uploaded data is too large: 2.0MB (max 1.0MB)",
-            str(cm.exception),
-        )
-
-    def test_validate_image_field_on_news(self):
-        news = api.content.create(
-            type="News Item",
-            id="news",
-            container=self.portal,
-        )
-
-        field = get_image_field(news, name="image")
-        image = NamedImage()
-
-        # 1mb image is ok
-        image._setData(self.generate_image())
-        # validate_image_field(field, image)
-        field.validate(image)
-
-        # 2mb image is ok
-        image._setData(self.generate_image(2))
-        # validate_image_field(field, image)
-        field.validate(image)
-
-        # 3mb image is not ok
-        image._setData(self.generate_image(3))
-
-        with self.assertRaises(Invalid) as cm:
-            # validate_image_field(field, image)
-            field.validate(image)
-
-        self.assertIn(
-            "Validation failed. Uploaded data is too large: 3.0MB (max 2.0MB)",
             str(cm.exception),
         )

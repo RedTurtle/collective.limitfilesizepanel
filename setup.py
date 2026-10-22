@@ -1,4 +1,4 @@
-from setuptools import find_packages
+from setuptools import find_namespace_packages
 from setuptools import setup
 
 import os
@@ -11,7 +11,6 @@ tests_require = [
     "plone.app.contenttypes",
     "plone.app.robotframework[debug]",
     "plone.restapi[test]",
-    "redturtle.reactbundle",
 ]
 
 setup(
@@ -49,8 +48,7 @@ setup(
     },
     license_expression="GPL-2.0-only",
     python_requires=">=3.11",
-    packages=find_packages(exclude=["ez_setup"]),
-    namespace_packages=["collective"],
+    packages=find_namespace_packages(include=["collective.*"]),
     include_package_data=True,
     zip_safe=False,
     extras_require=dict(test=tests_require),
@@ -61,7 +59,9 @@ setup(
         "plone.restapi",
         "collective.monkeypatcher>=1.0",
         "z3c.unconfigure",
-        "collective.z3cform.jsonwidget>=1.1.2",
+        # no more used: it's here only to be uninstalled in upgrade step to 1400.
+        # Remove it in the next release.
+        "collective.z3cform.jsonwidget>=2.0.2",
     ],
     entry_points="""
       # -*- Entry points: -*-

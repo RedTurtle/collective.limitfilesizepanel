@@ -8,10 +8,6 @@
           interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanel"
           remove="True"
   />
-  <record field="types_settings"
-          interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanel"
-          remove="True"
-  />
   <record field="new_data_only"
           interface="collective.limitfilesizepanel.interfaces.ILimitFileSizePanel"
           remove="True"

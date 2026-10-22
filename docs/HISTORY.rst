@@ -9,6 +9,16 @@ Changelog
   permission of the current user.
   Run upgrade step to 1400 to set the new permission's roles.
   [daniele]
+- Removed "Settings for other content types and fields" (types_settings) setting
+  and collective.z3cform.jsonwidget dependency: limits are now only the global
+  ones for files and images.
+  Upgrade step to 1400 removes the old registry record and uninstalls
+  collective.z3cform.jsonwidget (if installed and not required by other products).
+  collective.z3cform.jsonwidget is still in install_requires only to allow its
+  uninstall: it will be removed in the next release.
+  [cekk]
+- Use native (PEP 420) namespace for ``collective``.
+  [cekk]
 - Expose the control panel on plone.restapi (@controlpanels/limitfilesize-settings),
   so it can be managed from Volto.
   [cekk]

@@ -43,7 +43,7 @@ class TestControlpanel(unittest.TestCase):
         data = response.json()
         self.assertEqual(
             sorted(data["schema"]["properties"].keys()),
-            ["file_size", "image_size", "new_data_only", "types_settings"],
+            ["file_size", "image_size", "new_data_only"],
         )
         self.assertNotIn("new_data_only", data["schema"]["required"])
         self.assertEqual(data["data"]["file_size"], 30)
@@ -74,7 +74,7 @@ class TestControlpanel(unittest.TestCase):
             f"Basic {SITE_OWNER_NAME}:{SITE_OWNER_PASSWORD}",
         )
         browser.open(self.portal_url + "/@@limitfilesize-settings")
-        browser.getControl(name="form.widgets.new_data_only").value = []
+        browser.getControl(label="Validate only new data").selected = False
         browser.getControl(name="form.buttons.save").click()
 
         self.assertNotIn("Required input is missing", browser.contents)

@@ -50,9 +50,7 @@ class BaseFileSizeValidator:
             return True
         if self.skip():
             return True
-        maxsize = self.helper_view.get_maxsize(
-            field=self.field, portal_type=self.get_portal_type()
-        )
+        maxsize = self.helper_view.get_maxsize(field=self.field)
         if not maxsize:
             return True
 
@@ -78,14 +76,6 @@ class BaseFileSizeValidator:
             # restapi calls
             return False
         return True
-
-    def get_portal_type(self):
-        if self.request.steps:
-            if self.request.steps[-1].startswith("++add++"):
-                return self.request.steps[-1].replace("++add++", "")
-            if "@type" in self.request.form:
-                return self.request.form["@type"]
-        return self.field.context.portal_type
 
 
 @implementer(IPluggableFileFieldValidation)

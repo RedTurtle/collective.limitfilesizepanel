@@ -12,8 +12,6 @@ from zope.interface import implementer
 from zope.interface import Interface
 from ZPublisher.HTTPRequest import FileUpload
 
-import json
-
 
 class IHelpersView(Interface):
     def checkSize(uploadfile, maxsize):
@@ -29,7 +27,6 @@ class IHelpersView(Interface):
         """
         This is the method called from AT validator
         * try to get sizes from plone.registry
-        * * if we find a type/field specific size: use it
         * * if we have general sizes defined from user: use it
         * if not, use the original method to calculate maxsize
         """
@@ -91,28 +88,7 @@ class View(BrowserView):
             "collective.limitfilesizepanel: Bypass limit size", obj=self.context
         )
 
-    def _get_type_maxsize(self, field, portal_type):
-        """Get portal_type/fieldname pair configuration in the registry"""
-        if not portal_type:
-            return None
-        field_name = field.getName()
-        types_settings = (
-            api.portal.get_registry_record(
-                "types_settings", interface=ILimitFileSizePanel
-            )
-            or "[]"  # noqa
-        )
-        types_settings = json.loads(types_settings)
-        for entry in types_settings:
-            ctype = entry.get("content_type", "")
-            cfield_name = entry.get("field_name", "")
-            if ctype == portal_type and cfield_name == field_name:
-                size = entry.get("size", "")
-                if size:
-                    return float(size)
-        return None
-
-    def get_maxsize(self, field, portal_type=""):
+    def get_maxsize(self, field):
         """ """
         try:
             file_size = api.portal.get_registry_record(
@@ -123,10 +99,6 @@ class View(BrowserView):
             )
         except InvalidParameterError:
             return None
-        # Check if there's a type/field specific settings in the registry
-        type_maxsize = self._get_type_maxsize(field, portal_type)
-        if type_maxsize is not None:
-            return type_maxsize
         if file_size and INamedFileField.providedBy(field):
             return float(file_size)
         elif image_size and INamedImageField.providedBy(field):
